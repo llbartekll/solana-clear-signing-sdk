@@ -129,8 +129,6 @@ See [conformance](conformance/README.md) for fixture coverage, provenance and
 intentional regeneration commands. See [integration](docs/integration.md#build-and-test-notes)
 for command-line iOS tests and setup troubleshooting.
 
-For device archives and beta distribution, see [TestFlight setup](docs/testflight.md).
-
 ## Documentation and license
 
 - [Integration](docs/integration.md): Swift API, providers, IDL and registry setup.
