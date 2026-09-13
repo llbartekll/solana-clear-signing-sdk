@@ -223,6 +223,31 @@ fn unknown_token_yields_no_annotation_and_a_warning() {
 }
 
 #[test]
+fn unrecognised_scale_account_does_not_become_a_token_or_a_raw_amount() {
+    // A generic linked account can supply decimals without being a token mint.
+    let outcome = render_scenario("cross-program-link", "online", provider_with(None));
+    assert!(token_annotations(&outcome).is_empty());
+    let RenderOutcome::Rendered(rendered) = outcome else {
+        panic!("expected rendered");
+    };
+    assert_eq!(rendered.canonical.fields[0].value, "1.5");
+    assert!(rendered.presentation.token_amounts.is_empty());
+    assert!(!rendered.hints.amounts[0].degraded);
+    assert!(!rendered
+        .diagnostics
+        .iter()
+        .any(|diagnostic| diagnostic.code == "amount_scale_unresolved"));
+    let missing = rendered
+        .diagnostics
+        .iter()
+        .find(|diagnostic| diagnostic.code == "token_metadata_not_found")
+        .expect("the metadata lookup miss must remain visible");
+    assert!(missing
+        .message
+        .starts_with("No token metadata was supplied for address "));
+}
+
+#[test]
 fn known_token_annotates_amount_and_mint() {
     let outcome = render_scenario(
         "spl-token-instructions",

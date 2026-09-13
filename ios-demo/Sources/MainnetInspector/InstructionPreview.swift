@@ -2,7 +2,8 @@ import Foundation
 import SolanaClearsign
 
 /// Generic presentation of an SDK result. Labels, field order and sentences
-/// come from the IDL; the UI only formats values and applies SDK annotations.
+/// come from the IDL. Values and diagnostics come from the SDK; the only
+/// text transformation here is address shortening, with the full value retained.
 struct InstructionPreview {
     let rendered: SolanaRenderedInstruction
 
@@ -17,6 +18,7 @@ struct InstructionPreview {
     }
 
     var explanation: String? { rendered.canonical.interpolatedIntent }
+    var diagnostics: [SolanaDiagnostic] { rendered.diagnostics }
 
     var fields: [Field] {
         rendered.canonical.fields.indices.map { index in
@@ -26,9 +28,7 @@ struct InstructionPreview {
             let account = rendered.hints.accounts.first { $0.fieldIndex == index }
             let address = account?.address
                 ?? rendered.hints.publicKeyArguments.first { $0.fieldIndex == index }?.address
-            let time = rendered.hints.times.first { $0.fieldIndex == index }
-                .flatMap { TimePresentation.text(for: $0) }
-            let value = presentedAmount?.value ?? address.map(Self.shortAddress) ?? time ?? canonical.value
+            let value = presentedAmount?.value ?? address.map(Self.shortAddress) ?? canonical.value
 
             return Field(id: index, label: canonical.label, value: value, address: address,
                          addressLabel: address == nil ? nil : addressLabel(at: index),

@@ -20,7 +20,7 @@ final class InspectorTests: XCTestCase {
         XCTAssertEqual(resources.registry(for: "devnet")?.cluster, "devnet")
     }
 
-    func testRawAmountMessagesUseResolvedContextAcrossTokenInstructions() async throws {
+    func testPreviewUsesSdkDiagnosticsAcrossTokenInstructions() async throws {
         let repository = try mainnetRepository()
         let client = SolanaClearSigningClient(
             idlSource: try mainnetIdlSource(programId: repository.catalog.programId)
@@ -38,23 +38,22 @@ final class InspectorTests: XCTestCase {
                 guard case let .rendered(rendered) = try await client.render(instruction: input) else {
                     return XCTFail("Expected a partial display for \(example.instruction)")
                 }
-                let overlay = FieldOverlay(rendered: rendered)
+                let preview = InstructionPreview(rendered: rendered)
+                XCTAssertEqual(preview.diagnostics, rendered.diagnostics, example.instruction)
                 if rendered.hints.amounts.isEmpty {
-                    XCTAssertEqual(overlay.rawAmountExplanations, [], example.instruction)
+                    XCTAssertFalse(preview.fields.contains { $0.isRaw }, example.instruction)
+                    XCTAssertFalse(preview.diagnostics.contains { $0.code == "amount_scale_unresolved" })
                 } else {
                     checkedAmounts += 1
-                    XCTAssertTrue(overlay.hasUnresolvedScale, example.instruction)
-                    XCTAssertEqual(overlay.rawAmountExplanations, [includeAccounts
-                        ? "Token decimals are unavailable. Amount is shown in base units (raw)."
-                        : "Token could not be resolved. Amount is shown in base units (raw)."
-                    ], example.instruction)
+                    XCTAssertTrue(preview.fields.contains { $0.isRaw }, example.instruction)
+                    XCTAssertTrue(preview.diagnostics.contains { $0.code == "amount_scale_unresolved" })
                 }
             }
         }
         XCTAssertEqual(checkedAmounts, 8, "Four checked token instructions, with and without account metas")
     }
 
-    func testHighLevelRenderAnnotatesUsdcAndFlagsUnknownMints() async throws {
+    func testHighLevelRenderUsesOnlySdkTokenAnnotations() async throws {
         let repository = try mainnetRepository()
         let provider = InspectorAccountProvider(rpc: nil, snapshots: repository.accountSnapshots)
         let client = SolanaClearSigningClient(
@@ -97,9 +96,11 @@ final class InspectorTests: XCTestCase {
             case "approveChecked", "mintToChecked", "burnChecked":
                 XCTAssertEqual(tokenAnnotations, [], example.instruction)
                 XCTAssertEqual(codes, ["token_metadata_not_found"], example.instruction)
-                let overlay = FieldOverlay(rendered: rendered)
+                let preview = InstructionPreview(rendered: rendered)
                 let amountField = try XCTUnwrap(rendered.hints.amounts.first?.fieldIndex)
-                XCTAssertNotNil(overlay.unknownTokenAddress(at: amountField), example.instruction)
+                XCTAssertEqual(preview.fields[amountField].value, rendered.canonical.fields[amountField].value)
+                XCTAssertFalse(preview.fields[amountField].isRaw, "Missing token metadata does not invalidate a resolved scale")
+                XCTAssertEqual(preview.diagnostics, rendered.diagnostics)
             case "closeAccount", "revoke":
                 XCTAssertEqual(tokenAnnotations, [], example.instruction)
                 XCTAssertEqual(codes, [], example.instruction)

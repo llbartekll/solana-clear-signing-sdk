@@ -303,19 +303,12 @@ private struct ClearSigningPanel: View {
     @ViewBuilder
     private func renderedBody(_ rendered: SolanaRenderedInstruction) -> some View {
         let preview = InstructionPreview(rendered: rendered)
-        let overlay = FieldOverlay(rendered: rendered)
         Text(rendered.canonical.intent)
             .font(.title3.weight(.semibold))
         if let explanation = preview.explanation {
             Text(explanation)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-        }
-        if rendered.hints.interpolatedIntentSuppressed && !overlay.hasUnresolvedScale
-            && rendered.presentation.tokenAmounts.isEmpty {
-            Text("Some values are unavailable. Review the fields below.")
-                .font(.caption)
-                .foregroundStyle(.orange)
         }
         ForEach(preview.fields) { field in
             let annotations = rendered.presentation.annotations(for: field.id).filter {
@@ -328,17 +321,10 @@ private struct ClearSigningPanel: View {
                 ForEach(Array(annotations.enumerated()), id: \.offset) { _, annotation in
                     AnnotationPill(kind: annotation.kind)
                 }
-                if let unknown = overlay.unknownTokenAddress(at: field.id) {
-                    StatusPill(text: "Unknown token · \(InstructionPreview.shortAddress(unknown))", color: .orange)
-                }
             }
             .padding(.vertical, 4)
         }
-        ForEach(overlay.rawAmountExplanations, id: \.self) { explanation in
-            Text(explanation)
-                .font(.caption)
-                .foregroundStyle(.orange)
-        }
+        DiagnosticsPanel(diagnostics: preview.diagnostics)
     }
 
     private func unsupportedMessage(_ reason: SolanaUnsupportedReason) -> String {
@@ -419,25 +405,6 @@ private struct RenderMetadataPanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            if !rendered.diagnostics.isEmpty {
-                Divider()
-                Text("Diagnostics")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                ForEach(Array(rendered.diagnostics.enumerated()), id: \.offset) { _, diagnostic in
-                    HStack(alignment: .top, spacing: 6) {
-                        Image(systemName: diagnostic.severity == .warning ? "exclamationmark.triangle" : "info.circle")
-                            .foregroundStyle(diagnostic.severity == .warning ? .orange : .secondary)
-                        VStack(alignment: .leading, spacing: 1) {
-                            Text(diagnostic.code)
-                                .font(.caption2.monospaced())
-                            Text(diagnostic.message)
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
-            }
             Divider()
             Text(idlFooter(rendered.idl))
                 .font(.caption2.monospaced())
@@ -453,61 +420,29 @@ private struct RenderMetadataPanel: View {
 
 }
 
-/// Presentation facts derived from the SDK's hints and overlay for one
-/// rendered instruction; nothing here reinterprets the canonical values.
-struct FieldOverlay {
-    let rendered: SolanaRenderedInstruction
+/// The engine owns diagnostic text and severity; the UI only chooses styling.
+private struct DiagnosticsPanel: View {
+    let diagnostics: [SolanaDiagnostic]
 
-    /// The scale-source address of an amount (or of that scale account's own
-    /// field) that the registry did not recognise: the field shows a real
-    /// token amount whose token is unknown.
-    func unknownTokenAddress(at index: Int) -> String? {
-        for amount in rendered.hints.amounts {
-            guard case let .accountField(account, address?, _, _, _) = amount.decimals else { continue }
-            let annotated = rendered.presentation.annotations(for: amount.fieldIndex ?? -1).contains {
-                if case .tokenAmount = $0.kind { return true }
-                return false
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if !diagnostics.isEmpty {
+                Divider()
+                Text("Diagnostics")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                ForEach(Array(diagnostics.enumerated()), id: \.offset) { _, diagnostic in
+                    HStack(alignment: .top, spacing: 6) {
+                        Image(systemName: diagnostic.severity == .warning ? "exclamationmark.triangle" : "info.circle")
+                            .foregroundStyle(diagnostic.severity == .warning ? .orange : .secondary)
+                        Text(diagnostic.message)
+                            .font(.caption)
+                            .foregroundStyle(diagnostic.severity == .warning ? .orange : .secondary)
+                            .textSelection(.enabled)
+                    }
+                }
             }
-            if annotated { continue }
-            if amount.fieldIndex == index { return address }
-            let mintField = rendered.hints.accounts.first { $0.name == account && $0.address == address }?.fieldIndex
-            if mintField == index { return address }
         }
-        return nil
-    }
-
-    /// `true` when any amount rendered as raw base units.
-    var hasUnresolvedScale: Bool {
-        rendered.hints.amounts.contains(where: isRaw)
-    }
-
-    private func isRaw(_ amount: SolanaAmountHint) -> Bool {
-        if let index = amount.fieldIndex, let presented = rendered.presentation.tokenAmount(for: index) {
-            return presented.decimals == nil
-        }
-        return amount.degraded
-    }
-
-    /// Explain unavailable scale in the SDK's presented value.
-    var rawAmountExplanations: [String] {
-        var messages: [String] = []
-        for amount in rendered.hints.amounts where isRaw(amount) {
-            let tokenResolved: Bool
-            if let token = amount.token {
-                tokenResolved = token.mint != nil
-            } else if case let .accountField(_, address, _, _, _) = amount.decimals {
-                tokenResolved = address != nil
-            } else {
-                tokenResolved = false
-            }
-            // Describe the usable context, regardless of instruction or provider.
-            // Specific lookup failures and metadata conflicts stay in Diagnostics.
-            let message = tokenResolved
-                ? "Token decimals are unavailable. Amount is shown in base units (raw)."
-                : "Token could not be resolved. Amount is shown in base units (raw)."
-            if !messages.contains(message) { messages.append(message) }
-        }
-        return messages
     }
 }
 
@@ -527,7 +462,7 @@ private struct AnnotationPill: View {
 
     private func tokenPill(symbol: String, appliesToValue: Bool) -> some View {
         StatusPill(
-            text: appliesToValue ? symbol : "\(symbol) · amount shown raw",
+            text: appliesToValue ? symbol : "Token: \(symbol)",
             color: appliesToValue ? .blue : .orange
         )
     }

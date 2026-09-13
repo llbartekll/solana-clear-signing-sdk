@@ -69,7 +69,7 @@ final class DevnetRenderE2ETests: XCTestCase {
             rendered.diagnostics.map(\.code),
             ["amount_scale_unresolved", "interpolated_intent_unavailable"]
         )
-        XCTAssertEqual(TimePresentation.text(for: rendered.hints.times[0]), "14 days")
+        XCTAssertEqual(InstructionPreview(rendered: rendered).fields[1].value, "336:00:00")
     }
 }
 

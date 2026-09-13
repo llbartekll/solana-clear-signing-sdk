@@ -138,9 +138,11 @@ does not label an entire transaction as clear-signed.
 
 The preview preserves canonical field order and labels and displays the canonical
 interpolated sentence when available. It uses SDK-presented amounts, local
-address labels and generic time formatting without interpreting instruction
-names or mint addresses. There are no program/digest-specific display rules in
-Swift. Hidden fields and business descriptions belong to the IDL's display
+address labels and canonical date/duration strings without interpreting
+instruction names or mint addresses. Diagnostic messages and severity come
+straight from Rust; Swift does not infer missing token identities or scales.
+There are no program/digest-specific display rules in Swift. Hidden fields and
+business descriptions belong to the IDL's display
 metadata; unsupported descriptions are omitted rather than invented by the UI.
 Technical details retain canonical values, raw bytes, account metas, diagnostics
 and IDL provenance. Zero timestamps stay canonical, without inferred meanings

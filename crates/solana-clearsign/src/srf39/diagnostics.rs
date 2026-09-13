@@ -24,7 +24,7 @@ pub(crate) enum Srf39DiagnosticKind {
     LinkedAccountUnavailable { address: String },
     /// An amount rendered raw because its scale could not be resolved.
     AmountScaleUnresolved { argument: String },
-    /// The presentation provider knows nothing about the scale-source address.
+    /// The presentation provider supplied no token metadata for the address.
     TokenMetadataNotFound { address: String },
     /// The provider's symbol failed the character policy.
     TokenSymbolRejected { address: String },
@@ -88,10 +88,10 @@ impl Srf39DiagnosticKind {
                 format!("linked account {address} was not available to the renderer")
             }
             Self::AmountScaleUnresolved { argument } => {
-                format!("amount '{argument}' is shown raw because its scale could not be resolved")
+                format!("Amount '{argument}' has no usable scale. Its value is shown in base units (raw).")
             }
             Self::TokenMetadataNotFound { address } => {
-                format!("no token metadata for scale-source account {address}")
+                format!("No token metadata was supplied for address {address}.")
             }
             Self::TokenSymbolRejected { address } => {
                 format!("token symbol for {address} failed the character policy and was ignored")
@@ -121,7 +121,7 @@ impl Srf39DiagnosticKind {
                 "the IDL renders unit '{unit}' for {address} but token metadata says '{symbol}'"
             ),
             Self::InterpolatedIntentUnavailable => {
-                "the interpolated sentence was suppressed; use the field list".to_string()
+                "The IDL summary could not be rendered. Review the individual fields.".to_string()
             }
         }
     }

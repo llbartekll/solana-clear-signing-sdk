@@ -61,10 +61,8 @@ final class DevnetInspectorTests: XCTestCase {
                 ["amount_scale_unresolved", "interpolated_intent_unavailable"],
                 example.instruction
             )
-            XCTAssertTrue(FieldOverlay(rendered: rendered).hasUnresolvedScale, example.instruction)
-            XCTAssertEqual(FieldOverlay(rendered: rendered).rawAmountExplanations, [
-                "Token could not be resolved. Amount is shown in base units (raw)."
-            ])
+            XCTAssertTrue(InstructionPreview(rendered: rendered).fields.contains { $0.isRaw }, example.instruction)
+            XCTAssertEqual(InstructionPreview(rendered: rendered).diagnostics, rendered.diagnostics)
             checked += 1
         }
         XCTAssertEqual(checked, amountInstructions.count - 1)
@@ -76,8 +74,8 @@ final class DevnetInspectorTests: XCTestCase {
         let rendered = try await render(example, repository: repository, client: client)
         XCTAssertEqual(rendered.canonical.fields[0].value, "0.1")
         XCTAssertEqual(rendered.hints.amounts.first?.rawValue, "100000")
-        XCTAssertFalse(FieldOverlay(rendered: rendered).hasUnresolvedScale)
-        XCTAssertEqual(FieldOverlay(rendered: rendered).rawAmountExplanations, [])
+        XCTAssertFalse(InstructionPreview(rendered: rendered).fields.contains { $0.isRaw })
+        XCTAssertFalse(rendered.diagnostics.contains { $0.code == "amount_scale_unresolved" })
         guard case let .tokenAmount(symbol, _, _, appliesToValue)? = rendered.presentation.annotations(for: 0).first?.kind else {
             return XCTFail("Expected a token amount annotation")
         }
@@ -91,9 +89,8 @@ final class DevnetInspectorTests: XCTestCase {
         )
         let raw = try await render(example, repository: repository, client: noMintClient)
         XCTAssertEqual(raw.canonical.fields[0].value, "100000 (raw)")
-        XCTAssertEqual(FieldOverlay(rendered: raw).rawAmountExplanations, [
-            "Token decimals are unavailable. Amount is shown in base units (raw)."
-        ])
+        XCTAssertTrue(raw.diagnostics.contains { $0.code == "amount_scale_unresolved" })
+        XCTAssertEqual(InstructionPreview(rendered: raw).diagnostics, raw.diagnostics)
     }
 
     func testCapturedSubscribeUsesSdkFormattedAmountAndRetainsRawDetails() async throws {
@@ -111,16 +108,15 @@ final class DevnetInspectorTests: XCTestCase {
         let preview = InstructionPreview(rendered: rendered)
         XCTAssertEqual(preview.fields.first { $0.id == amountIndex }?.value, "10")
         XCTAssertEqual(preview.fields.first { $0.id == amountIndex }?.isRaw, false)
-        XCTAssertFalse(FieldOverlay(rendered: rendered).hasUnresolvedScale)
-        XCTAssertEqual(FieldOverlay(rendered: rendered).rawAmountExplanations, [])
+        XCTAssertFalse(InstructionPreview(rendered: rendered).fields.contains { $0.isRaw })
+        XCTAssertFalse(rendered.diagnostics.contains { $0.code == "amount_scale_unresolved" })
         let noMetadata = SolanaClearSigningClient(idlSource: try InspectorResources(resourcesRoot: TestPaths.iosDemo.appendingPathComponent("Resources")).idlSource)
         let raw = try await render(example, repository: repository, client: noMetadata)
         XCTAssertEqual(InstructionPreview(rendered: raw).fields.first { $0.id == amountIndex }?.value, "10000000 (raw)")
         XCTAssertEqual(InstructionPreview(rendered: raw).fields.first { $0.id == amountIndex }?.isRaw, true)
-        XCTAssertTrue(FieldOverlay(rendered: raw).hasUnresolvedScale)
-        XCTAssertEqual(FieldOverlay(rendered: raw).rawAmountExplanations, [
-            "Token decimals are unavailable. Amount is shown in base units (raw)."
-        ])
+        XCTAssertTrue(InstructionPreview(rendered: raw).fields.contains { $0.isRaw })
+        XCTAssertTrue(raw.diagnostics.contains { $0.code == "amount_scale_unresolved" })
+        XCTAssertEqual(InstructionPreview(rendered: raw).diagnostics, raw.diagnostics)
         XCTAssertEqual(rendered.hints.publicKeyArguments.map(\.address), [usdcDevnet])
         XCTAssertEqual(
             rendered.presentation.annotations(for: mintField).map(\.kind),
@@ -220,39 +216,23 @@ final class DevnetInspectorTests: XCTestCase {
         }
     }
 
-    func testTimePresentationFormatsHints() {
-        XCTAssertEqual(TimePresentation.duration(seconds: 1_209_600), "14 days")
-        XCTAssertEqual(TimePresentation.duration(seconds: 2_592_000), "30 days")
-        XCTAssertEqual(TimePresentation.duration(seconds: 86_400), "1 day")
-        XCTAssertEqual(TimePresentation.duration(seconds: 3_600), "1 hour")
-        XCTAssertEqual(TimePresentation.duration(seconds: 5_400), "90 minutes")
-        XCTAssertEqual(TimePresentation.duration(seconds: 90), "90 seconds")
-        XCTAssertEqual(TimePresentation.duration(seconds: 30), "30 seconds")
-        XCTAssertEqual(TimePresentation.duration(seconds: 1), "1 second")
-        XCTAssertNil(TimePresentation.duration(seconds: 0))
-        XCTAssertNil(TimePresentation.dateTime(seconds: 0))
-        let utc = TimeZone(identifier: "UTC")!
-        XCTAssertEqual(TimePresentation.dateTime(seconds: 1_757_000_000, timeZone: utc)?.contains("2025"), true)
-    }
-
-    /// A time the canonical layer left as a bare integer gets no friendlier
-    /// reading either: the hint arrives unformatted and without seconds.
-    func testUnformattedTimeHintsAreNotPresented() async throws {
+    func testPreviewPreservesAllCanonicalTimeValues() async throws {
         let (repository, client) = try makeClient()
-        var checked = 0
+        var checkedValues: Set<String> = []
         for example in repository.catalog.examples {
             let rendered = try await render(example, repository: repository, client: client)
+            let preview = InstructionPreview(rendered: rendered)
             for hint in rendered.hints.times {
-                if hint.formatted {
-                    XCTAssertNotNil(hint.seconds, example.instruction)
-                } else {
-                    XCTAssertNil(hint.seconds, example.instruction)
-                    XCTAssertNil(TimePresentation.text(for: hint), example.instruction)
-                }
-                checked += 1
+                let index = try XCTUnwrap(hint.fieldIndex)
+                let value = rendered.canonical.fields[index].value
+                XCTAssertEqual(preview.fields[index].value, value, example.instruction)
+                checkedValues.insert(value)
             }
         }
-        XCTAssertGreaterThan(checked, 0, "expected time hints in the bundled examples")
+        XCTAssertTrue(checkedValues.contains("00:00:30"), "Duration must retain the engine's format")
+        XCTAssertTrue(checkedValues.contains("1970-01-01T00:00:00.000Z"), "Zero timestamps stay canonical")
+        XCTAssertTrue(checkedValues.contains { $0.hasPrefix("2026-") && $0.hasSuffix("Z") },
+                      "Non-zero timestamps must also stay in UTC")
     }
 
     // MARK: - Preview
@@ -313,11 +293,16 @@ final class DevnetInspectorTests: XCTestCase {
             XCTAssertEqual(preview.fields.map(\.label), rendered.canonical.fields.map(\.label), example.instruction)
             XCTAssertEqual(preview.fields.map(\.id), Array(rendered.canonical.fields.indices), example.instruction)
             XCTAssertEqual(preview.explanation, rendered.canonical.interpolatedIntent, example.instruction)
+            XCTAssertEqual(preview.diagnostics, rendered.diagnostics, example.instruction)
             for field in preview.fields {
                 let canonical = rendered.canonical.fields[field.id]
                 if let address = field.address {
                     XCTAssertEqual(address, canonical.value, "Copy and accessibility must retain the full address")
                     XCTAssertEqual(field.value, "\(address.prefix(6))…\(address.suffix(6))")
+                }
+                if field.address == nil {
+                    XCTAssertEqual(field.value, rendered.presentation.tokenAmount(for: field.id)?.value ?? canonical.value,
+                                   "Swift must not reformat SDK values")
                 }
                 if field.isAmount {
                     let sdkAmount = rendered.presentation.tokenAmount(for: field.id)
