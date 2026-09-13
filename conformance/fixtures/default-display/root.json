@@ -1,0 +1,29 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "transferTokens",
+        "optionalAccountStrategy": "programId",
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

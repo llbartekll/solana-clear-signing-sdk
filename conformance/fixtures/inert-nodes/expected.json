@@ -1,0 +1,61 @@
+{
+  "online": {
+    "fields": [
+      {
+        "label": "Nonce",
+        "value": "7"
+      },
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Deposit",
+    "interpolatedIntent": "Deposit 1.5 into 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+  },
+  "offline": {
+    "fields": [
+      {
+        "label": "Nonce",
+        "value": "7"
+      },
+      {
+        "label": "Amount",
+        "value": "150 (raw)"
+      },
+      {
+        "label": "Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Vault",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Deposit",
+    "interpolatedIntent": null
+  },
+  "fewerMetasThanAccounts": {
+    "fields": [
+      {
+        "label": "Nonce",
+        "value": "7"
+      },
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Deposit",
+    "interpolatedIntent": "Deposit 1.5 into 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+  },
+  "unknownDiscriminator": null
+}

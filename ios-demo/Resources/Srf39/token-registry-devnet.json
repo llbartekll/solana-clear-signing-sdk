@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "cluster": "devnet",
+  "source": {
+    "id": "app-curated",
+    "retrievedAt": "2026-09-11",
+    "reference": "https://www.circle.com/multi-chain-usdc/solana"
+  },
+  "tokens": [
+    {
+      "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "decimals": 6,
+      "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    }
+  ],
+  "labels": [
+    { "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44", "label": "Subscriptions program", "source": "app-curated" },
+    { "address": "11111111111111111111111111111111", "label": "System program", "source": "app-curated" },
+    { "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "label": "SPL Token Program", "source": "app-curated" },
+    { "address": "GepX55GH3LjVVupzDHy3Fmi5gXNzG1YVw4iATuQ1VCxf", "label": "Demo setup account", "source": "local demo" },
+    { "address": "8xgxNLdnsWaC1Wd3PGhE26dmJDxRcsiULAK9XALqxe3L", "label": "Demo billing service", "source": "local demo" },
+    { "address": "HU8aD3C8duqWKopDXsJfof31BE8BuQktjhUgnbt7DXK6", "label": "Demo allowance to revoke", "source": "local demo" },
+    { "address": "3yQfmv9WiotYSDmamiow5Xt2abcvDxTzmFBSYEEGZtqe", "label": "Demo plan provider", "source": "local demo" },
+    { "address": "2hWYLWSdbkmkGB2jTN7NZuV12ph6daP3HWS3XZf1QJ5k", "label": "Demo account to disconnect", "source": "local demo" },
+    { "address": "D5o3Sz7PDnLVx9QTFrAqu5EpSg3SmdqFBGTrZja8MCBs", "label": "Demo customer account", "source": "local demo" },
+    { "address": "4FNdkUawTozhFSfWhy9KfAmd616f8yqTyQrPH9KhJd6d", "label": "Demo merchant account", "source": "local demo" },
+    { "address": "8imxp7iUuynAhjavgKy21qEdmS9mGJnvoGSQpfjVCKZS", "label": "Demo payment collector", "source": "local demo" }
+  ]
+}

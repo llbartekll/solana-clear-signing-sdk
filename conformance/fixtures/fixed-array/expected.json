@@ -1,0 +1,161 @@
+{
+  "expanded": {
+    "fields": [
+      {
+        "label": "Owner #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Owner #2",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Owner #3",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "Owner #4",
+        "value": "Vote111111111111111111111111111111111111111"
+      },
+      {
+        "label": "Single",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Weights",
+        "value": "1.5, 2, 0.01"
+      },
+      {
+        "label": "Params",
+        "value": "{\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"tag\":9}"
+      },
+      {
+        "label": "Maybe Owners #1",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "Maybe Owners #2",
+        "value": "Vote111111111111111111111111111111111111111"
+      },
+      {
+        "label": "Optional Items #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Optional Items #2",
+        "value": "none"
+      },
+      {
+        "label": "Bytes",
+        "value": "1, 2, 3"
+      }
+    ],
+    "intent": "Assign",
+    "interpolatedIntent": "Assign 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX, 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY, SysvarRent111111111111111111111111111111111, Vote111111111111111111111111111111111111111 weights 1.5, 2, 0.01 bytes 1, 2, 3"
+  },
+  "maybeNone": {
+    "fields": [
+      {
+        "label": "Owner #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Owner #2",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Owner #3",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "Owner #4",
+        "value": "Vote111111111111111111111111111111111111111"
+      },
+      {
+        "label": "Single",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Weights",
+        "value": "1.5, 2, 0.01"
+      },
+      {
+        "label": "Params",
+        "value": "{\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"tag\":9}"
+      },
+      {
+        "label": "Maybe Owners",
+        "value": "none"
+      },
+      {
+        "label": "Optional Items #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Optional Items #2",
+        "value": "none"
+      },
+      {
+        "label": "Bytes",
+        "value": "1, 2, 3"
+      }
+    ],
+    "intent": "Assign",
+    "interpolatedIntent": "Assign 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX, 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY, SysvarRent111111111111111111111111111111111, Vote111111111111111111111111111111111111111 weights 1.5, 2, 0.01 bytes 1, 2, 3"
+  },
+  "truncated": null,
+  "trailingBytes": {
+    "fields": [
+      {
+        "label": "Owner #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Owner #2",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Owner #3",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "Owner #4",
+        "value": "Vote111111111111111111111111111111111111111"
+      },
+      {
+        "label": "Single",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Weights",
+        "value": "1.5, 2, 0.01"
+      },
+      {
+        "label": "Params",
+        "value": "{\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"tag\":9}"
+      },
+      {
+        "label": "Maybe Owners #1",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "Maybe Owners #2",
+        "value": "Vote111111111111111111111111111111111111111"
+      },
+      {
+        "label": "Optional Items #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Optional Items #2",
+        "value": "none"
+      },
+      {
+        "label": "Bytes",
+        "value": "1, 2, 3"
+      }
+    ],
+    "intent": "Assign",
+    "interpolatedIntent": "Assign 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX, 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY, SysvarRent111111111111111111111111111111111, Vote111111111111111111111111111111111111111 weights 1.5, 2, 0.01 bytes 1, 2, 3"
+  }
+}

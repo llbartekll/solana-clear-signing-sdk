@@ -1,0 +1,14 @@
+{
+  "idl": {
+    "commit": "34a299b3ee0a9621f9f22b9b1b3f4f2893ef6bfe",
+    "path": "packages/dynamic-client/test/programs/idls/token-idl.json",
+    "repository": "https://github.com/codama-idl/codama",
+    "sourceSha256": "1f67065c212dd7c403a38145b6ac0bc1ef0be201eccc80f61a3496a2c7821e2a"
+  },
+  "notes": [
+    "The instruction and Mint wire layouts in this fixture are copied without modification from the pinned source IDL.",
+    "Only standard accountLink, provides, and display metadata were added locally.",
+    "The RootNode contains no program, instruction, mint, or token-symbol special cases for the native engine."
+  ],
+  "rootSha256": "472f41c79165064ba7bd7cd8623d0b730a227b6bfc12faca77dc8e4702b7bdc1"
+}

@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reference-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.18.0
+      - name: Install pinned pnpm
+        run: npm install --global pnpm@10.15.1
+      - name: Install oracle dependencies
+        run: pnpm --dir conformance/oracle install --frozen-lockfile
+      - name: Verify pinned reference fixtures
+        run: pnpm --dir conformance/oracle test
+      - name: Verify committed mainnet snapshots
+        run: pnpm --dir conformance/oracle mainnet:verify
+      - name: Verify the Subscriptions IDL derivation is reproducible
+        run: pnpm --dir conformance/oracle author:verify
+      - name: Verify committed devnet snapshots
+        run: pnpm --dir conformance/oracle devnet:verify
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+      - name: Lint
+        run: cargo clippy --all-features --all-targets -- -D warnings
+      - name: Test
+        run: cargo test --all-features
+
+  apple:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Build XCFramework and Swift bindings
+        run: ./scripts/build-xcframework.sh
+      - name: Test public Swift SDK
+        run: swift test
+      - name: Generate demo project
+        working-directory: ios-demo
+        run: xcodegen generate --spec project.yml
+      - name: Build and test demo on iOS Simulator
+        working-directory: ios-demo
+        run: |
+          set -euo pipefail
+          simulator_id="$(
+            xcrun simctl list devices available --json |
+              ruby -rjson -e 'devices = JSON.parse(STDIN.read).fetch("devices"); puts devices.find { |runtime, _| runtime.include?(".iOS-") }.last.first.fetch("udid")'
+          )"
+          xcodebuild -quiet \
+            -project ClearsignDemo.xcodeproj \
+            -scheme ClearsignDemo \
+            -destination "platform=iOS Simulator,id=$simulator_id" \
+            test CODE_SIGNING_ALLOWED=NO

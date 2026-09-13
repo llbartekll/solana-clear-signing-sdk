@@ -1,0 +1,9 @@
+[workspace]
+members = ["crates/solana-clearsign"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+license-file = "LICENSE"
+repository = "https://github.com/llbartekll/solana-clear-signing-sdk"

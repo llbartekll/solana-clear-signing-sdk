@@ -1,0 +1,52 @@
+{
+  "none": {
+    "accounts": [],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "literal",
+          "value": 2
+        },
+        "degraded": false,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "12345",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "configure",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "some": {
+    "accounts": [],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "literal",
+          "value": 2
+        },
+        "degraded": false,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "12345",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "configure",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null,
+  "unknownDiscriminator": null
+}

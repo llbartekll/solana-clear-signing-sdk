@@ -1,0 +1,165 @@
+{
+  "hour": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "01:00:00"
+      },
+      {
+        "label": "Millis",
+        "value": "00:01:30"
+      },
+      {
+        "label": "Signed",
+        "value": "01:00:00"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 01:00:00 then 01:00:00"
+  },
+  "zero": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "00:00:00"
+      },
+      {
+        "label": "Millis",
+        "value": "00:00:00"
+      },
+      {
+        "label": "Signed",
+        "value": "00:00:00"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 00:00:00 then 00:00:00"
+  },
+  "fortnight": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "336:00:00"
+      },
+      {
+        "label": "Millis",
+        "value": "336:00:00"
+      },
+      {
+        "label": "Signed",
+        "value": "8760:00:00"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 336:00:00 then 8760:00:00"
+  },
+  "extremes": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "5124095576030431:00:16"
+      },
+      {
+        "label": "Millis",
+        "value": "5124095576030:25:52"
+      },
+      {
+        "label": "Signed",
+        "value": "2562047788015215:30:08"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 5124095576030431:00:16 then 2562047788015215:30:08"
+  },
+  "negative": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "00:00:01"
+      },
+      {
+        "label": "Millis",
+        "value": "00:00:01"
+      },
+      {
+        "label": "Signed",
+        "value": "-1"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 00:00:01 then -1"
+  },
+  "i64Min": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "00:00:59"
+      },
+      {
+        "label": "Millis",
+        "value": "00:00:59"
+      },
+      {
+        "label": "Signed",
+        "value": "-9223372036854775808"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 00:00:59 then -9223372036854775808"
+  },
+  "subSecondFloor": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "00:00:00"
+      },
+      {
+        "label": "Millis",
+        "value": "00:00:01"
+      },
+      {
+        "label": "Signed",
+        "value": "00:00:00"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 00:00:00 then 00:00:00"
+  },
+  "belowOneSecond": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "00:00:00"
+      },
+      {
+        "label": "Millis",
+        "value": "00:00:00"
+      },
+      {
+        "label": "Signed",
+        "value": "00:00:00"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 00:00:00 then 00:00:00"
+  },
+  "rounding2p53": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "2501999792983:36:32"
+      },
+      {
+        "label": "Millis",
+        "value": "2501999792:59:00"
+      },
+      {
+        "label": "Signed",
+        "value": "2501999792983:36:32"
+      }
+    ],
+    "intent": "Wait",
+    "interpolatedIntent": "Wait 2501999792983:36:32 then 2501999792983:36:32"
+  },
+  "truncated": null
+}

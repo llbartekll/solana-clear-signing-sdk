@@ -1,0 +1,244 @@
+{
+  "accountData": {
+    "63cL4hHbkRStqMvhAudXkPsydRASp3yr7iPQemqmAcD2": {
+      "dataBase64": "AAAAAEX5h6ztw77ex1az+r1v0Cg8e1gmoq2ES3AyloqWBuwnNeXoRDZYAAAGAQEAAAAUjLsNoFFeqHgiQqeddrknxDPrl0P2n7gkdu99RXuJ+g==",
+      "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    },
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {
+      "dataBase64": "AQAAAJj+huiNm+Lqi8HMpIeLKYjCQPUrhCS/tA7Rot3LXhmbejteNmk0HAAGAQEAAABicKqKWcWUBbRShshncubNEm6bil06OFNtN/e0FOi2Zw==",
+      "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    },
+    "Fv79njPdnHgELciAZGxQY2U1QKfxTnPKRuxJ78y2cfdn": {
+      "dataBase64": "AAAAAFp2YvmiRhVn84VINxwxjrjom6drzsue+2LaZwsi98+inI/G4bggAAAGAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+      "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    },
+    "PAWSxhjTyNJELywYiYTxCN857utnYmWXu7Q59Vgn6ZQ": {
+      "dataBase64": "AAAAAAXJKSRQRdSH86o9+UOik5WorPMv4YkqfAIkUKnURihu02eql49yvAAGAQAAAAAFySkkUEXUh/OqPflDopOVqKzzL+GJKnwCJFCp1EYobg==",
+      "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    }
+  },
+  "accounts": [
+    {
+      "address": "EKTWbCwMjHmKvE2mhKZMzEe4vF8xruXHMXq7JNUqJD6D",
+      "role": "writable"
+    },
+    {
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "role": "readonly"
+    },
+    {
+      "address": "2V47kNnc5hpvPDuZjVKvktfZnPdk5Dac96BZkLJDYNsR",
+      "role": "writable"
+    },
+    {
+      "address": "BhFRCUXHVm76PmXkSzus8T4LUGrD2MTW9Au6bocBox5U",
+      "role": "readonlySigner"
+    }
+  ],
+  "dataBase64": "DL0FAAAAAAAABg==",
+  "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "scenarios": [
+    {
+      "accounts": [
+        {
+          "address": "EKTWbCwMjHmKvE2mhKZMzEe4vF8xruXHMXq7JNUqJD6D",
+          "role": "writable"
+        },
+        {
+          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "role": "readonly"
+        },
+        {
+          "address": "2V47kNnc5hpvPDuZjVKvktfZnPdk5Dac96BZkLJDYNsR",
+          "role": "writable"
+        },
+        {
+          "address": "BhFRCUXHVm76PmXkSzus8T4LUGrD2MTW9Au6bocBox5U",
+          "role": "readonlySigner"
+        }
+      ],
+      "dataBase64": "DL0FAAAAAAAABg==",
+      "fetchAccounts": true,
+      "name": "transferChecked-online"
+    },
+    {
+      "accounts": [
+        {
+          "address": "EKTWbCwMjHmKvE2mhKZMzEe4vF8xruXHMXq7JNUqJD6D",
+          "role": "writable"
+        },
+        {
+          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "role": "readonly"
+        },
+        {
+          "address": "2V47kNnc5hpvPDuZjVKvktfZnPdk5Dac96BZkLJDYNsR",
+          "role": "writable"
+        },
+        {
+          "address": "BhFRCUXHVm76PmXkSzus8T4LUGrD2MTW9Au6bocBox5U",
+          "role": "readonlySigner"
+        }
+      ],
+      "dataBase64": "DL0FAAAAAAAABg==",
+      "fetchAccounts": false,
+      "name": "transferChecked-offline"
+    },
+    {
+      "accounts": [
+        {
+          "address": "GdrJnW8drEHqkA7ZWoszws7pvt1t1T5zMsJxjMh2S63q",
+          "role": "writable"
+        },
+        {
+          "address": "63cL4hHbkRStqMvhAudXkPsydRASp3yr7iPQemqmAcD2",
+          "role": "readonly"
+        },
+        {
+          "address": "27XvkQ39QwePgDbhczSjR8pYFYE26boXMar1P27G1oay",
+          "role": "readonly"
+        },
+        {
+          "address": "ELoUtm3GwP4d85L3eSX55gsaStqY7bGmaXEbPvSbDvr1",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "DWExH9aVDwAABg==",
+      "fetchAccounts": true,
+      "name": "approveChecked-online"
+    },
+    {
+      "accounts": [
+        {
+          "address": "GdrJnW8drEHqkA7ZWoszws7pvt1t1T5zMsJxjMh2S63q",
+          "role": "writable"
+        },
+        {
+          "address": "63cL4hHbkRStqMvhAudXkPsydRASp3yr7iPQemqmAcD2",
+          "role": "readonly"
+        },
+        {
+          "address": "27XvkQ39QwePgDbhczSjR8pYFYE26boXMar1P27G1oay",
+          "role": "readonly"
+        },
+        {
+          "address": "ELoUtm3GwP4d85L3eSX55gsaStqY7bGmaXEbPvSbDvr1",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "DWExH9aVDwAABg==",
+      "fetchAccounts": false,
+      "name": "approveChecked-offline"
+    },
+    {
+      "accounts": [
+        {
+          "address": "Fv79njPdnHgELciAZGxQY2U1QKfxTnPKRuxJ78y2cfdn",
+          "role": "writableSigner"
+        },
+        {
+          "address": "5jLy82BoFqFSbCw9T2p8RCxsBoz4QsKKgo2oUtQQpKAe",
+          "role": "writable"
+        },
+        {
+          "address": "768PtBv5ynSPWfBFJVQzn9TJWaWVMLLj3Q73zzm16wqb",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "DgCAxqR+jQMABg==",
+      "fetchAccounts": true,
+      "name": "mintToChecked-online"
+    },
+    {
+      "accounts": [
+        {
+          "address": "Fv79njPdnHgELciAZGxQY2U1QKfxTnPKRuxJ78y2cfdn",
+          "role": "writableSigner"
+        },
+        {
+          "address": "5jLy82BoFqFSbCw9T2p8RCxsBoz4QsKKgo2oUtQQpKAe",
+          "role": "writable"
+        },
+        {
+          "address": "768PtBv5ynSPWfBFJVQzn9TJWaWVMLLj3Q73zzm16wqb",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "DgCAxqR+jQMABg==",
+      "fetchAccounts": false,
+      "name": "mintToChecked-offline"
+    },
+    {
+      "accounts": [
+        {
+          "address": "HWA6SSwyqBEqmG3KR4HUvL9YrAGekcsxSGqCzG6q8hEQ",
+          "role": "writable"
+        },
+        {
+          "address": "PAWSxhjTyNJELywYiYTxCN857utnYmWXu7Q59Vgn6ZQ",
+          "role": "writable"
+        },
+        {
+          "address": "PawsUuwP1YGsSgJGepigiDCRpPJtfJFMqjNGSueSqhf",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "D4BHqolFvaYABg==",
+      "fetchAccounts": true,
+      "name": "burnChecked-online"
+    },
+    {
+      "accounts": [
+        {
+          "address": "HWA6SSwyqBEqmG3KR4HUvL9YrAGekcsxSGqCzG6q8hEQ",
+          "role": "writable"
+        },
+        {
+          "address": "PAWSxhjTyNJELywYiYTxCN857utnYmWXu7Q59Vgn6ZQ",
+          "role": "writable"
+        },
+        {
+          "address": "PawsUuwP1YGsSgJGepigiDCRpPJtfJFMqjNGSueSqhf",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "D4BHqolFvaYABg==",
+      "fetchAccounts": false,
+      "name": "burnChecked-offline"
+    },
+    {
+      "accounts": [
+        {
+          "address": "9rQbzFp6KQsFoSpirq7q7K53Lgzvt51soVqpPjPuaGcp",
+          "role": "writable"
+        },
+        {
+          "address": "HknV6HcAgjTmtiijNQrP9dm5oNJpVPLDRJxvV6uxN1UG",
+          "role": "writableSigner"
+        },
+        {
+          "address": "HknV6HcAgjTmtiijNQrP9dm5oNJpVPLDRJxvV6uxN1UG",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "CQ==",
+      "fetchAccounts": false,
+      "name": "closeAccount-online"
+    },
+    {
+      "accounts": [
+        {
+          "address": "tUQ37xwAfeg24HX8G2waJ6bQRq14wmKgQbYCPsxfLXX",
+          "role": "writable"
+        },
+        {
+          "address": "C9SGbziZr2a5aJpx4B5Utkt6o5X1Mb1AtJYJa4qLQcvM",
+          "role": "writableSigner"
+        }
+      ],
+      "dataBase64": "BQ==",
+      "fetchAccounts": false,
+      "name": "revoke-online"
+    }
+  ]
+}

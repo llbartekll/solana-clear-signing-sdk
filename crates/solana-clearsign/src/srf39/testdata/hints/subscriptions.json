@@ -1,0 +1,3771 @@
+{
+  "cancelSubscription": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscriber",
+        "linkedAccount": null,
+        "name": "subscriber"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Plan account",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "Stake11111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Subscription account",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "cancelSubscription",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "createFixedDelegation-devnet": {
+    "accounts": [
+      {
+        "address": "6pLnE2xzWm745CtsANXLDkfwfKQVdwcL6wXmN2M7Vwxo",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "D1wXKxZqLdtFaAYRyGdouRK7MZWwRp5vFtBQX2J72dKp",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "CBefuZ1T79M5TEdeozyqpKMWj4wQpWSdtTrYJnTt8NaD",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "EL9YvnYjEvUVwynjf7XaHarNS3vRwxPGJ3Lw8TLEdRUw",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1789885554",
+        "seconds": 1789885554
+      }
+    ]
+  },
+  "createFixedDelegation-expiry-beyond-date-range": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": false,
+        "member": null,
+        "rawValue": "8640000000001",
+        "seconds": null
+      }
+    ]
+  },
+  "createFixedDelegation-expiry-date-max": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "8640000000000",
+        "seconds": 8640000000000
+      }
+    ]
+  },
+  "createFixedDelegation-expiry-i64-max": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": false,
+        "member": null,
+        "rawValue": "9223372036854775807",
+        "seconds": null
+      }
+    ]
+  },
+  "createFixedDelegation-expiry-negative": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-1",
+        "seconds": -1
+      }
+    ]
+  },
+  "createFixedDelegation-expiry-negative-expanded-year": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-62167219201",
+        "seconds": -62167219201
+      }
+    ]
+  },
+  "createFixedDelegation-expiry-year-10000": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "253402300800",
+        "seconds": 253402300800
+      }
+    ]
+  },
+  "createFixedDelegation-no-expiry": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "createFixedDelegation-sponsored-trailing-payer": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "createFixedDelegation-system-spender-regression": {
+    "accounts": [
+      {
+        "address": "BYMh3ueghnaLQgXpgMtA1N4SmrnwcEXHxPgDYA5LC49t",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "8VFwuTprW4YYK8cFZJySPi7KcpsRxNR3VuvvYRNNKFPN",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "GMxUq7L1w1qqQvNhsPWrA8E2ipjXrCC1cEj89P2mwXCk",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "1000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "createFixedDelegation-with-expiry": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "25000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createFixedDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1767225600",
+        "seconds": 1767225600
+      }
+    ]
+  },
+  "createPlan-default-display": {
+    "accounts": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 13,
+        "label": "Merchant",
+        "linkedAccount": null,
+        "name": "merchant"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 14,
+        "label": "Plan Pda",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 15,
+        "label": "Token Mint",
+        "linkedAccount": null,
+        "name": "tokenMint"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "createPlan",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "destinations",
+        "element": 0,
+        "fieldIndex": 4,
+        "member": null
+      },
+      {
+        "address": "So11111111111111111111111111111111111111112",
+        "argument": "destinations",
+        "element": 1,
+        "fieldIndex": 5,
+        "member": null
+      },
+      {
+        "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+        "argument": "destinations",
+        "element": 2,
+        "fieldIndex": 6,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "destinations",
+        "element": 3,
+        "fieldIndex": 7,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "pullers",
+        "element": 0,
+        "fieldIndex": 8,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "pullers",
+        "element": 1,
+        "fieldIndex": 9,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "pullers",
+        "element": 2,
+        "fieldIndex": 10,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "pullers",
+        "element": 3,
+        "fieldIndex": 11,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "createRecurringDelegation-devnet": {
+    "accounts": [
+      {
+        "address": "6LEzpX4uoKsTzMcubfvDBrNSwDAdqMtRwUNuwGXz9GjZ",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "6Dqi4ZA27KHoSMggYYT8wohiBTCLBygMXxhVzEng1r4s",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "STzYByBpkA4zzdh1BekUHxtFm6BhEib5Kxq1uFqfcMk",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "8xgxNLdnsWaC1Wd3PGhE26dmJDxRcsiULAK9XALqxe3L",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amountPerPeriod",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "100000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createRecurringDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "periodLengthS",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "30",
+        "seconds": 30
+      },
+      {
+        "argument": "startTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 3,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1789025557",
+        "seconds": 1789025557
+      }
+    ]
+  },
+  "createRecurringDelegation-max-period": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amountPerPeriod",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "12500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createRecurringDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "periodLengthS",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "31536000",
+        "seconds": 31536000
+      },
+      {
+        "argument": "startTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1800000000",
+        "seconds": 1800000000
+      },
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 3,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1831536000",
+        "seconds": 1831536000
+      }
+    ]
+  },
+  "createRecurringDelegation-offline": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amountPerPeriod",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createRecurringDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "periodLengthS",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1209600",
+        "seconds": 1209600
+      },
+      {
+        "argument": "startTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 3,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "createRecurringDelegation-scheduled-with-expiry": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amountPerPeriod",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "12500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createRecurringDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "periodLengthS",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "2592000",
+        "seconds": 2592000
+      },
+      {
+        "argument": "startTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1800000000",
+        "seconds": 1800000000
+      },
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 3,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1831536000",
+        "seconds": 1831536000
+      }
+    ]
+  },
+  "createRecurringDelegation-vendor-bytes": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegator",
+        "linkedAccount": null,
+        "name": "delegator"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amountPerPeriod",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "createRecurringDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "periodLengthS",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1209600",
+        "seconds": 1209600
+      },
+      {
+        "argument": "startTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "expiryTs",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 3,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "emptyData": null,
+  "foreignProgram": null,
+  "initSubscriptionAuthority": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Owner",
+        "linkedAccount": null,
+        "name": "owner"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Token mint",
+        "linkedAccount": null,
+        "name": "tokenMint"
+      },
+      {
+        "address": "ComputeBudget111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Your token account",
+        "linkedAccount": null,
+        "name": "userAta"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "initSubscriptionAuthority",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "initSubscriptionAuthority-devnet": {
+    "accounts": [
+      {
+        "address": "HRTs7RYgLY9SP5QGza4VgXKvFTAd1LbgC85ekAa6bWmx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Owner",
+        "linkedAccount": null,
+        "name": "owner"
+      },
+      {
+        "address": "BFKnSkaS9phTM4G5w3WKYh31qsFB8ismYS6F6YDhoe1Y",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Token mint",
+        "linkedAccount": null,
+        "name": "tokenMint"
+      },
+      {
+        "address": "GepX55GH3LjVVupzDHy3Fmi5gXNzG1YVw4iATuQ1VCxf",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Your token account",
+        "linkedAccount": null,
+        "name": "userAta"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "initSubscriptionAuthority",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "resumeSubscription": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscriber",
+        "linkedAccount": null,
+        "name": "subscriber"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Plan account",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "Stake11111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Subscription account",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "resumeSubscription",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "revokeDelegation": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authority",
+        "linkedAccount": null,
+        "name": "authority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "revokeDelegation",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "revokeDelegation-devnet": {
+    "accounts": [
+      {
+        "address": "CDusifUYQvfqwYxJVCZxZTGRHVPQ8TqUdTndAHrHgiUx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authority",
+        "linkedAccount": null,
+        "name": "authority"
+      },
+      {
+        "address": "HU8aD3C8duqWKopDXsJfof31BE8BuQktjhUgnbt7DXK6",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "revokeDelegation",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "revokeDelegation-missing-account": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authority",
+        "linkedAccount": null,
+        "name": "authority"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "revokeDelegation",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "revokeDelegation-with-receiver": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authority",
+        "linkedAccount": null,
+        "name": "authority"
+      },
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Delegation account",
+        "linkedAccount": null,
+        "name": "delegationAccount"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "revokeDelegation",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "revokeSubscriptionAuthority": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "User",
+        "linkedAccount": null,
+        "name": "user"
+      },
+      {
+        "address": "ComputeBudget111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Your token account",
+        "linkedAccount": null,
+        "name": "userAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Token mint",
+        "linkedAccount": null,
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "revokeSubscriptionAuthority",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "revokeSubscriptionAuthority-devnet": {
+    "accounts": [
+      {
+        "address": "HyUPyyGPi1GEzZcdhrdXDRW65312M6nBUyYgTLfKZFex",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "User",
+        "linkedAccount": null,
+        "name": "user"
+      },
+      {
+        "address": "2hWYLWSdbkmkGB2jTN7NZuV12ph6daP3HWS3XZf1QJ5k",
+        "consumed": false,
+        "fieldIndex": 0,
+        "label": "Your token account",
+        "linkedAccount": null,
+        "name": "userAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Token mint",
+        "linkedAccount": null,
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "revokeSubscriptionAuthority",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "subscribe-devnet": {
+    "accounts": [
+      {
+        "address": "3yQfmv9WiotYSDmamiow5Xt2abcvDxTzmFBSYEEGZtqe",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscriber",
+        "linkedAccount": null,
+        "name": "subscriber"
+      },
+      {
+        "address": "3yQfmv9WiotYSDmamiow5Xt2abcvDxTzmFBSYEEGZtqe",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Merchant",
+        "linkedAccount": null,
+        "name": "merchant"
+      },
+      {
+        "address": "47mkGDH98bE1QiSFZiLXJUuSQ2mNCdqQo9XcnQZQtKYG",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Plan account",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "3rHUN7eyX1Pitb34p9YTAN7EWiuL2rH1uSyZqDUNw1bc",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription account",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "3pJWi7omWqN5td3E3BME322BmC7W1ac55CPU3DCT7QoK",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthorityPda"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      },
+      {
+        "address": "3Hnj4BYoDgtpBuqXfiy7Y8cNa3jXaNd4oqgSXBzkMcH7",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "expectedAmount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "10000000",
+        "token": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+        },
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "subscribe",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "expectedMint",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      }
+    ],
+    "times": [
+      {
+        "argument": "expectedCreatedAt",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 4,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1788526742",
+        "seconds": 1788526742
+      }
+    ]
+  },
+  "subscribe-optional-trailing-payer": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscriber",
+        "linkedAccount": null,
+        "name": "subscriber"
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Merchant",
+        "linkedAccount": null,
+        "name": "merchant"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Plan account",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "Stake11111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription account",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthorityPda"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "expectedAmount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "9990000",
+        "token": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+        },
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "subscribe",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "expectedMint",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      }
+    ],
+    "times": [
+      {
+        "argument": "expectedCreatedAt",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 4,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1757000000",
+        "seconds": 1757000000
+      }
+    ]
+  },
+  "subscribe-usdc": {
+    "accounts": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscriber",
+        "linkedAccount": null,
+        "name": "subscriber"
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Merchant",
+        "linkedAccount": null,
+        "name": "merchant"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Plan account",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "Stake11111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription account",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Subscription authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthorityPda"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "expectedAmount",
+        "decimals": {
+          "kind": "unsatisfied"
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "9990000",
+        "token": {
+          "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+        },
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "subscribe",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "expectedMint",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      }
+    ],
+    "times": [
+      {
+        "argument": "expectedCreatedAt",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 4,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1757000000",
+        "seconds": 1757000000
+      }
+    ]
+  },
+  "transferFixed-offline": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferFixed",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferFixed-online": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferFixed",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-amount-raw": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-devnet": {
+    "accounts": [
+      {
+        "address": "BuJAJzLRH3t1gYQjTsLneoC1RDuh1CSNwN2jiN9HZ3b8",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "7TXPMj5KLYBjfuq5UfEq1vcgTBjwzMpHhrrNXUCRjzg3",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "D5o3Sz7PDnLVx9QTFrAqu5EpSg3SmdqFBGTrZja8MCBs",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "4FNdkUawTozhFSfWhy9KfAmd616f8yqTyQrPH9KhJd6d",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "8imxp7iUuynAhjavgKy21qEdmS9mGJnvoGSQpfjVCKZS",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "3Hnj4BYoDgtpBuqXfiy7Y8cNa3jXaNd4oqgSXBzkMcH7",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "100000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "GizUGhG4ZAxRicKkp8NQK7XrWsD99Dq2iLE5KKjUKwB7",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-foreign-owner": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-malformed-mint": {
+    "error": "accountDecode"
+  },
+  "transferRecurring-max-u64": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "18446744073709551615",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-missing-mint": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": null,
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-nine-decimals": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 9
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-online": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferRecurring-zero": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Delegation Pda",
+        "linkedAccount": null,
+        "name": "delegationPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 7,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Authorized spender",
+        "linkedAccount": null,
+        "name": "delegatee"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "0",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferRecurring",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferSubscription-offline": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Subscription Pda",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Plan Pda",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 7,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Payment collector",
+        "linkedAccount": null,
+        "name": "caller"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": false,
+        "fieldIndex": 9,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferSubscription",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "transferSubscription-online": {
+    "accounts": [
+      {
+        "address": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Subscription Pda",
+        "linkedAccount": null,
+        "name": "subscriptionPda"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 4,
+        "label": "Plan Pda",
+        "linkedAccount": null,
+        "name": "planPda"
+      },
+      {
+        "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Subscription Authority",
+        "linkedAccount": null,
+        "name": "subscriptionAuthority"
+      },
+      {
+        "address": "AddressLookupTab1e1111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 6,
+        "label": "Source token account",
+        "linkedAccount": null,
+        "name": "delegatorAta"
+      },
+      {
+        "address": "BPFLoaderUpgradeab1e11111111111111111111111",
+        "consumed": false,
+        "fieldIndex": 7,
+        "label": "Recipient token account",
+        "linkedAccount": null,
+        "name": "receiverAta"
+      },
+      {
+        "address": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Payment collector",
+        "linkedAccount": null,
+        "name": "caller"
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "consumed": true,
+        "fieldIndex": 9,
+        "label": "Token mint",
+        "linkedAccount": "mint",
+        "name": "tokenMint"
+      },
+      {
+        "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Token Program",
+        "linkedAccount": null,
+        "name": "tokenProgram"
+      },
+      {
+        "address": "Config1111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Event Authority",
+        "linkedAccount": null,
+        "name": "eventAuthority"
+      },
+      {
+        "address": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Self Program",
+        "linkedAccount": null,
+        "name": "selfProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "tokenMint",
+          "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "5000000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "transferSubscription",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "status": {
+          "kind": "fetched",
+          "length": 82,
+          "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "argument": "delegator",
+        "element": null,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+        "argument": "mint",
+        "element": null,
+        "fieldIndex": 2,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "truncated": null,
+  "unknownDiscriminator": null,
+  "updatePlan-default-display": {
+    "accounts": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 7,
+        "label": "Owner",
+        "linkedAccount": null,
+        "name": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 8,
+        "label": "Plan Pda",
+        "linkedAccount": null,
+        "name": "planPda"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "updatePlan",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "pullers",
+        "element": 0,
+        "fieldIndex": 2,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "pullers",
+        "element": 1,
+        "fieldIndex": 3,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "pullers",
+        "element": 2,
+        "fieldIndex": 4,
+        "member": null
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "argument": "pullers",
+        "element": 3,
+        "fieldIndex": 5,
+        "member": null
+      }
+    ],
+    "times": []
+  }
+}

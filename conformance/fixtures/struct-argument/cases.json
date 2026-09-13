@@ -1,0 +1,22 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "AWDjFgAAAAAABwAAACVYzV3DHw8F20GNrTztWBF/qlWLFq7Q7LFqVL9w5HzEAQEAAAAFAAAAyDkwAAAAAAAA",
+  "accounts": [],
+  "scenarios": [
+    {
+      "name": "some"
+    },
+    {
+      "name": "none",
+      "dataBase64": "AWDjFgAAAAAABwAAACVYzV3DHw8F20GNrTztWBF/qlWLFq7Q7LFqVL9w5HzEAQAAAAAAAAAAyDkwAAAAAAAA"
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "AWDjFgAAAAAABwAAACVYzV3DHw8F20GNrTztWBF/qlWLFq7Q7LFqVL9w5HzEAQEAAAAFAAAA"
+    },
+    {
+      "name": "unknownDiscriminator",
+      "dataBase64": "AmDjFgAAAAAABwAAACVYzV3DHw8F20GNrTztWBF/qlWLFq7Q7LFqVL9w5HzEAQEAAAAFAAAAyDkwAAAAAAAA"
+    }
+  ]
+}

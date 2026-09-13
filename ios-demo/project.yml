@@ -1,0 +1,86 @@
+name: ClearsignDemo
+options:
+  bundleIdPrefix: dev.clearsign
+  deploymentTarget:
+    iOS: "16.0"
+packages:
+  SolanaClearsign:
+    path: ..
+  SolanaSwift:
+    url: https://github.com/p2p-org/solana-swift
+    revision: aeb1ab9e9a7bc2c4c0e5cf0e27fae0956cc417e2
+targets:
+  ClearsignDemo:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      # The sRFC 39 manifest, IDL copies and registries have unique names and
+      # land at the bundle root; Devnet captures keep their directory.
+      - path: Resources/Srf39
+        buildPhase: resources
+      - path: Resources/DevnetExamples
+        type: folder
+        buildPhase: resources
+      - path: Resources/Assets.xcassets
+        buildPhase: resources
+      - path: Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    dependencies:
+      - package: SolanaClearsign
+        product: SolanaClearsign
+      - package: SolanaSwift
+        product: SolanaSwift
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Clear Sign
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1,2"
+        PRODUCT_BUNDLE_IDENTIFIER: dev.clearsign.demo
+        INFOPLIST_KEY_AlchemyAPIKey: $(ALCHEMY_API_KEY)
+        CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]: NO
+      configs:
+        Release:
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+          ALCHEMY_API_KEY: ""
+    info:
+      path: Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
+    configFiles:
+      Debug: Config.xcconfig
+      Release: Config.xcconfig
+  ClearsignDemoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Tests]
+    dependencies:
+      - target: ClearsignDemo
+      - package: SolanaSwift
+        product: SolanaSwift
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  ClearsignDemo:
+    build:
+      targets:
+        ClearsignDemo: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ClearsignDemoTests
+    archive:
+      config: Release

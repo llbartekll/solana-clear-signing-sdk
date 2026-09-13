@@ -1,0 +1,1162 @@
+{
+  "createRecurringDelegation-vendor-bytes": {
+    "fields": [
+      {
+        "label": "Spending limit per period",
+        "value": "5000000 (raw)"
+      },
+      {
+        "label": "Period",
+        "value": "336:00:00"
+      },
+      {
+        "label": "Starts (1970-01-01T00:00:00.000Z means when the transaction lands)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize Recurring Spending",
+    "interpolatedIntent": null
+  },
+  "createRecurringDelegation-offline": {
+    "fields": [
+      {
+        "label": "Spending limit per period",
+        "value": "5000000 (raw)"
+      },
+      {
+        "label": "Period",
+        "value": "336:00:00"
+      },
+      {
+        "label": "Starts (1970-01-01T00:00:00.000Z means when the transaction lands)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize Recurring Spending",
+    "interpolatedIntent": null
+  },
+  "createRecurringDelegation-scheduled-with-expiry": {
+    "fields": [
+      {
+        "label": "Spending limit per period",
+        "value": "12500000 (raw)"
+      },
+      {
+        "label": "Period",
+        "value": "720:00:00"
+      },
+      {
+        "label": "Starts (1970-01-01T00:00:00.000Z means when the transaction lands)",
+        "value": "2027-01-15T08:00:00.000Z"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "2028-01-15T08:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize Recurring Spending",
+    "interpolatedIntent": null
+  },
+  "createRecurringDelegation-max-period": {
+    "fields": [
+      {
+        "label": "Spending limit per period",
+        "value": "12500000 (raw)"
+      },
+      {
+        "label": "Period",
+        "value": "8760:00:00"
+      },
+      {
+        "label": "Starts (1970-01-01T00:00:00.000Z means when the transaction lands)",
+        "value": "2027-01-15T08:00:00.000Z"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "2028-01-15T08:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize Recurring Spending",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-no-expiry": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-with-expiry": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "2026-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-sponsored-trailing-payer": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-expiry-negative": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "1969-12-31T23:59:59.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-expiry-year-10000": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "+010000-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-expiry-date-max": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "+275760-09-13T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-expiry-beyond-date-range": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "8640000000001"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-expiry-i64-max": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "9223372036854775807"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-expiry-negative-expanded-year": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "25000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "-000001-12-31T23:59:59.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "revokeDelegation": {
+    "fields": [
+      {
+        "label": "Delegation account",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      }
+    ],
+    "intent": "Revoke a Delegation",
+    "interpolatedIntent": "Revoke delegation 5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS and stop future withdrawals"
+  },
+  "revokeDelegation-with-receiver": {
+    "fields": [
+      {
+        "label": "Delegation account",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      }
+    ],
+    "intent": "Revoke a Delegation",
+    "interpolatedIntent": "Revoke delegation 5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS and stop future withdrawals"
+  },
+  "initSubscriptionAuthority": {
+    "fields": [
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Your token account",
+        "value": "ComputeBudget111111111111111111111111111111"
+      }
+    ],
+    "intent": "Enable Subscription Payments (Unlimited Allowance)",
+    "interpolatedIntent": "Enable subscription payments with a maximum token allowance; approved delegations define the withdrawal limits"
+  },
+  "revokeSubscriptionAuthority": {
+    "fields": [
+      {
+        "label": "Your token account",
+        "value": "ComputeBudget111111111111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      }
+    ],
+    "intent": "Revoke the Subscriptions Program's Token Access",
+    "interpolatedIntent": "Remove the token delegate from ComputeBudget111111111111111111111111111111; existing delegation accounts are not deleted"
+  },
+  "subscribe-usdc": {
+    "fields": [
+      {
+        "label": "Plan ID",
+        "value": "1"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Amount per period",
+        "value": "9990000 (raw)"
+      },
+      {
+        "label": "Billing period (hours)",
+        "value": "720"
+      },
+      {
+        "label": "Plan created at (must match the plan's record)",
+        "value": "2025-09-04T15:33:20.000Z"
+      },
+      {
+        "label": "Merchant",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Subscribe to a Payment Plan",
+    "interpolatedIntent": null
+  },
+  "subscribe-optional-trailing-payer": {
+    "fields": [
+      {
+        "label": "Plan ID",
+        "value": "1"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Amount per period",
+        "value": "9990000 (raw)"
+      },
+      {
+        "label": "Billing period (hours)",
+        "value": "720"
+      },
+      {
+        "label": "Plan created at (must match the plan's record)",
+        "value": "2025-09-04T15:33:20.000Z"
+      },
+      {
+        "label": "Merchant",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Subscribe to a Payment Plan",
+    "interpolatedIntent": null
+  },
+  "cancelSubscription": {
+    "fields": [
+      {
+        "label": "Plan account",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Subscription account",
+        "value": "Stake11111111111111111111111111111111111111"
+      }
+    ],
+    "intent": "Cancel Subscription",
+    "interpolatedIntent": "Cancel subscription Stake11111111111111111111111111111111111111 to plan 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY at the end of the current period"
+  },
+  "resumeSubscription": {
+    "fields": [
+      {
+        "label": "Plan account",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Subscription account",
+        "value": "Stake11111111111111111111111111111111111111"
+      }
+    ],
+    "intent": "Resume Subscription",
+    "interpolatedIntent": "Resume subscription Stake11111111111111111111111111111111111111 to plan 86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+  },
+  "transferRecurring-amount-raw": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5000000 (raw)"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "transferFixed-online": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Fixed Payment",
+    "interpolatedIntent": null
+  },
+  "transferFixed-offline": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5000000 (raw)"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Fixed Payment",
+    "interpolatedIntent": null
+  },
+  "transferRecurring-online": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "transferSubscription-online": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Subscription Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Plan Pda",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Payment collector",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      }
+    ],
+    "intent": "Collect a Subscription Payment",
+    "interpolatedIntent": null
+  },
+  "transferSubscription-offline": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5000000 (raw)"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Subscription Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Plan Pda",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Payment collector",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      }
+    ],
+    "intent": "Collect a Subscription Payment",
+    "interpolatedIntent": null
+  },
+  "transferRecurring-missing-mint": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5000000 (raw)"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "transferRecurring-malformed-mint": {
+    "error": "accountDecode"
+  },
+  "transferRecurring-nine-decimals": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "0.005"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "transferRecurring-max-u64": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "18446744073709.551615"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "transferRecurring-zero": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "0"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "transferRecurring-foreign-owner": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "5"
+      },
+      {
+        "label": "Delegator",
+        "value": "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h"
+      },
+      {
+        "label": "Source token account",
+        "value": "AddressLookupTab1e1111111111111111111111111"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "BPFLoaderUpgradeab1e11111111111111111111111"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  },
+  "createPlan-default-display": {
+    "fields": [
+      {
+        "label": "Plan Id",
+        "value": "1"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Terms",
+        "value": "{\"amount\":\"9990000\",\"periodHours\":\"720\",\"createdAt\":\"1757000000\"}"
+      },
+      {
+        "label": "End Ts",
+        "value": "0"
+      },
+      {
+        "label": "Destinations #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Destinations #2",
+        "value": "So11111111111111111111111111111111111111112"
+      },
+      {
+        "label": "Destinations #3",
+        "value": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+      },
+      {
+        "label": "Destinations #4",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Pullers #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Pullers #2",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Pullers #3",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Pullers #4",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Metadata Uri",
+        "value": "https://example.com/plan.json"
+      },
+      {
+        "label": "Merchant",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Plan Pda",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Token Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      }
+    ],
+    "intent": "Create Plan",
+    "interpolatedIntent": null
+  },
+  "updatePlan-default-display": {
+    "fields": [
+      {
+        "label": "Status",
+        "value": "1"
+      },
+      {
+        "label": "End Ts",
+        "value": "1893456000"
+      },
+      {
+        "label": "Pullers #1",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Pullers #2",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Pullers #3",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Pullers #4",
+        "value": "11111111111111111111111111111111"
+      },
+      {
+        "label": "Metadata Uri",
+        "value": "ipfs://bafy"
+      },
+      {
+        "label": "Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Plan Pda",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Update Plan",
+    "interpolatedIntent": null
+  },
+  "emptyData": null,
+  "revokeDelegation-missing-account": {
+    "fields": [],
+    "intent": "Revoke a Delegation",
+    "interpolatedIntent": null
+  },
+  "truncated": null,
+  "unknownDiscriminator": null,
+  "foreignProgram": null,
+  "initSubscriptionAuthority-devnet": {
+    "fields": [
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Your token account",
+        "value": "GepX55GH3LjVVupzDHy3Fmi5gXNzG1YVw4iATuQ1VCxf"
+      }
+    ],
+    "intent": "Enable Subscription Payments (Unlimited Allowance)",
+    "interpolatedIntent": "Enable subscription payments with a maximum token allowance; approved delegations define the withdrawal limits"
+  },
+  "createFixedDelegation-system-spender-regression": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "1000000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "11111111111111111111111111111111"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createFixedDelegation-devnet": {
+    "fields": [
+      {
+        "label": "Total allowance",
+        "value": "500000 (raw)"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "2026-09-20T06:25:54.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "EL9YvnYjEvUVwynjf7XaHarNS3vRwxPGJ3Lw8TLEdRUw"
+      }
+    ],
+    "intent": "Authorize a Fixed Spending Allowance",
+    "interpolatedIntent": null
+  },
+  "createRecurringDelegation-devnet": {
+    "fields": [
+      {
+        "label": "Spending limit per period",
+        "value": "100000000 (raw)"
+      },
+      {
+        "label": "Period",
+        "value": "00:00:30"
+      },
+      {
+        "label": "Starts (1970-01-01T00:00:00.000Z means when the transaction lands)",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Expires (1970-01-01T00:00:00.000Z means never)",
+        "value": "2026-09-10T07:32:37.000Z"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "8xgxNLdnsWaC1Wd3PGhE26dmJDxRcsiULAK9XALqxe3L"
+      }
+    ],
+    "intent": "Authorize Recurring Spending",
+    "interpolatedIntent": null
+  },
+  "revokeDelegation-devnet": {
+    "fields": [
+      {
+        "label": "Delegation account",
+        "value": "HU8aD3C8duqWKopDXsJfof31BE8BuQktjhUgnbt7DXK6"
+      }
+    ],
+    "intent": "Revoke a Delegation",
+    "interpolatedIntent": "Revoke delegation HU8aD3C8duqWKopDXsJfof31BE8BuQktjhUgnbt7DXK6 and stop future withdrawals"
+  },
+  "subscribe-devnet": {
+    "fields": [
+      {
+        "label": "Plan ID",
+        "value": "10953389978332854208"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Amount per period",
+        "value": "10000000 (raw)"
+      },
+      {
+        "label": "Billing period (hours)",
+        "value": "720"
+      },
+      {
+        "label": "Plan created at (must match the plan's record)",
+        "value": "2026-09-04T12:59:02.000Z"
+      },
+      {
+        "label": "Merchant",
+        "value": "3yQfmv9WiotYSDmamiow5Xt2abcvDxTzmFBSYEEGZtqe"
+      }
+    ],
+    "intent": "Subscribe to a Payment Plan",
+    "interpolatedIntent": null
+  },
+  "revokeSubscriptionAuthority-devnet": {
+    "fields": [
+      {
+        "label": "Your token account",
+        "value": "2hWYLWSdbkmkGB2jTN7NZuV12ph6daP3HWS3XZf1QJ5k"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      }
+    ],
+    "intent": "Revoke the Subscriptions Program's Token Access",
+    "interpolatedIntent": "Remove the token delegate from 2hWYLWSdbkmkGB2jTN7NZuV12ph6daP3HWS3XZf1QJ5k; existing delegation accounts are not deleted"
+  },
+  "transferRecurring-devnet": {
+    "fields": [
+      {
+        "label": "Payment amount",
+        "value": "0.1"
+      },
+      {
+        "label": "Delegator",
+        "value": "GizUGhG4ZAxRicKkp8NQK7XrWsD99Dq2iLE5KKjUKwB7"
+      },
+      {
+        "label": "Mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Delegation Pda",
+        "value": "BuJAJzLRH3t1gYQjTsLneoC1RDuh1CSNwN2jiN9HZ3b8"
+      },
+      {
+        "label": "Subscription Authority",
+        "value": "7TXPMj5KLYBjfuq5UfEq1vcgTBjwzMpHhrrNXUCRjzg3"
+      },
+      {
+        "label": "Source token account",
+        "value": "D5o3Sz7PDnLVx9QTFrAqu5EpSg3SmdqFBGTrZja8MCBs"
+      },
+      {
+        "label": "Recipient token account",
+        "value": "4FNdkUawTozhFSfWhy9KfAmd616f8yqTyQrPH9KhJd6d"
+      },
+      {
+        "label": "Token mint",
+        "value": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+      },
+      {
+        "label": "Authorized spender",
+        "value": "8imxp7iUuynAhjavgKy21qEdmS9mGJnvoGSQpfjVCKZS"
+      }
+    ],
+    "intent": "Collect a Recurring Payment",
+    "interpolatedIntent": null
+  }
+}

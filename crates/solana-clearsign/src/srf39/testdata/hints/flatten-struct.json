@@ -1,0 +1,310 @@
+{
+  "offline": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 9,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "args",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": "price",
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "placeOrder",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "args",
+        "element": null,
+        "fieldIndex": 2,
+        "member": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "args",
+        "element": 0,
+        "fieldIndex": 3,
+        "member": "keys"
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "args",
+        "element": 1,
+        "fieldIndex": 4,
+        "member": "keys"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "args",
+        "element": null,
+        "fieldIndex": 6,
+        "member": "mint"
+      }
+    ],
+    "times": [
+      {
+        "argument": "args",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 7,
+        "formatted": true,
+        "member": "expiresAt",
+        "rawValue": "1761365183",
+        "seconds": 1761365183
+      }
+    ]
+  },
+  "online": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "args",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": "price",
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "placeOrder",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 1,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "args",
+        "element": null,
+        "fieldIndex": 2,
+        "member": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "args",
+        "element": 0,
+        "fieldIndex": 3,
+        "member": "keys"
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "args",
+        "element": 1,
+        "fieldIndex": 4,
+        "member": "keys"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "args",
+        "element": null,
+        "fieldIndex": null,
+        "member": "mint"
+      }
+    ],
+    "times": [
+      {
+        "argument": "args",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 6,
+        "formatted": true,
+        "member": "expiresAt",
+        "rawValue": "1761365183",
+        "seconds": 1761365183
+      }
+    ]
+  },
+  "optionNone": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "maybeOrder",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 1,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "optionSome": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "args",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": "price",
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "maybeOrder",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 1,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "args",
+        "element": null,
+        "fieldIndex": 2,
+        "member": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "args",
+        "element": 0,
+        "fieldIndex": 3,
+        "member": "keys"
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "args",
+        "element": 1,
+        "fieldIndex": 4,
+        "member": "keys"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "args",
+        "element": null,
+        "fieldIndex": null,
+        "member": "mint"
+      }
+    ],
+    "times": [
+      {
+        "argument": "args",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 6,
+        "formatted": true,
+        "member": "expiresAt",
+        "rawValue": "1761365183",
+        "seconds": 1761365183
+      }
+    ]
+  },
+  "plainStruct": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [],
+    "instructionName": "plainOrder",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null
+}

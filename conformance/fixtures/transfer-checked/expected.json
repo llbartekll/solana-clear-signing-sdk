@@ -1,0 +1,37 @@
+{
+  "online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5 USDC"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer",
+    "interpolatedIntent": "Transfer 1.5 USDC to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+  },
+  "offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer",
+    "interpolatedIntent": null
+  },
+  "unknownDiscriminator": null,
+  "truncated": null,
+  "foreignProgram": null
+}

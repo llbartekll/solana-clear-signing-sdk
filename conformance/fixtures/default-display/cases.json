@@ -1,0 +1,10 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "KgAAAAAAAAA=",
+  "accounts": [],
+  "scenarios": [
+    {
+      "name": "defaultDisplay"
+    }
+  ]
+}

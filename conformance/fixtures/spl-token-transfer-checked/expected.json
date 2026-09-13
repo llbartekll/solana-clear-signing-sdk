@@ -1,0 +1,142 @@
+{
+  "online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": "Transfer 1.5 tokens of mint EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+  },
+  "offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": null
+  },
+  "missingAccount": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": null
+  },
+  "multisig": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Multi Signers #1",
+        "value": "Stake11111111111111111111111111111111111111"
+      },
+      {
+        "label": "Multi Signers #2",
+        "value": "Config1111111111111111111111111111111111111"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": "Transfer 1.5 tokens of mint EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+  },
+  "unknownDiscriminator": null,
+  "truncated": null,
+  "foreignProgram": null,
+  "trailingInstructionByte": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": "Transfer 1.5 tokens of mint EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+  },
+  "trailingMintByte": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": "Transfer 1.5 tokens of mint EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+  },
+  "truncatedMint": {
+    "error": "accountDecode"
+  },
+  "foreignOwner": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": "Transfer 1.5 tokens of mint EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "expanded": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "assign",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "owners",
+        "element": 0,
+        "fieldIndex": 0,
+        "member": null
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "owners",
+        "element": 1,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "owners",
+        "element": 2,
+        "fieldIndex": 2,
+        "member": null
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "argument": "owners",
+        "element": 3,
+        "fieldIndex": 3,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "single",
+        "element": 0,
+        "fieldIndex": 4,
+        "member": null
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "maybeOwners",
+        "element": 0,
+        "fieldIndex": 7,
+        "member": null
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "argument": "maybeOwners",
+        "element": 1,
+        "fieldIndex": 8,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "optionalItems",
+        "element": 0,
+        "fieldIndex": 9,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "maybeNone": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "assign",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "owners",
+        "element": 0,
+        "fieldIndex": 0,
+        "member": null
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "owners",
+        "element": 1,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "owners",
+        "element": 2,
+        "fieldIndex": 2,
+        "member": null
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "argument": "owners",
+        "element": 3,
+        "fieldIndex": 3,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "single",
+        "element": 0,
+        "fieldIndex": 4,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "optionalItems",
+        "element": 0,
+        "fieldIndex": 8,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "trailingBytes": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "assign",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "owners",
+        "element": 0,
+        "fieldIndex": 0,
+        "member": null
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "argument": "owners",
+        "element": 1,
+        "fieldIndex": 1,
+        "member": null
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "owners",
+        "element": 2,
+        "fieldIndex": 2,
+        "member": null
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "argument": "owners",
+        "element": 3,
+        "fieldIndex": 3,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "single",
+        "element": 0,
+        "fieldIndex": 4,
+        "member": null
+      },
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "argument": "maybeOwners",
+        "element": 0,
+        "fieldIndex": 7,
+        "member": null
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "argument": "maybeOwners",
+        "element": 1,
+        "fieldIndex": 8,
+        "member": null
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "argument": "optionalItems",
+        "element": 0,
+        "fieldIndex": 9,
+        "member": null
+      }
+    ],
+    "times": []
+  },
+  "truncated": null
+}

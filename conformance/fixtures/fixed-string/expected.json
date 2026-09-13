@@ -1,0 +1,218 @@
+{
+  "plain": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "hello"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"meta\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "embeddedNul": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "hello"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"meta\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "invalidUtf8": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "��a"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"�a\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "bom": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "ab"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"﻿a\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "allNul": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": ""
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "truncated": null,
+  "trailingBytes": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "hello"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"meta\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "inStructEscaped": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "a\"b"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"\\\"a\\u0001\\\\\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  },
+  "unitFromStringField": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "hello"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"meta\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1.5 USDC"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": "Label hello as {\"name\":\"meta\",\"rank\":3} for 1.5 USDC"
+  },
+  "unitNulOnly": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "hello"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"meta\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1.5"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": "Label hello as {\"name\":\"meta\",\"rank\":3} for 1.5"
+  },
+  "truncatedMarket": {
+    "error": "accountDecode"
+  },
+  "unicode": {
+    "fields": [
+      {
+        "label": "Name",
+        "value": "złoty€"
+      },
+      {
+        "label": "Params",
+        "value": "{\"name\":\"é\",\"rank\":3}"
+      },
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Label",
+    "interpolatedIntent": null
+  }
+}

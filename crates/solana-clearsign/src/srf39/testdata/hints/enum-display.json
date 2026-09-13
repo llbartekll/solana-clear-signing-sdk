@@ -1,0 +1,228 @@
+{
+  "enumAccountFieldAsDecimals": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "status",
+          "resolved": 1
+        },
+        "degraded": false,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      },
+      {
+        "argument": "maybeFee",
+        "decimals": {
+          "kind": "literal",
+          "value": 2
+        },
+        "degraded": false,
+        "fieldIndex": 4,
+        "member": null,
+        "rawValue": "250",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "tradeByStatus",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 2,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "labelled": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      },
+      {
+        "argument": "maybeFee",
+        "decimals": {
+          "kind": "literal",
+          "value": 2
+        },
+        "degraded": false,
+        "fieldIndex": 4,
+        "member": null,
+        "rawValue": "250",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "trade",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "online": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": 2
+        },
+        "degraded": false,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      },
+      {
+        "argument": "maybeFee",
+        "decimals": {
+          "kind": "literal",
+          "value": 2
+        },
+        "degraded": false,
+        "fieldIndex": 4,
+        "member": null,
+        "rawValue": "250",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "trade",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 2,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "titleCased": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 5,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "trade",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null,
+  "unknownVariant": null,
+  "unknownVariantInOption": null,
+  "unknownVariantInStruct": null
+}

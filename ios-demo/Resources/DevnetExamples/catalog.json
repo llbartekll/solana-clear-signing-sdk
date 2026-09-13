@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 2,
+  "cluster": "devnet",
+  "programId": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+  "programName": "Subscriptions",
+  "rpc": {
+    "kind": "public",
+    "endpoint": "https://api.devnet.solana.com"
+  },
+  "tokenRegistryFile": "token-registry-devnet.json",
+  "extraSnapshotAddresses": [
+    "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+  ],
+  "examples": [
+    {
+      "id": "init-subscription-authority",
+      "instruction": "initSubscriptionAuthority",
+      "title": "Enable Subscriptions",
+      "summary": "Grant the Subscriptions program an unlimited allowance on a USDC token account, capped by the delegations approved later.",
+      "signature": "3JBmTUv3dPXHv6U3giZvZSPoe638vNwPpwqswM7fpJfLtiktCf6vZKabHKJ8gehJtfmXyEb7Vo3g5kDDP5HgzTTi",
+      "slot": 492143243,
+      "version": "v0",
+      "instructionIndex": 2,
+      "opcode": 0,
+      "snapshotAccountPositions": [
+        1
+      ],
+      "transactionFile": "init-subscription-authority.json"
+    },
+    {
+      "id": "create-fixed-delegation",
+      "instruction": "createFixedDelegation",
+      "title": "Fixed Delegation",
+      "summary": "Authorize a spender to withdraw up to a fixed total allowance.",
+      "signature": "3ei8n9uxkdo11Dn5m2VZvz7CmqxGYXjgYiqtvv2SZLb4XLrt3kiMinQ6B6WQ9G5a8LSBFiMbaMnp6oknkU4s9tiL",
+      "slot": 497580882,
+      "version": "v0",
+      "instructionIndex": 0,
+      "opcode": 1,
+      "snapshotAccountPositions": [
+        1
+      ],
+      "transactionFile": "create-fixed-delegation.json",
+      "expectedMint": "CG5CDWWQzf8qvkv1BmWTTwcbeg6yzExKUAC3b4KQ4ajU"
+    },
+    {
+      "id": "create-recurring-delegation",
+      "instruction": "createRecurringDelegation",
+      "title": "Recurring Delegation",
+      "summary": "Authorize a spender to withdraw up to an allowance each period.",
+      "signature": "c3AhGdrCgokH9LNgwe5dHoi3gLsqpHVkn6rdp7BeN4woKGC1MfzJtLTd6FwM7HvpMPKK3x6xWhbghw7gabgyKwP",
+      "slot": 496018103,
+      "version": "v0",
+      "instructionIndex": 0,
+      "opcode": 2,
+      "snapshotAccountPositions": [],
+      "transactionFile": "create-recurring-delegation.json"
+    },
+    {
+      "id": "revoke-delegation",
+      "instruction": "revokeDelegation",
+      "title": "Revoke Delegation",
+      "summary": "Revoke a delegation and stop future withdrawals; closes the delegation account.",
+      "signature": "65VeZXh8F51TifiMWeJ5NUDrf4X7wU1JzpvUf84gXBmvbnxhGn1KizZDwquDNbHV1a8bEyWwMhZ9yYMxsby5ZLCQ",
+      "slot": 496291387,
+      "version": "v0",
+      "instructionIndex": 0,
+      "opcode": 3,
+      "snapshotAccountPositions": [],
+      "transactionFile": "revoke-delegation.json"
+    },
+    {
+      "id": "subscribe",
+      "instruction": "subscribe",
+      "title": "Subscribe",
+      "summary": "Subscribe to a merchant plan: the expected mint, amount and period are consented to in the instruction data.",
+      "signature": "o617TpVgT6NHgnuwLUVpWB3bmn1pkALsiRKE9BBfeTuMaK9hmayi5yEMYiERRgVyqioQucK4bZebwxo7X5CzBXv",
+      "slot": 493030362,
+      "version": "v0",
+      "instructionIndex": 0,
+      "opcode": 11,
+      "snapshotAccountPositions": [
+        2,
+        4
+      ],
+      "transactionFile": "subscribe.json"
+    },
+    {
+      "id": "revoke-subscription-authority",
+      "instruction": "revokeSubscriptionAuthority",
+      "title": "Revoke Subscription Authority",
+      "summary": "Withdraw the Subscriptions program's unlimited allowance on a USDC token account (kill switch).",
+      "signature": "3vNqGyCj9tLobDKaaKSyLaPPRqBWeRTR4JNHRiG7ciMWe31XYWX7Aw3z1MrRzZ1FVU8GhRNFLGxNBRF5aG7FWXny",
+      "slot": 495058202,
+      "version": "v0",
+      "instructionIndex": 0,
+      "opcode": 14,
+      "snapshotAccountPositions": [],
+      "transactionFile": "revoke-subscription-authority.json"
+    },
+    {
+      "id": "transfer-recurring",
+      "instruction": "transferRecurring",
+      "title": "Collect a Recurring Payment",
+      "summary": "Collect a payment under an existing delegation. The mint account supplies the token decimals.",
+      "signature": "5H7Y9taKjdXUcXrLeTifRWcumKGVTqYjpKytnakGkCUBe61HFbKoVnkF3QeBSKMWgnVqN7UurfQQcPun3neih9Mm",
+      "slot": 496085504,
+      "version": "v0",
+      "instructionIndex": 0,
+      "opcode": 5,
+      "snapshotAccountPositions": [
+        4
+      ],
+      "transactionFile": "transfer-recurring.json"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "foreignProgram": null,
+  "offline": {
+    "accounts": [
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Source",
+        "linkedAccount": null,
+        "name": "source"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "To",
+        "linkedAccount": null,
+        "name": "destination"
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authority",
+        "linkedAccount": null,
+        "name": "authority"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "literal",
+          "value": "USDC"
+        }
+      }
+    ],
+    "instructionName": "transferChecked",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "online": {
+    "accounts": [
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Source",
+        "linkedAccount": null,
+        "name": "source"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      },
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 1,
+        "label": "To",
+        "linkedAccount": null,
+        "name": "destination"
+      },
+      {
+        "address": "Vote111111111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Authority",
+        "linkedAccount": null,
+        "name": "authority"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "literal",
+          "value": "USDC"
+        }
+      }
+    ],
+    "instructionName": "transferChecked",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 1,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null,
+  "unknownDiscriminator": null
+}

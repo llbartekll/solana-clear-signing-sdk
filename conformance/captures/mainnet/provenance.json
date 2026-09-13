@@ -1,0 +1,49 @@
+{
+  "capturedAt": "2026-09-04T12:45:30.762Z",
+  "rpc": {
+    "accountConfig": {
+      "commitment": "finalized",
+      "encoding": "base64"
+    },
+    "accountMethod": "getAccountInfo",
+    "provider": "Alchemy Solana Mainnet",
+    "transactionConfig": {
+      "commitment": "finalized",
+      "encoding": "json",
+      "maxSupportedTransactionVersion": 0
+    },
+    "transactionMethod": "getTransaction"
+  },
+  "transactions": {
+    "approve-checked": {
+      "blockTime": 1651246775,
+      "resultSha256": "d2155d0f75b8d502b05a76415267b24260906a3a0d884c3e5897f72e29a4057f",
+      "slot": 131820421
+    },
+    "burn-checked": {
+      "blockTime": 1754483579,
+      "resultSha256": "152a3941b7dd9c0e50c76e72f77223a26f021592137b6bb144fd3e0e5ab959f1",
+      "slot": 358249832
+    },
+    "close-account": {
+      "blockTime": 1672400975,
+      "resultSha256": "1d7c0c48d4ae5c6722e5caab7513154c675ce55062472c009f893cab9f47de19",
+      "slot": 169876543
+    },
+    "mint-to-checked": {
+      "blockTime": 1735093517,
+      "resultSha256": "8028b5d94604f0c62c23a006e80f88bf1bccb90b1956aa48f43433f986e50df1",
+      "slot": 309625827
+    },
+    "revoke": {
+      "blockTime": 1658310466,
+      "resultSha256": "45e895795c95196f86f77ee14d16baa028d525f32af1ed82b90136340aac0d99",
+      "slot": 142345678
+    },
+    "transfer-checked": {
+      "blockTime": 1788521091,
+      "resultSha256": "bbbac6e4d30884cca2382027eca4c5d5e8ca2705da86832b3b6d535291205948",
+      "slot": 444233115
+    }
+  }
+}

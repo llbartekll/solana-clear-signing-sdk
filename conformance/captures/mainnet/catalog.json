@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 2,
+  "cluster": "mainnet-beta",
+  "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "programName": "SPL Token",
+  "rpc": {
+    "kind": "alchemy"
+  },
+  "tokenRegistryFile": "token-registry-mainnet.json",
+  "examples": [
+    {
+      "id": "transfer-checked",
+      "instruction": "transferChecked",
+      "title": "Transfer Checked",
+      "summary": "Transfer tokens with the mint and decimal precision checked by the program.",
+      "signature": "5ofTS1vSSkWo8uKWh5CPwVmgZcu3no9Lvb1HrEZyzvvqGvBXUHEaGf7PnPu92W4vtM5DrS4rEkuWnyxY2fqC4t3z",
+      "slot": 444233115,
+      "version": "v0",
+      "instructionIndex": 2,
+      "opcode": 12,
+      "transactionFile": "transfer-checked.json",
+      "snapshotAccountPositions": [
+        1
+      ]
+    },
+    {
+      "id": "approve-checked",
+      "instruction": "approveChecked",
+      "title": "Approve Checked",
+      "summary": "Allow a delegate to spend a checked token amount.",
+      "signature": "cydjoM8hT6FG6DrChTVQjKATAP4SuELKToiFCM2XqgFxXRnCooVPQB1qPCAKQ6iKqiQFukjK96UTmVdYF36R2MC",
+      "slot": 131820421,
+      "version": "legacy",
+      "instructionIndex": 0,
+      "opcode": 13,
+      "transactionFile": "approve-checked.json",
+      "snapshotAccountPositions": [
+        1
+      ]
+    },
+    {
+      "id": "mint-to-checked",
+      "instruction": "mintToChecked",
+      "title": "Mint To Checked",
+      "summary": "Mint a checked token amount to a token account.",
+      "signature": "5CKqQj4BenuXHroMVwcPWVx7tD1fyJfdZJeDq7j7fZg5GTAfXn6PJ9cyETTchw5AroLy1e5EMPCvBS3hMyMxkZkZ",
+      "slot": 309625827,
+      "version": "v0",
+      "instructionIndex": 5,
+      "opcode": 14,
+      "transactionFile": "mint-to-checked.json",
+      "snapshotAccountPositions": [
+        0
+      ]
+    },
+    {
+      "id": "burn-checked",
+      "instruction": "burnChecked",
+      "title": "Burn Checked",
+      "summary": "Burn a checked token amount from a token account.",
+      "signature": "5xc7Ju7LTcthtrxBroDfvRFfzzARt6ve83Z3QuJnjUHw7cxh5wz3rhvrZAux3Q7A54eDMQ4v2GieXzWjeYHn1SeS",
+      "slot": 358249832,
+      "version": "legacy",
+      "instructionIndex": 0,
+      "opcode": 15,
+      "transactionFile": "burn-checked.json",
+      "snapshotAccountPositions": [
+        1
+      ]
+    },
+    {
+      "id": "close-account",
+      "instruction": "closeAccount",
+      "title": "Close Account",
+      "summary": "Close a token account and return its remaining SOL.",
+      "signature": "46b5hfKza6SXwaSRvusv1Vf52WDq8Wv6vFxwzeCPUSNdb1mdCQNci44F9wabwqsV6r7xtH8E5tUUURjEjsYBedtU",
+      "slot": 169876543,
+      "version": "legacy",
+      "instructionIndex": 1,
+      "opcode": 9,
+      "transactionFile": "close-account.json"
+    },
+    {
+      "id": "revoke",
+      "instruction": "revoke",
+      "title": "Revoke",
+      "summary": "Remove a delegate's authority over a token account.",
+      "signature": "qRovmvLsJzKCcdUde7vH3TrHxeckMiKQaopwnycRvEDUSH523hQ1pkJD2dFDYbSD8rvKVHarNihBhuQRz1Rudqr",
+      "slot": 142345678,
+      "version": "legacy",
+      "instructionIndex": 2,
+      "opcode": 5,
+      "transactionFile": "revoke.json"
+    }
+  ]
+}

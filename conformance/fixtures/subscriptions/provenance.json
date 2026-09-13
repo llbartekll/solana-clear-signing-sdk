@@ -1,0 +1,45 @@
+{
+  "accountSnapshot": {
+    "address": "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+    "capturedFrom": "vendor/fixtures/recurring_delegation_devnet.json (devnet, 2026-07-03)",
+    "dataSha256": "0de026fb0fe18b99f89d4bebdd73701ba846e35044ad3dcc698afd21d3e833f5",
+    "owner": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+    "space": 106
+  },
+  "derivation": {
+    "codama": "1.10.2",
+    "displaySpec": "display.json",
+    "displaySpecSha256": "2f985b39b487dff8fcd7aa381ab943fab8f6b475d35edd8676587f3ba123a83c",
+    "rootVersion": "1.8.0",
+    "rootVersionNote": "Set by @codama/nodes CODAMA_VERSION when visitors rebuild the root; the pristine IDL says 1.0.0.",
+    "tool": "conformance/oracle/author_subscriptions.mjs",
+    "visitors": [
+      "unwrapDefinedTypesVisitor([createFixedDelegationData, createRecurringDelegationData, transferData, planData, updatePlanData, subscribeData])",
+      "flattenInstructionDataArgumentsVisitor()",
+      "decorate(display.json)"
+    ]
+  },
+  "idl": {
+    "commit": "594316da4fd2b7d998f2c2086b3cc6741aba0508",
+    "generatedBy": "program build.rs (#[codama] attributes)",
+    "path": "idl/subscriptions.json",
+    "programVersion": "0.1.0",
+    "repository": "https://github.com/solana-program/subscriptions",
+    "sourceSha256": "ad90a04709e3c314d3bcd2516f1b85f4f98ae76e294a912fc12f72b8b4823e80",
+    "vendoredCopy": "vendor/idl/subscriptions.json"
+  },
+  "linkedMintLayout": {
+    "account": "mint",
+    "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+    "source": "conformance/fixtures/spl-token-instructions/root.json",
+    "sourceSha256": "472f41c79165064ba7bd7cd8623d0b730a227b6bfc12faca77dc8e4702b7bdc1"
+  },
+  "notes": [
+    "Wire layouts, discriminators, accounts, pdas, errors and defaultValues are the pristine IDL’s; standard display nodes and the namespaced x-solana-clearsign token amount binding were added.",
+    "Transfer amounts resolve decimals from the instruction’s tokenMint account through a cross-program accountLink and providedNode. The additional Token program supplies only the full Mint account layout, with no Token instructions.",
+    "Delegation approvals have no mint account; subscribe carries expectedMint as an argument. Their decimals remain unavailable to the pinned Codama display reference, so those amounts render as `<raw> (raw)`.",
+    "The SDK additionally presents subscribe.expectedAmount using tokenMetadata(expectedMint).decimals; this extension does not change the pinned reference output.",
+    "No accountLink is declared on subscriptionAuthority: nothing in the display could use its contents."
+  ],
+  "rootSha256": "cc87288e11096693b615765856d4da686836d1f2e260fff3b0ba9409d55fa448"
+}

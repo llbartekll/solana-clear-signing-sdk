@@ -1,0 +1,120 @@
+{
+  "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "dataBase64": "DGDjFgAAAAAABg==",
+  "accounts": [
+    {
+      "address": "SysvarRent111111111111111111111111111111111",
+      "role": "writable"
+    },
+    {
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "role": "readonly"
+    },
+    {
+      "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+      "role": "writable"
+    },
+    {
+      "address": "Vote111111111111111111111111111111111111111",
+      "role": "readonlySigner"
+    }
+  ],
+  "accountData": {
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {
+      "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "dataBase64": "AQAAAJj+huiNm+Lqi8HMpIeLKYjCQPUrhCS/tA7Rot3LXhmbGvM/TL24GgAGAQEAAABicKqKWcWUBbRShshncubNEm6bil06OFNtN/e0FOi2Zw=="
+    }
+  },
+  "scenarios": [
+    {
+      "name": "online",
+      "fetchAccounts": true
+    },
+    {
+      "name": "offline"
+    },
+    {
+      "name": "missingAccount",
+      "fetchAccounts": true,
+      "accountData": {}
+    },
+    {
+      "name": "multisig",
+      "fetchAccounts": true,
+      "accounts": [
+        {
+          "address": "SysvarRent111111111111111111111111111111111",
+          "role": "writable"
+        },
+        {
+          "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "role": "readonly"
+        },
+        {
+          "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+          "role": "writable"
+        },
+        {
+          "address": "Vote111111111111111111111111111111111111111",
+          "role": "readonly"
+        },
+        {
+          "address": "Stake11111111111111111111111111111111111111",
+          "role": "readonlySigner"
+        },
+        {
+          "address": "Config1111111111111111111111111111111111111",
+          "role": "readonlySigner"
+        }
+      ]
+    },
+    {
+      "name": "unknownDiscriminator",
+      "dataBase64": "DWDjFgAAAAAABg=="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "DA=="
+    },
+    {
+      "name": "foreignProgram",
+      "programAddress": "11111111111111111111111111111111"
+    },
+    {
+      "name": "trailingInstructionByte",
+      "dataBase64": "DGDjFgAAAAAABgA=",
+      "fetchAccounts": true
+    },
+    {
+      "name": "trailingMintByte",
+      "fetchAccounts": true,
+      "accountData": {
+        "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {
+          "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "dataBase64": "AQAAAJj+huiNm+Lqi8HMpIeLKYjCQPUrhCS/tA7Rot3LXhmbGvM/TL24GgAGAQEAAABicKqKWcWUBbRShshncubNEm6bil06OFNtN/e0FOi2ZwA="
+        }
+      }
+    },
+    {
+      "name": "truncatedMint",
+      "fetchAccounts": true,
+      "expectedError": "accountDecode",
+      "accountData": {
+        "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {
+          "programAddress": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "dataBase64": "AQAAAJj+huiNm+Lqi8HMpIeLKYjCQPUrhCS/tA7Rot3LXhmbGvM/TL24GgAGAQEAAABicKqKWcWUBbRShshncubNEm6bil06OFNtN/e0FOi2"
+        }
+      }
+    },
+    {
+      "name": "foreignOwner",
+      "fetchAccounts": true,
+      "accountData": {
+        "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "AQAAAJj+huiNm+Lqi8HMpIeLKYjCQPUrhCS/tA7Rot3LXhmbGvM/TL24GgAGAQEAAABicKqKWcWUBbRShshncubNEm6bil06OFNtN/e0FOi2Zw=="
+        }
+      }
+    }
+  ]
+}

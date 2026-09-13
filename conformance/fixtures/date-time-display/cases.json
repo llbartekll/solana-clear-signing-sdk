@@ -1,0 +1,63 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+  "accounts": [],
+  "scenarios": [
+    {
+      "name": "epoch",
+      "dataBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+    },
+    {
+      "name": "reference",
+      "dataBase64": "Ab9M/GgAAAAAGMqLGZoBAADw5HX/BBAAAA=="
+    },
+    {
+      "name": "negativeSecond",
+      "dataBase64": "Af////////////////////8AAAAAAAAAAA=="
+    },
+    {
+      "name": "maxValid",
+      "dataBase64": "AQCAIajbBwAAAADcwgiyHgAAAJicV/QyAQ=="
+    },
+    {
+      "name": "overMax",
+      "dataBase64": "AQGAIajbBwAAAQDcwgiyHgAQJ5icV/QyAQ=="
+    },
+    {
+      "name": "minValid",
+      "dataBase64": "AQCA3lck+P//AAAkPfdN4f8AAAAAAAAAAA=="
+    },
+    {
+      "name": "underMin",
+      "dataBase64": "Af9/3lck+P////8jPfdN4f8AAAAAAAAAAA=="
+    },
+    {
+      "name": "i64Extremes",
+      "dataBase64": "Af////////9/AAAAAAAAAID//////////w=="
+    },
+    {
+      "name": "msFraction",
+      "dataBase64": "AQEAAAAAAAAA3AUAAAAAAAAPAAAAAAAAAA=="
+    },
+    {
+      "name": "rounding2p53",
+      "dataBase64": "AQEAAAAAACAAAQAAAAAAIAABAAAAAAAgAA=="
+    },
+    {
+      "name": "upstreamRawCase",
+      "dataBase64": "Af9/xqR+jQMAAAAAAAAAAAAAAAAAAAAAAA=="
+    },
+    {
+      "name": "yearBoundaries",
+      "dataBase64": "AYBB9P86AAAAAKD7kHXH///wcD41rgAJAA=="
+    },
+    {
+      "name": "negativeExpandedYear",
+      "dataBase64": "Af+Di4bx////GJz7kHXH//8AAAAAAAAAAA=="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    }
+  ]
+}

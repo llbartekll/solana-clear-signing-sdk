@@ -1,0 +1,139 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "configure",
+        "optionalAccountStrategy": "programId",
+        "accounts": [],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 1
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": {
+              "kind": "structTypeNode",
+              "fields": [
+                {
+                  "kind": "structFieldTypeNode",
+                  "name": "price",
+                  "type": {
+                    "kind": "numberTypeNode",
+                    "format": "u64",
+                    "endian": "le"
+                  }
+                },
+                {
+                  "kind": "structFieldTypeNode",
+                  "name": "qty",
+                  "type": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
+                },
+                {
+                  "kind": "structFieldTypeNode",
+                  "name": "owner",
+                  "type": {
+                    "kind": "publicKeyTypeNode"
+                  }
+                },
+                {
+                  "kind": "structFieldTypeNode",
+                  "name": "flag",
+                  "type": {
+                    "kind": "booleanTypeNode",
+                    "size": {
+                      "kind": "numberTypeNode",
+                      "format": "u8",
+                      "endian": "le"
+                    }
+                  }
+                },
+                {
+                  "kind": "structFieldTypeNode",
+                  "name": "memo",
+                  "type": {
+                    "kind": "optionTypeNode",
+                    "item": {
+                      "kind": "numberTypeNode",
+                      "format": "u32",
+                      "endian": "le"
+                    },
+                    "prefix": {
+                      "kind": "numberTypeNode",
+                      "format": "u32",
+                      "endian": "le"
+                    },
+                    "fixed": true
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maxURLSize",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le",
+              "display": {
+                "kind": "amountNumberDisplayNode",
+                "decimals": {
+                  "kind": "numberValueNode",
+                  "number": 2
+                }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "intent": "Configure",
+          "interpolatedIntent": "Configure with ${data.params}, limit ${data.maxURLSize}, fee ${data.amount}"
+        }
+      }
+    ]
+  }
+}

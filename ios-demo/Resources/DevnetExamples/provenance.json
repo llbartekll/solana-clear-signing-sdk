@@ -1,0 +1,58 @@
+{
+  "capturedAt": "2026-09-11T08:00:17.660Z",
+  "rpc": {
+    "accountConfig": {
+      "commitment": "finalized",
+      "encoding": "base64"
+    },
+    "accountMethod": "getAccountInfo",
+    "discoveryMethod": "getSignaturesForAddress",
+    "endpoint": "https://api.devnet.solana.com",
+    "provider": "Solana public devnet",
+    "transactionConfig": {
+      "commitment": "finalized",
+      "encoding": "json",
+      "maxSupportedTransactionVersion": 0
+    },
+    "transactionMethod": "getTransaction"
+  },
+  "transactions": {
+    "create-fixed-delegation": {
+      "blockTime": 1789280754,
+      "capturedAt": "2026-09-13T09:01:02.202Z",
+      "resultSha256": "cb2a4ede0f6d268e109966176005e34eca51be5938a464a11d99d1974237a096",
+      "slot": 497580882
+    },
+    "create-recurring-delegation": {
+      "blockTime": 1789021957,
+      "resultSha256": "2d520c23cec2aa340854b40ed7e1a796637585759c8685540c4f915e3b1fa87a",
+      "slot": 496018103
+    },
+    "init-subscription-authority": {
+      "blockTime": 1788379690,
+      "resultSha256": "56d9412cc82fa98f3262a9ce9d52d7be1102e7149566e8760f98c12a7115f6ee",
+      "slot": 492143243
+    },
+    "revoke-delegation": {
+      "blockTime": 1789067280,
+      "resultSha256": "9af219085db5ded7013d93a49b97f707d65528343aad6ee970e1cb6f070676b5",
+      "slot": 496291387
+    },
+    "revoke-subscription-authority": {
+      "blockTime": 1788862833,
+      "resultSha256": "370f37b9ff1d57a2e476d6dd9751d24ecac6949454efe410fd8b636556e150cf",
+      "slot": 495058202
+    },
+    "subscribe": {
+      "blockTime": 1788526744,
+      "resultSha256": "667d1f5c5181539b9f36ccacf373cad77a050df2aa702f72f42fa3dcf9bc5361",
+      "slot": 493030362
+    },
+    "transfer-recurring": {
+      "blockTime": 1789033123,
+      "capturedAt": "2026-09-12T10:57:45.268Z",
+      "resultSha256": "b1f17a181455ef2ecfe169f468d0a98c3176837fb5ab5824535a5c3cf0944720",
+      "slot": 496085504
+    }
+  }
+}

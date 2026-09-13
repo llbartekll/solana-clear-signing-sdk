@@ -1,0 +1,41 @@
+{
+  "online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "2.5"
+      },
+      {
+        "label": "Params",
+        "value": "{\"price\":\"99\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"tag\":{\"code\":3}}"
+      }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 2.5 with {\"price\":\"99\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"tag\":{\"code\":3}}"
+  },
+  "offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "2500000 (raw)"
+      },
+      {
+        "label": "Params",
+        "value": "{\"price\":\"99\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"tag\":{\"code\":3}}"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+  },
+  "truncatedMint": {
+    "error": "accountDecode"
+  },
+  "truncated": null,
+  "unknownDiscriminator": null,
+  "foreignProgram": null,
+  "addressedToAdditionalProgram": null
+}

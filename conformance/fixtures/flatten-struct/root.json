@@ -1,0 +1,413 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "orderArgs",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "price",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le",
+                "display": {
+                  "kind": "amountNumberDisplayNode",
+                  "decimals": {
+                    "kind": "injectedValueNode",
+                    "key": "decimals"
+                  }
+                }
+              },
+              "display": {
+                "kind": "structFieldDisplayNode",
+                "label": "Price"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "size",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "owner",
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "keys",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": {
+                  "kind": "publicKeyTypeNode"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 2
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "inner",
+              "type": {
+                "kind": "definedTypeLinkNode",
+                "name": "inner"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "hidden",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              },
+              "display": {
+                "kind": "structFieldDisplayNode",
+                "skip": "always"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "type": {
+                "kind": "publicKeyTypeNode"
+              },
+              "display": {
+                "kind": "structFieldDisplayNode",
+                "skip": "whenInjected"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expiresAt",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "i64",
+                "endian": "le",
+                "display": {
+                  "kind": "dateTimeNumberDisplayNode"
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "maybe",
+              "type": {
+                "kind": "optionTypeNode",
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                },
+                "fixed": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "inner",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "a",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "mint",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "decimals",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "placeOrder",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isSigner": false,
+            "isWritable": false,
+            "isOptional": false,
+            "accountLink": {
+              "kind": "accountLinkNode",
+              "name": "mint"
+            },
+            "display": {
+              "kind": "instructionAccountDisplayNode",
+              "label": "Token Mint",
+              "skip": "whenInjected"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 1
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "args",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "orderArgs"
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "flatten": true,
+              "flattenPrefix": "args."
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [
+          {
+            "kind": "providedNode",
+            "name": "decimals",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "mint",
+              "path": "decimals"
+            }
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Place ${data.args}"
+        }
+      },
+      {
+        "kind": "instructionNode",
+        "name": "maybeOrder",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isSigner": false,
+            "isWritable": false,
+            "isOptional": false,
+            "accountLink": {
+              "kind": "accountLinkNode",
+              "name": "mint"
+            },
+            "display": {
+              "kind": "instructionAccountDisplayNode",
+              "label": "Token Mint",
+              "skip": "whenInjected"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 2
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "args",
+            "type": {
+              "kind": "optionTypeNode",
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "orderArgs"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              },
+              "fixed": true
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "flatten": true,
+              "label": "Args"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [
+          {
+            "kind": "providedNode",
+            "name": "decimals",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "mint",
+              "path": "decimals"
+            }
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Maybe ${data.args}"
+        }
+      },
+      {
+        "kind": "instructionNode",
+        "name": "plainOrder",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isSigner": false,
+            "isWritable": false,
+            "isOptional": false,
+            "accountLink": {
+              "kind": "accountLinkNode",
+              "name": "mint"
+            },
+            "display": {
+              "kind": "instructionAccountDisplayNode",
+              "label": "Token Mint",
+              "skip": "whenInjected"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 3
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "args",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "orderArgs"
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "label": "Order"
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [
+          {
+            "kind": "providedNode",
+            "name": "decimals",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "mint",
+              "path": "decimals"
+            }
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Plain ${data.args}"
+        }
+      }
+    ]
+  }
+}

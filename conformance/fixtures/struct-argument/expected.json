@@ -1,0 +1,40 @@
+{
+  "some": {
+    "fields": [
+      {
+        "label": "Params",
+        "value": "{\"price\":\"1500000\",\"qty\":7,\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"flag\":true,\"memo\":{\"__option\":\"Some\",\"value\":5}}"
+      },
+      {
+        "label": "Max U R L Size",
+        "value": "200"
+      },
+      {
+        "label": "Amount",
+        "value": "123.45"
+      }
+    ],
+    "intent": "Configure",
+    "interpolatedIntent": "Configure with {\"price\":\"1500000\",\"qty\":7,\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"flag\":true,\"memo\":{\"__option\":\"Some\",\"value\":5}}, limit 200, fee 123.45"
+  },
+  "none": {
+    "fields": [
+      {
+        "label": "Params",
+        "value": "{\"price\":\"1500000\",\"qty\":7,\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"flag\":true,\"memo\":{\"__option\":\"None\"}}"
+      },
+      {
+        "label": "Max U R L Size",
+        "value": "200"
+      },
+      {
+        "label": "Amount",
+        "value": "123.45"
+      }
+    ],
+    "intent": "Configure",
+    "interpolatedIntent": "Configure with {\"price\":\"1500000\",\"qty\":7,\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"flag\":true,\"memo\":{\"__option\":\"None\"}}, limit 200, fee 123.45"
+  },
+  "truncated": null,
+  "unknownDiscriminator": null
+}

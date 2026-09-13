@@ -1,0 +1,500 @@
+{
+  "allNul": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "bom": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "embeddedNul": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "inStructEscaped": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "invalidUtf8": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "plain": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "trailingBytes": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null,
+  "truncatedMarket": {
+    "error": "accountDecode"
+  },
+  "unicode": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "unitFromStringField": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": "USDC"
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 9,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "unitNulOnly": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Market",
+        "linkedAccount": "market",
+        "name": "market"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 2,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "account": "market",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "market",
+          "path": "symbol",
+          "resolved": null
+        }
+      }
+    ],
+    "instructionName": "label",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 9,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  }
+}

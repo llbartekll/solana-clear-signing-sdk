@@ -1,0 +1,14 @@
+{
+    "accounts": [
+        "DACvfJe1M1iba8iujuRPyQbsqsAFGfYACtoNUioNDpLx",
+        "14JMZjqE8eia4f2gebqaZoPDyucr4gckMWJhNP81mL9h",
+        "5veyarfV2hW5DVLSNoyEcA2tFuamhRVigJR1KRf5UhTS",
+        "H2AKtcQ4V75samMBisdhLEsLbP7djbrxamMTyKpHNzsd",
+        "11111111111111111111111111111111"
+    ],
+    "authorityAccountDataB64": "ALSn9EkqxjK0KcrD6HXjMz229YLn1D3M7/mWv892rI3RO0Qss5EhV/E6kz0BNCgtAytf/s0Botvxt3kGCN8ALqcwHebYyh/TYen5PeQSCt8zid1NNfWcNC4LGZ5gtioKfP/3VR4cAAAAAA==",
+    "authorityAccountOwner": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+    "instructionDataHex": "020700000000000000404b4c0000000000007512000000000000000000000000000000000000000000f7551e1c00000000",
+    "programId": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+    "usdcMint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU"
+}

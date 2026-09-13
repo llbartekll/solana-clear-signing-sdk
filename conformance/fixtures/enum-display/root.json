@@ -1,0 +1,371 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "side",
+        "type": {
+          "kind": "enumTypeNode",
+          "size": {
+            "kind": "numberTypeNode",
+            "format": "u8",
+            "endian": "le"
+          },
+          "variants": [
+            {
+              "kind": "enumEmptyVariantTypeNode",
+              "name": "buy",
+              "discriminator": 0,
+              "display": {
+                "kind": "enumVariantDisplayNode",
+                "label": "Buy Order"
+              }
+            },
+            {
+              "kind": "enumEmptyVariantTypeNode",
+              "name": "sellNow",
+              "discriminator": 1
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "order",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "side",
+              "type": {
+                "kind": "definedTypeLinkNode",
+                "name": "side"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "qty",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "market",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "status",
+              "type": {
+                "kind": "definedTypeLinkNode",
+                "name": "side"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "decimals",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "trade",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "market",
+            "isSigner": false,
+            "isWritable": false,
+            "isOptional": false,
+            "accountLink": {
+              "kind": "accountLinkNode",
+              "name": "market"
+            },
+            "display": {
+              "kind": "instructionAccountDisplayNode",
+              "skip": "whenInjected"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 3
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "side",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "side"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "order"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le",
+              "display": {
+                "kind": "amountNumberDisplayNode",
+                "decimals": {
+                  "kind": "injectedValueNode",
+                  "key": "decimals"
+                }
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maybeSide",
+            "type": {
+              "kind": "optionTypeNode",
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "side"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              },
+              "fixed": true
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maybeFee",
+            "type": {
+              "kind": "optionTypeNode",
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le",
+                "display": {
+                  "kind": "amountNumberDisplayNode",
+                  "decimals": {
+                    "kind": "numberValueNode",
+                    "number": 2
+                  }
+                }
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              },
+              "fixed": true
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [
+          {
+            "kind": "providedNode",
+            "name": "decimals",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "market",
+              "path": "decimals"
+            }
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Trade ${data.side} ${data.params}"
+        }
+      },
+      {
+        "kind": "instructionNode",
+        "name": "tradeByStatus",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "market",
+            "isSigner": false,
+            "isWritable": false,
+            "isOptional": false,
+            "accountLink": {
+              "kind": "accountLinkNode",
+              "name": "market"
+            },
+            "display": {
+              "kind": "instructionAccountDisplayNode",
+              "skip": "whenInjected"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 4
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "side",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "side"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "order"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le",
+              "display": {
+                "kind": "amountNumberDisplayNode",
+                "decimals": {
+                  "kind": "injectedValueNode",
+                  "key": "decimals"
+                }
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maybeSide",
+            "type": {
+              "kind": "optionTypeNode",
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "side"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              },
+              "fixed": true
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maybeFee",
+            "type": {
+              "kind": "optionTypeNode",
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le",
+                "display": {
+                  "kind": "amountNumberDisplayNode",
+                  "decimals": {
+                    "kind": "numberValueNode",
+                    "number": 2
+                  }
+                }
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              },
+              "fixed": true
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [
+          {
+            "kind": "providedNode",
+            "name": "decimals",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "market",
+              "path": "status"
+            }
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Trade ${data.amount}"
+        }
+      }
+    ]
+  }
+}

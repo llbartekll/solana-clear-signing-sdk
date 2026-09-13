@@ -1,0 +1,26 @@
+{
+  "name": "solana-clearsign-codama-oracle",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.18.0"
+  },
+  "packageManager": "pnpm@10.15.1",
+  "scripts": {
+    "author:subscriptions": "node author_subscriptions.mjs",
+    "author:verify": "node author_subscriptions.mjs --check",
+    "devnet:discover": "node devnet_examples.mjs --discover",
+    "devnet:update": "node devnet_examples.mjs --update",
+    "devnet:verify": "node devnet_examples.mjs",
+    "mainnet:update": "node mainnet_examples.mjs --update",
+    "mainnet:verify": "node mainnet_examples.mjs",
+    "test": "node oracle.mjs",
+    "update": "node oracle.mjs --update"
+  },
+  "dependencies": {
+    "@codama/dynamic-instructions": "0.4.1",
+    "@solana/instructions": "7.1.0",
+    "codama": "1.10.2"
+  }
+}

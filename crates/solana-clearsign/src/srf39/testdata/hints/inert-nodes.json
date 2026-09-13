@@ -1,0 +1,187 @@
+{
+  "fewerMetasThanAccounts": {
+    "accounts": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Owner",
+        "linkedAccount": null,
+        "name": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Vault",
+        "linkedAccount": "vault",
+        "name": "vault"
+      },
+      {
+        "address": null,
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "vault",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "vault",
+          "path": "decimals",
+          "resolved": 2
+        },
+        "degraded": false,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "deposit",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 1,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "offline": {
+    "accounts": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Owner",
+        "linkedAccount": null,
+        "name": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 3,
+        "label": "Vault",
+        "linkedAccount": "vault",
+        "name": "vault"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "vault",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "vault",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "deposit",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "online": {
+    "accounts": [
+      {
+        "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Owner",
+        "linkedAccount": null,
+        "name": "owner"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Vault",
+        "linkedAccount": "vault",
+        "name": "vault"
+      },
+      {
+        "address": "11111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "System Program",
+        "linkedAccount": null,
+        "name": "systemProgram"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "vault",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "vault",
+          "path": "decimals",
+          "resolved": 2
+        },
+        "degraded": false,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "150",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "deposit",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 1,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "unknownDiscriminator": null
+}

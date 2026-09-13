@@ -1,0 +1,11 @@
+{
+  "defaultDisplay": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "transferTokens",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  }
+}

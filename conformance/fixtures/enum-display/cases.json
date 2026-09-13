@@ -1,0 +1,56 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "AwABB5YAAAAAAAAAAQAAAAEBAAAA+gAAAAAAAAA=",
+  "accounts": [
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "readonly"
+    }
+  ],
+  "accountData": {
+    "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+      "programAddress": "11111111111111111111111111111111",
+      "dataBase64": "AQI="
+    }
+  },
+  "scenarios": [
+    {
+      "name": "labelled"
+    },
+    {
+      "name": "titleCased",
+      "dataBase64": "AwEAB5YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    },
+    {
+      "name": "unknownVariant",
+      "dataBase64": "AwIAB5YAAAAAAAAAAQAAAAEBAAAA+gAAAAAAAAA="
+    },
+    {
+      "name": "unknownVariantInStruct",
+      "dataBase64": "AwAJB5YAAAAAAAAAAQAAAAEBAAAA+gAAAAAAAAA="
+    },
+    {
+      "name": "online",
+      "fetchAccounts": true
+    },
+    {
+      "name": "enumAccountFieldAsDecimals",
+      "fetchAccounts": true,
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "AQI="
+        }
+      },
+      "dataBase64": "BAABB5YAAAAAAAAAAQAAAAEBAAAA+gAAAAAAAAA="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "AwABB5YAAAAAAAAAAQAAAAEBAAAA+gAAAAAAAA=="
+    },
+    {
+      "name": "unknownVariantInOption",
+      "dataBase64": "AwABB5YAAAAAAAAAAQAAAAUBAAAAAQAAAAAAAAA="
+    }
+  ]
+}

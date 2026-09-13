@@ -1,0 +1,46 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "AWDjFgAAAAAABQAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xGmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfBqfVFxksXFEhjMlMPUrxf1ja7gibof1E49vZigAAAAAJAWmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfv0z8aAAAAAABAAAABwAAAA==",
+  "accounts": [
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "readonly"
+    }
+  ],
+  "accountData": {
+    "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+      "programAddress": "11111111111111111111111111111111",
+      "dataBase64": "Bg=="
+    }
+  },
+  "scenarios": [
+    {
+      "name": "online",
+      "dataBase64": "AWDjFgAAAAAABQAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xGmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfBqfVFxksXFEhjMlMPUrxf1ja7gibof1E49vZigAAAAAJAWmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfv0z8aAAAAAABAAAABwAAAA==",
+      "fetchAccounts": true
+    },
+    {
+      "name": "offline",
+      "dataBase64": "AWDjFgAAAAAABQAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xGmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfBqfVFxksXFEhjMlMPUrxf1ja7gibof1E49vZigAAAAAJAWmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfv0z8aAAAAAABAAAABwAAAA=="
+    },
+    {
+      "name": "optionSome",
+      "dataBase64": "AgEAAABg4xYAAAAAAAUAAAAAAAAAJVjNXcMfDwXbQY2tPO1YEX+qVYsWrtDssWpUv3DkfMRpiCGEh0llPHXQQQqVjDAJohMPnDHj34n/YcLXUqQCXwan1RcZLFxRIYzJTD1K8X9Y2u4Im6H9ROPb2YoAAAAACQFpiCGEh0llPHXQQQqVjDAJohMPnDHj34n/YcLXUqQCX79M/GgAAAAAAQAAAAcAAAA=",
+      "fetchAccounts": true
+    },
+    {
+      "name": "optionNone",
+      "dataBase64": "AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+      "fetchAccounts": true
+    },
+    {
+      "name": "plainStruct",
+      "dataBase64": "A2DjFgAAAAAABQAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xGmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfBqfVFxksXFEhjMlMPUrxf1ja7gibof1E49vZigAAAAAJAWmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfv0z8aAAAAAAAAAAAAAAAAA==",
+      "fetchAccounts": true
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "AWDjFgAAAAAABQAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xGmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfBqfVFxksXFEhjMlMPUrxf1ja7gibof1E49vZigAAAAAJAWmIIYSHSWU8ddBBCpWMMAmiEw+cMePfif9hwtdSpAJfv0z8aAAAAAABAAAABwAA"
+    }
+  ]
+}

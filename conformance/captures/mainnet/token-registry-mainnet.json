@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "cluster": "mainnet-beta",
+  "source": {
+    "id": "app-curated",
+    "retrievedAt": "2026-09-10",
+    "reference": "https://www.circle.com/multi-chain-usdc/solana"
+  },
+  "tokens": [
+    {
+      "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "symbol": "USDC",
+      "name": "USD Coin",
+      "decimals": 6,
+      "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+    }
+  ],
+  "labels": [
+    {
+      "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "label": "SPL Token Program",
+      "source": "app-curated"
+    }
+  ]
+}

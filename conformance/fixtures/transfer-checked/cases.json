@@ -1,0 +1,49 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "DGDjFgAAAAAABg==",
+  "accounts": [
+    {
+      "address": "SysvarRent111111111111111111111111111111111",
+      "role": "writable"
+    },
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "readonly"
+    },
+    {
+      "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+      "role": "writable"
+    },
+    {
+      "address": "Vote111111111111111111111111111111111111111",
+      "role": "readonlySigner"
+    }
+  ],
+  "accountData": {
+    "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+      "programAddress": "11111111111111111111111111111111",
+      "dataBase64": "Bg=="
+    }
+  },
+  "scenarios": [
+    {
+      "name": "online",
+      "fetchAccounts": true
+    },
+    {
+      "name": "offline"
+    },
+    {
+      "name": "unknownDiscriminator",
+      "dataBase64": "DWDjFgAAAAAABg=="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "DA=="
+    },
+    {
+      "name": "foreignProgram",
+      "programAddress": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+    }
+  ]
+}

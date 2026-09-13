@@ -1,0 +1,98 @@
+{
+  "negative": {
+    "fields": [
+      {
+        "label": "Delta",
+        "value": "-5"
+      },
+      {
+        "label": "Signed Amount",
+        "value": "-1.5 tokens"
+      },
+      {
+        "label": "Params",
+        "value": "{\"delta\":\"-5\"}"
+      }
+    ],
+    "intent": "Adjust",
+    "interpolatedIntent": "Adjust by -1.5 tokens (delta -5)"
+  },
+  "min": {
+    "fields": [
+      {
+        "label": "Delta",
+        "value": "-9223372036854775808"
+      },
+      {
+        "label": "Signed Amount",
+        "value": "-9223372036854.775808 tokens"
+      },
+      {
+        "label": "Params",
+        "value": "{\"delta\":\"-9223372036854775808\"}"
+      }
+    ],
+    "intent": "Adjust",
+    "interpolatedIntent": "Adjust by -9223372036854.775808 tokens (delta -9223372036854775808)"
+  },
+  "max": {
+    "fields": [
+      {
+        "label": "Delta",
+        "value": "9223372036854775807"
+      },
+      {
+        "label": "Signed Amount",
+        "value": "9223372036854.775807 tokens"
+      },
+      {
+        "label": "Params",
+        "value": "{\"delta\":\"9223372036854775807\"}"
+      }
+    ],
+    "intent": "Adjust",
+    "interpolatedIntent": "Adjust by 9223372036854.775807 tokens (delta 9223372036854775807)"
+  },
+  "zero": {
+    "fields": [
+      {
+        "label": "Delta",
+        "value": "0"
+      },
+      {
+        "label": "Signed Amount",
+        "value": "0 tokens"
+      },
+      {
+        "label": "Params",
+        "value": "{\"delta\":\"0\"}"
+      }
+    ],
+    "intent": "Adjust",
+    "interpolatedIntent": "Adjust by 0 tokens (delta 0)"
+  },
+  "truncated": null,
+  "decimalsFromI64Field": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      }
+    ],
+    "intent": "Scaled",
+    "interpolatedIntent": null
+  },
+  "negativeDecimalsDegrade": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      }
+    ],
+    "intent": "Scaled",
+    "interpolatedIntent": null
+  },
+  "truncatedScale": {
+    "error": "accountDecode"
+  }
+}

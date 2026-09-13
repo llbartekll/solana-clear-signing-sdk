@@ -1,0 +1,115 @@
+{
+  "addressedToAdditionalProgram": null,
+  "foreignProgram": null,
+  "offline": {
+    "accounts": [
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Payer",
+        "linkedAccount": null,
+        "name": "payer"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": false,
+        "fieldIndex": 2,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "2500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "pay",
+    "interpolatedIntentSuppressed": true,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "missing"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "online": {
+    "accounts": [
+      {
+        "address": "SysvarRent111111111111111111111111111111111",
+        "consumed": false,
+        "fieldIndex": null,
+        "label": "Payer",
+        "linkedAccount": null,
+        "name": "payer"
+      },
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Token Mint",
+        "linkedAccount": "mint",
+        "name": "mint"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "mint",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "mint",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "2500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "pay",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 3,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null,
+  "truncatedMint": {
+    "error": "accountDecode"
+  },
+  "unknownDiscriminator": null
+}

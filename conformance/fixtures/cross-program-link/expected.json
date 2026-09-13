@@ -1,0 +1,77 @@
+{
+  "online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1.5"
+      }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 1.5"
+  },
+  "offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+  },
+  "danglingProgram": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Pay Dangling Program",
+    "interpolatedIntent": null
+  },
+  "danglingAccount": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Pay Dangling Account",
+    "interpolatedIntent": null
+  },
+  "localMissing": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Pay Local Missing",
+    "interpolatedIntent": null
+  },
+  "truncatedMint": {
+    "error": "accountDecode"
+  },
+  "addressedToAdditionalProgram": {
+    "fields": [],
+    "intent": "Noop",
+    "interpolatedIntent": null
+  },
+  "truncated": null
+}

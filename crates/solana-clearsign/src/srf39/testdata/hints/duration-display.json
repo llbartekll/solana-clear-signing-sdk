@@ -1,0 +1,417 @@
+{
+  "belowOneSecond": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "999",
+        "seconds": 0
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "extremes": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "18446744073709551615",
+        "seconds": null
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "18446744073709551615",
+        "seconds": 18446744073709551
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "9223372036854775807",
+        "seconds": 9223372036854775807
+      }
+    ]
+  },
+  "fortnight": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1209600",
+        "seconds": 1209600
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1209600000",
+        "seconds": 1209600
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "31536000",
+        "seconds": 31536000
+      }
+    ]
+  },
+  "hour": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "3600",
+        "seconds": 3600
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "90000",
+        "seconds": 90
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "3600",
+        "seconds": 3600
+      }
+    ]
+  },
+  "i64Min": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "59",
+        "seconds": 59
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "59999",
+        "seconds": 59
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": false,
+        "member": null,
+        "rawValue": "-9223372036854775808",
+        "seconds": null
+      }
+    ]
+  },
+  "negative": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1",
+        "seconds": 1
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1000",
+        "seconds": 1
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": false,
+        "member": null,
+        "rawValue": "-1",
+        "seconds": null
+      }
+    ]
+  },
+  "rounding2p53": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "9007199254740993",
+        "seconds": 9007199254740993
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "9007199254740993",
+        "seconds": 9007199254740
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "9007199254740993",
+        "seconds": 9007199254740993
+      }
+    ]
+  },
+  "subSecondFloor": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1500",
+        "seconds": 1
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "truncated": null,
+  "zero": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "wait",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "signed",
+        "display": {
+          "kind": "duration",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  }
+}

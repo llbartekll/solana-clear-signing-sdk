@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "sourceId": "bundle:srf39-manifest.json",
+  "idls": [
+    {
+      "programId": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+      "file": "subscriptions-root.json",
+      "sha256": "cc87288e11096693b615765856d4da686836d1f2e260fff3b0ba9409d55fa448",
+      "version": "0.1.0",
+      "reference": "https://github.com/solana-program/subscriptions/blob/594316da4fd2b7d998f2c2086b3cc6741aba0508/idl/subscriptions.json"
+    }
+  ]
+}

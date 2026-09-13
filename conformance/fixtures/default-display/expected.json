@@ -1,0 +1,12 @@
+{
+  "defaultDisplay": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "42"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": null
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "programId": "De1egAFMkMWZSN5rYXRj9CAdheBamobVNubTsi9avR44",
+  "notes": [
+    "Reviewable display metadata for the Subscriptions & Allowances program, applied by conformance/oracle/author_subscriptions.mjs on top of the pristine IDL after unwrapDefinedTypesVisitor + flattenInstructionDataArgumentsVisitor.",
+    "Delegation approvals have no mint account, and subscribe only carries expectedMint as an argument. Their decimals injection remains unsatisfied in the pinned Codama reference. An explicit x-solana-clearsign token binding lets the SDK present subscribe amounts using callback metadata. The transfer instructions pass tokenMint directly and resolve decimals through its linked SPL Mint layout.",
+    "Timestamps use dateTimeNumberDisplayNode; the program's sentinel `0` (never / when the transaction lands) has no representation in the standard, so the label carries it.",
+    "expectedPeriodHours counts hours: a fractional ticksPerSecond is outside the engine's subset, so it renders as a plain integer with the unit in the label."
+  ],
+  "defaults": {
+    "arguments": {
+      "discriminator": { "skip": "always" }
+    },
+    "accounts": {
+      "systemProgram": { "skip": "always" },
+      "tokenProgram": { "skip": "always" },
+      "eventAuthority": { "skip": "always" },
+      "selfProgram": { "skip": "always" }
+    }
+  },
+  "instructions": {
+    "initSubscriptionAuthority": {
+      "intent": "Enable Subscription Payments (Unlimited Allowance)",
+      "interpolatedIntent": "Enable subscription payments with a maximum token allowance; approved delegations define the withdrawal limits",
+      "accounts": {
+        "owner": { "skip": "always" },
+        "subscriptionAuthority": { "label": "Subscription authority", "skip": "always" },
+        "tokenMint": { "label": "Token mint" },
+        "userAta": { "label": "Your token account" }
+      }
+    },
+    "createFixedDelegation": {
+      "intent": "Authorize a Fixed Spending Allowance",
+      "interpolatedIntent": "Allow ${accounts.delegatee} to withdraw up to ${data.amount} in total — revocable anytime",
+      "arguments": {
+        "nonce": { "skip": "always" },
+        "amount": { "label": "Total allowance", "number": { "kind": "amount", "decimals": { "inject": "decimals" } } },
+        "expiryTs": { "label": "Expires (1970-01-01T00:00:00.000Z means never)", "number": { "kind": "dateTime" } },
+        "expectedSubscriptionAuthorityInitId": { "skip": "always" }
+      },
+      "accounts": {
+        "delegator": { "skip": "always" },
+        "subscriptionAuthority": { "label": "Subscription authority", "skip": "always" },
+        "delegationAccount": { "label": "Delegation account", "skip": "always" },
+        "delegatee": { "label": "Authorized spender" }
+      }
+    },
+    "createRecurringDelegation": {
+      "intent": "Authorize Recurring Spending",
+      "interpolatedIntent": "Allow ${accounts.delegatee} to withdraw up to ${data.amountPerPeriod} every ${data.periodLengthS} — revocable anytime",
+      "arguments": {
+        "nonce": { "skip": "always" },
+        "amountPerPeriod": { "label": "Spending limit per period", "number": { "kind": "amount", "decimals": { "inject": "decimals" } } },
+        "periodLengthS": { "label": "Period", "number": { "kind": "duration" } },
+        "startTs": { "label": "Starts (1970-01-01T00:00:00.000Z means when the transaction lands)", "number": { "kind": "dateTime" } },
+        "expiryTs": { "label": "Expires (1970-01-01T00:00:00.000Z means never)", "number": { "kind": "dateTime" } },
+        "expectedSubscriptionAuthorityInitId": { "skip": "always" }
+      },
+      "accounts": {
+        "delegator": { "skip": "always" },
+        "subscriptionAuthority": { "label": "Subscription authority", "skip": "always" },
+        "delegationAccount": { "label": "Delegation account", "skip": "always" },
+        "delegatee": { "label": "Authorized spender" }
+      }
+    },
+    "revokeDelegation": {
+      "intent": "Revoke a Delegation",
+      "interpolatedIntent": "Revoke delegation ${accounts.delegationAccount} and stop future withdrawals",
+      "accounts": {
+        "authority": { "skip": "always" },
+        "delegationAccount": { "label": "Delegation account" }
+      }
+    },
+    "transferFixed": {
+      "arguments": {
+        "amount": {
+          "number": {
+            "kind": "amount",
+            "decimals": {
+              "inject": "decimals"
+            }
+          },
+          "label": "Payment amount"
+        }
+      },
+      "intent": "Collect a Fixed Payment",
+      "accounts": {
+        "tokenMint": {
+          "label": "Token mint",
+          "accountLink": {
+            "kind": "accountLinkNode",
+            "name": "mint",
+            "program": {
+              "kind": "programLinkNode",
+              "name": "token"
+            }
+          }
+        },
+        "receiverAta": { "label": "Recipient token account" },
+        "delegatorAta": { "label": "Source token account" },
+        "delegatee": { "label": "Authorized spender" }
+      },
+      "provides": [
+        {
+          "kind": "providedNode",
+          "name": "decimals",
+          "node": {
+            "kind": "accountFieldValueNode",
+            "account": "tokenMint",
+            "path": "decimals"
+          }
+        }
+      ]
+    },
+    "transferRecurring": {
+      "arguments": {
+        "amount": {
+          "number": {
+            "kind": "amount",
+            "decimals": {
+              "inject": "decimals"
+            }
+          },
+          "label": "Payment amount"
+        }
+      },
+      "intent": "Collect a Recurring Payment",
+      "accounts": {
+        "tokenMint": {
+          "label": "Token mint",
+          "accountLink": {
+            "kind": "accountLinkNode",
+            "name": "mint",
+            "program": {
+              "kind": "programLinkNode",
+              "name": "token"
+            }
+          }
+        },
+        "receiverAta": { "label": "Recipient token account" },
+        "delegatorAta": { "label": "Source token account" },
+        "delegatee": { "label": "Authorized spender" }
+      },
+      "provides": [
+        {
+          "kind": "providedNode",
+          "name": "decimals",
+          "node": {
+            "kind": "accountFieldValueNode",
+            "account": "tokenMint",
+            "path": "decimals"
+          }
+        }
+      ]
+    },
+    "transferSubscription": {
+      "arguments": {
+        "amount": {
+          "number": {
+            "kind": "amount",
+            "decimals": {
+              "inject": "decimals"
+            }
+          },
+          "label": "Payment amount"
+        }
+      },
+      "intent": "Collect a Subscription Payment",
+      "accounts": {
+        "tokenMint": {
+          "label": "Token mint",
+          "accountLink": {
+            "kind": "accountLinkNode",
+            "name": "mint",
+            "program": {
+              "kind": "programLinkNode",
+              "name": "token"
+            }
+          }
+        },
+        "receiverAta": { "label": "Recipient token account" },
+        "delegatorAta": { "label": "Source token account" },
+        "caller": { "label": "Payment collector" }
+      },
+      "provides": [
+        {
+          "kind": "providedNode",
+          "name": "decimals",
+          "node": {
+            "kind": "accountFieldValueNode",
+            "account": "tokenMint",
+            "path": "decimals"
+          }
+        }
+      ]
+    },
+    "subscribe": {
+      "tokenAmounts": [
+        { "amount": "expectedAmount", "mint": { "source": "argument", "name": "expectedMint" } }
+      ],
+      "intent": "Subscribe to a Payment Plan",
+      "interpolatedIntent": "Subscribe to plan ${data.planId} of ${accounts.merchant}: pay ${data.expectedAmount} of token ${data.expectedMint} every ${data.expectedPeriodHours} hours",
+      "arguments": {
+        "planId": { "label": "Plan ID" },
+        "planBump": { "skip": "always" },
+        "expectedMint": { "label": "Token mint" },
+        "expectedAmount": { "label": "Amount per period", "number": { "kind": "amount", "decimals": { "inject": "decimals" } } },
+        "expectedPeriodHours": { "label": "Billing period (hours)" },
+        "expectedCreatedAt": { "label": "Plan created at (must match the plan's record)", "number": { "kind": "dateTime" } },
+        "expectedSubscriptionAuthorityInitId": { "skip": "always" }
+      },
+      "accounts": {
+        "subscriber": { "skip": "always" },
+        "merchant": { "label": "Merchant" },
+        "planPda": { "label": "Plan account", "skip": "always" },
+        "subscriptionPda": { "label": "Subscription account", "skip": "always" },
+        "subscriptionAuthorityPda": { "label": "Subscription authority", "skip": "always" }
+      }
+    },
+    "cancelSubscription": {
+      "intent": "Cancel Subscription",
+      "interpolatedIntent": "Cancel subscription ${accounts.subscriptionPda} to plan ${accounts.planPda} at the end of the current period",
+      "accounts": {
+        "subscriber": { "skip": "always" },
+        "planPda": { "label": "Plan account" },
+        "subscriptionPda": { "label": "Subscription account" }
+      }
+    },
+    "resumeSubscription": {
+      "intent": "Resume Subscription",
+      "interpolatedIntent": "Resume subscription ${accounts.subscriptionPda} to plan ${accounts.planPda}",
+      "accounts": {
+        "subscriber": { "skip": "always" },
+        "planPda": { "label": "Plan account" },
+        "subscriptionPda": { "label": "Subscription account" }
+      }
+    },
+    "revokeSubscriptionAuthority": {
+      "intent": "Revoke the Subscriptions Program's Token Access",
+      "interpolatedIntent": "Remove the token delegate from ${accounts.userAta}; existing delegation accounts are not deleted",
+      "accounts": {
+        "user": { "skip": "always" },
+        "userAta": { "label": "Your token account" },
+        "tokenMint": { "label": "Token mint" }
+      }
+    }
+  }
+}

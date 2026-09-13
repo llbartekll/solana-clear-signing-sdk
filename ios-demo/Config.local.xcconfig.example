@@ -1,0 +1,4 @@
+// Copy this file to Config.local.xcconfig or run scripts/configure-ios-demo.sh.
+ALCHEMY_API_KEY = your_alchemy_api_key
+// Optional: your Apple Developer Team ID for device builds and archives.
+// DEVELOPMENT_TEAM = ABCDE12345

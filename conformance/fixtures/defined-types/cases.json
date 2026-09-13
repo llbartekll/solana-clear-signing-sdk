@@ -1,0 +1,56 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "CaAlJgAAAAAAYwAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xAM=",
+  "accounts": [
+    {
+      "address": "SysvarRent111111111111111111111111111111111",
+      "role": "writableSigner"
+    },
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "readonly"
+    }
+  ],
+  "accountData": {
+    "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+      "programAddress": "11111111111111111111111111111111",
+      "dataBase64": "Af8G"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "online",
+      "fetchAccounts": true
+    },
+    {
+      "name": "offline"
+    },
+    {
+      "name": "truncatedMint",
+      "fetchAccounts": true,
+      "expectedError": "accountDecode",
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "Af8="
+        }
+      }
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "CaAlJgAAAAAAYwAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xA=="
+    },
+    {
+      "name": "unknownDiscriminator",
+      "dataBase64": "CqAlJgAAAAAAYwAAAAAAAAAlWM1dwx8PBdtBja087VgRf6pVixau0OyxalS/cOR8xAM="
+    },
+    {
+      "name": "foreignProgram",
+      "programAddress": "SysvarRent111111111111111111111111111111111"
+    },
+    {
+      "name": "addressedToAdditionalProgram",
+      "programAddress": "Vote111111111111111111111111111111111111111"
+    }
+  ]
+}

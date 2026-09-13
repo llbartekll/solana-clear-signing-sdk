@@ -1,0 +1,189 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "meta",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "name",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rank",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "market",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "symbol",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "decimals",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "label",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "market",
+            "isSigner": false,
+            "isWritable": false,
+            "isOptional": false,
+            "accountLink": {
+              "kind": "accountLinkNode",
+              "name": "market"
+            },
+            "display": {
+              "kind": "instructionAccountDisplayNode",
+              "skip": "whenInjected"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 1
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "name",
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 16,
+              "type": {
+                "kind": "stringTypeNode",
+                "encoding": "utf8"
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "meta"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le",
+              "display": {
+                "kind": "amountNumberDisplayNode",
+                "decimals": {
+                  "kind": "injectedValueNode",
+                  "key": "decimals"
+                },
+                "unit": {
+                  "kind": "injectedValueNode",
+                  "key": "symbol"
+                }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [
+          {
+            "kind": "providedNode",
+            "name": "decimals",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "market",
+              "path": "decimals"
+            }
+          },
+          {
+            "kind": "providedNode",
+            "name": "symbol",
+            "node": {
+              "kind": "accountFieldValueNode",
+              "account": "market",
+              "path": "symbol"
+            }
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Label ${data.name} as ${data.params} for ${data.amount}"
+        }
+      }
+    ]
+  }
+}

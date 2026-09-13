@@ -1,0 +1,60 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "AWDjFgAAAAAA",
+  "accounts": [
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "readonly"
+    }
+  ],
+  "accountData": {
+    "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+      "programAddress": "Vote111111111111111111111111111111111111111",
+      "dataBase64": "CgAAAAAAAAAG"
+    }
+  },
+  "scenarios": [
+    {
+      "name": "online",
+      "fetchAccounts": true
+    },
+    {
+      "name": "offline"
+    },
+    {
+      "name": "danglingProgram",
+      "fetchAccounts": true,
+      "dataBase64": "AmDjFgAAAAAA"
+    },
+    {
+      "name": "danglingAccount",
+      "fetchAccounts": true,
+      "dataBase64": "A2DjFgAAAAAA"
+    },
+    {
+      "name": "localMissing",
+      "fetchAccounts": true,
+      "dataBase64": "BGDjFgAAAAAA"
+    },
+    {
+      "name": "truncatedMint",
+      "fetchAccounts": true,
+      "expectedError": "accountDecode",
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "Vote111111111111111111111111111111111111111",
+          "dataBase64": "AAAAAAAAAAA="
+        }
+      }
+    },
+    {
+      "name": "addressedToAdditionalProgram",
+      "programAddress": "Vote111111111111111111111111111111111111111",
+      "dataBase64": "Bw=="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "AWDjFgAAAAA="
+    }
+  ]
+}

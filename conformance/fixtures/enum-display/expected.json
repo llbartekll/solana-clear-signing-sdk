@@ -1,0 +1,118 @@
+{
+  "labelled": {
+    "fields": [
+      {
+        "label": "Side",
+        "value": "Buy Order"
+      },
+      {
+        "label": "Params",
+        "value": "{\"side\":1,\"qty\":7}"
+      },
+      {
+        "label": "Amount",
+        "value": "150 (raw)"
+      },
+      {
+        "label": "Maybe Side",
+        "value": "Sell Now"
+      },
+      {
+        "label": "Maybe Fee",
+        "value": "2.5"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Trade",
+    "interpolatedIntent": "Trade Buy Order {\"side\":1,\"qty\":7}"
+  },
+  "titleCased": {
+    "fields": [
+      {
+        "label": "Side",
+        "value": "Sell Now"
+      },
+      {
+        "label": "Params",
+        "value": "{\"side\":0,\"qty\":7}"
+      },
+      {
+        "label": "Amount",
+        "value": "150 (raw)"
+      },
+      {
+        "label": "Maybe Side",
+        "value": "none"
+      },
+      {
+        "label": "Maybe Fee",
+        "value": "none"
+      },
+      {
+        "label": "Market",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Trade",
+    "interpolatedIntent": "Trade Sell Now {\"side\":0,\"qty\":7}"
+  },
+  "unknownVariant": null,
+  "unknownVariantInStruct": null,
+  "online": {
+    "fields": [
+      {
+        "label": "Side",
+        "value": "Buy Order"
+      },
+      {
+        "label": "Params",
+        "value": "{\"side\":1,\"qty\":7}"
+      },
+      {
+        "label": "Amount",
+        "value": "1.5"
+      },
+      {
+        "label": "Maybe Side",
+        "value": "Sell Now"
+      },
+      {
+        "label": "Maybe Fee",
+        "value": "2.5"
+      }
+    ],
+    "intent": "Trade",
+    "interpolatedIntent": "Trade Buy Order {\"side\":1,\"qty\":7}"
+  },
+  "enumAccountFieldAsDecimals": {
+    "fields": [
+      {
+        "label": "Side",
+        "value": "Buy Order"
+      },
+      {
+        "label": "Params",
+        "value": "{\"side\":1,\"qty\":7}"
+      },
+      {
+        "label": "Amount",
+        "value": "15"
+      },
+      {
+        "label": "Maybe Side",
+        "value": "Sell Now"
+      },
+      {
+        "label": "Maybe Fee",
+        "value": "2.5"
+      }
+    ],
+    "intent": "Trade By Status",
+    "interpolatedIntent": "Trade 15"
+  },
+  "truncated": null,
+  "unknownVariantInOption": null
+}

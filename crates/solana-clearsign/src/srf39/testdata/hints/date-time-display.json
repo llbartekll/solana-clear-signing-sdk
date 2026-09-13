@@ -1,0 +1,601 @@
+{
+  "epoch": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "i64Extremes": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": false,
+        "member": null,
+        "rawValue": "9223372036854775807",
+        "seconds": null
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": false,
+        "member": null,
+        "rawValue": "-9223372036854775808",
+        "seconds": null
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": false,
+        "member": null,
+        "rawValue": "18446744073709551615",
+        "seconds": null
+      }
+    ]
+  },
+  "maxValid": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "8640000000000",
+        "seconds": 8640000000000
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "8640000000000000",
+        "seconds": 8640000000000
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "86400000000000000",
+        "seconds": 8640000000000
+      }
+    ]
+  },
+  "minValid": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-8640000000000",
+        "seconds": -8640000000000
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-8640000000000000",
+        "seconds": -8640000000000
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "msFraction": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1",
+        "seconds": 1
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1500",
+        "seconds": 1
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "15",
+        "seconds": 0
+      }
+    ]
+  },
+  "negativeExpandedYear": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-62167219201",
+        "seconds": -62167219201
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-62167219201000",
+        "seconds": -62167219201
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "negativeSecond": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-1",
+        "seconds": -1
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-1",
+        "seconds": -1
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "overMax": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": false,
+        "member": null,
+        "rawValue": "8640000000001",
+        "seconds": null
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": false,
+        "member": null,
+        "rawValue": "8640000000000001",
+        "seconds": null
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": false,
+        "member": null,
+        "rawValue": "86400000000010000",
+        "seconds": null
+      }
+    ]
+  },
+  "reference": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1761365183",
+        "seconds": 1761365183
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "1761365183000",
+        "seconds": 1761365183
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "17613651830000",
+        "seconds": 1761365183
+      }
+    ]
+  },
+  "rounding2p53": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": false,
+        "member": null,
+        "rawValue": "9007199254740993",
+        "seconds": null
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": false,
+        "member": null,
+        "rawValue": "9007199254740993",
+        "seconds": null
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "9007199254740993",
+        "seconds": 900719925474
+      }
+    ]
+  },
+  "truncated": null,
+  "underMin": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": false,
+        "member": null,
+        "rawValue": "-8640000000001",
+        "seconds": null
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": false,
+        "member": null,
+        "rawValue": "-8640000000000001",
+        "seconds": null
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "upstreamRawCase": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": false,
+        "member": null,
+        "rawValue": "999999999999999",
+        "seconds": null
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "0",
+        "seconds": 0
+      }
+    ]
+  },
+  "yearBoundaries": {
+    "accounts": [],
+    "amounts": [],
+    "instructionName": "stamp",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": [
+      {
+        "argument": "seconds",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1
+        },
+        "fieldIndex": 0,
+        "formatted": true,
+        "member": null,
+        "rawValue": "253402300800",
+        "seconds": 253402300800
+      },
+      {
+        "argument": "millis",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 1000
+        },
+        "fieldIndex": 1,
+        "formatted": true,
+        "member": null,
+        "rawValue": "-62167219200000",
+        "seconds": -62167219200
+      },
+      {
+        "argument": "tenKhz",
+        "display": {
+          "kind": "dateTime",
+          "ticksPerSecond": 10000
+        },
+        "fieldIndex": 2,
+        "formatted": true,
+        "member": null,
+        "rawValue": "2534023007990000",
+        "seconds": 253402300799
+      }
+    ]
+  }
+}

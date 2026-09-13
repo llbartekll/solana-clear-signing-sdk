@@ -1,0 +1,170 @@
+{
+  "transferChecked-online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "0.001469"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "2V47kNnc5hpvPDuZjVKvktfZnPdk5Dac96BZkLJDYNsR"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": "Transfer 0.001469 tokens of mint EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v to 2V47kNnc5hpvPDuZjVKvktfZnPdk5Dac96BZkLJDYNsR"
+  },
+  "transferChecked-offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1469 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+      },
+      {
+        "label": "To",
+        "value": "2V47kNnc5hpvPDuZjVKvktfZnPdk5Dac96BZkLJDYNsR"
+      }
+    ],
+    "intent": "Transfer Tokens",
+    "interpolatedIntent": null
+  },
+  "approveChecked-online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "17136216.912225"
+      },
+      {
+        "label": "Token Mint",
+        "value": "63cL4hHbkRStqMvhAudXkPsydRASp3yr7iPQemqmAcD2"
+      },
+      {
+        "label": "Delegate",
+        "value": "27XvkQ39QwePgDbhczSjR8pYFYE26boXMar1P27G1oay"
+      }
+    ],
+    "intent": "Approve Token Spending",
+    "interpolatedIntent": "Approve 27XvkQ39QwePgDbhczSjR8pYFYE26boXMar1P27G1oay to spend 17136216.912225 tokens of mint 63cL4hHbkRStqMvhAudXkPsydRASp3yr7iPQemqmAcD2"
+  },
+  "approveChecked-offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "17136216912225 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "63cL4hHbkRStqMvhAudXkPsydRASp3yr7iPQemqmAcD2"
+      },
+      {
+        "label": "Delegate",
+        "value": "27XvkQ39QwePgDbhczSjR8pYFYE26boXMar1P27G1oay"
+      }
+    ],
+    "intent": "Approve Token Spending",
+    "interpolatedIntent": null
+  },
+  "mintToChecked-online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1000000000"
+      },
+      {
+        "label": "Token Mint",
+        "value": "Fv79njPdnHgELciAZGxQY2U1QKfxTnPKRuxJ78y2cfdn"
+      },
+      {
+        "label": "To",
+        "value": "5jLy82BoFqFSbCw9T2p8RCxsBoz4QsKKgo2oUtQQpKAe"
+      }
+    ],
+    "intent": "Mint Tokens",
+    "interpolatedIntent": "Mint 1000000000 tokens of mint Fv79njPdnHgELciAZGxQY2U1QKfxTnPKRuxJ78y2cfdn to 5jLy82BoFqFSbCw9T2p8RCxsBoz4QsKKgo2oUtQQpKAe"
+  },
+  "mintToChecked-offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "1000000000000000 (raw)"
+      },
+      {
+        "label": "Token Mint",
+        "value": "Fv79njPdnHgELciAZGxQY2U1QKfxTnPKRuxJ78y2cfdn"
+      },
+      {
+        "label": "To",
+        "value": "5jLy82BoFqFSbCw9T2p8RCxsBoz4QsKKgo2oUtQQpKAe"
+      }
+    ],
+    "intent": "Mint Tokens",
+    "interpolatedIntent": null
+  },
+  "burnChecked-online": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "46932952494"
+      },
+      {
+        "label": "From",
+        "value": "HWA6SSwyqBEqmG3KR4HUvL9YrAGekcsxSGqCzG6q8hEQ"
+      },
+      {
+        "label": "Token Mint",
+        "value": "PAWSxhjTyNJELywYiYTxCN857utnYmWXu7Q59Vgn6ZQ"
+      }
+    ],
+    "intent": "Burn Tokens",
+    "interpolatedIntent": "Burn 46932952494 tokens of mint PAWSxhjTyNJELywYiYTxCN857utnYmWXu7Q59Vgn6ZQ"
+  },
+  "burnChecked-offline": {
+    "fields": [
+      {
+        "label": "Amount",
+        "value": "46932952494000000 (raw)"
+      },
+      {
+        "label": "From",
+        "value": "HWA6SSwyqBEqmG3KR4HUvL9YrAGekcsxSGqCzG6q8hEQ"
+      },
+      {
+        "label": "Token Mint",
+        "value": "PAWSxhjTyNJELywYiYTxCN857utnYmWXu7Q59Vgn6ZQ"
+      }
+    ],
+    "intent": "Burn Tokens",
+    "interpolatedIntent": null
+  },
+  "closeAccount-online": {
+    "fields": [
+      {
+        "label": "Token Account",
+        "value": "9rQbzFp6KQsFoSpirq7q7K53Lgzvt51soVqpPjPuaGcp"
+      },
+      {
+        "label": "SOL Destination",
+        "value": "HknV6HcAgjTmtiijNQrP9dm5oNJpVPLDRJxvV6uxN1UG"
+      }
+    ],
+    "intent": "Close Token Account",
+    "interpolatedIntent": "Close token account 9rQbzFp6KQsFoSpirq7q7K53Lgzvt51soVqpPjPuaGcp and send remaining SOL to HknV6HcAgjTmtiijNQrP9dm5oNJpVPLDRJxvV6uxN1UG"
+  },
+  "revoke-online": {
+    "fields": [
+      {
+        "label": "Token Account",
+        "value": "tUQ37xwAfeg24HX8G2waJ6bQRq14wmKgQbYCPsxfLXX"
+      }
+    ],
+    "intent": "Revoke Token Delegate",
+    "interpolatedIntent": "Revoke token delegate access for tUQ37xwAfeg24HX8G2waJ6bQRq14wmKgQbYCPsxfLXX"
+  }
+}

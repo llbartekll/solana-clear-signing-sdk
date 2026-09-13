@@ -1,0 +1,51 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "BAcAAAAAAAAAlgAAAAAAAAA=",
+  "accounts": [
+    {
+      "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+      "role": "writableSigner"
+    },
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "writable"
+    },
+    {
+      "address": "11111111111111111111111111111111",
+      "role": "readonly"
+    }
+  ],
+  "accountData": {
+    "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+      "programAddress": "11111111111111111111111111111111",
+      "dataBase64": "Ag=="
+    }
+  },
+  "scenarios": [
+    {
+      "name": "online",
+      "fetchAccounts": true
+    },
+    {
+      "name": "offline"
+    },
+    {
+      "name": "fewerMetasThanAccounts",
+      "fetchAccounts": true,
+      "accounts": [
+        {
+          "address": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+          "role": "writableSigner"
+        },
+        {
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "role": "writable"
+        }
+      ]
+    },
+    {
+      "name": "unknownDiscriminator",
+      "dataBase64": "BQcAAAAAAAAAlgAAAAAAAAA="
+    }
+  ]
+}

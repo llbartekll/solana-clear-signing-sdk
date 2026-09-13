@@ -1,0 +1,198 @@
+{
+  "decimalsFromI64Field": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Scale",
+        "linkedAccount": "scale",
+        "name": "scale"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "scale",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "scale",
+          "path": "decimals",
+          "resolved": 6
+        },
+        "degraded": false,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "scaled",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 8,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "max": {
+    "accounts": [],
+    "amounts": [
+      {
+        "argument": "signedAmount",
+        "decimals": {
+          "kind": "literal",
+          "value": 6
+        },
+        "degraded": false,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "9223372036854775807",
+        "unit": {
+          "kind": "literal",
+          "value": "tokens"
+        }
+      }
+    ],
+    "instructionName": "adjust",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "min": {
+    "accounts": [],
+    "amounts": [
+      {
+        "argument": "signedAmount",
+        "decimals": {
+          "kind": "literal",
+          "value": 6
+        },
+        "degraded": false,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "-9223372036854775808",
+        "unit": {
+          "kind": "literal",
+          "value": "tokens"
+        }
+      }
+    ],
+    "instructionName": "adjust",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "negative": {
+    "accounts": [],
+    "amounts": [
+      {
+        "argument": "signedAmount",
+        "decimals": {
+          "kind": "literal",
+          "value": 6
+        },
+        "degraded": false,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "-1500000",
+        "unit": {
+          "kind": "literal",
+          "value": "tokens"
+        }
+      }
+    ],
+    "instructionName": "adjust",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "negativeDecimalsDegrade": {
+    "accounts": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "consumed": true,
+        "fieldIndex": null,
+        "label": "Scale",
+        "linkedAccount": "scale",
+        "name": "scale"
+      }
+    ],
+    "amounts": [
+      {
+        "argument": "amount",
+        "decimals": {
+          "account": "scale",
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "kind": "accountField",
+          "linkedAccount": "scale",
+          "path": "decimals",
+          "resolved": null
+        },
+        "degraded": true,
+        "fieldIndex": 0,
+        "member": null,
+        "rawValue": "1500000",
+        "unit": {
+          "kind": "none"
+        }
+      }
+    ],
+    "instructionName": "scaled",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [
+      {
+        "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+        "status": {
+          "kind": "fetched",
+          "length": 8,
+          "owner": "11111111111111111111111111111111"
+        }
+      }
+    ],
+    "publicKeyArguments": [],
+    "times": []
+  },
+  "truncated": null,
+  "truncatedScale": {
+    "error": "accountDecode"
+  },
+  "zero": {
+    "accounts": [],
+    "amounts": [
+      {
+        "argument": "signedAmount",
+        "decimals": {
+          "kind": "literal",
+          "value": 6
+        },
+        "degraded": false,
+        "fieldIndex": 1,
+        "member": null,
+        "rawValue": "0",
+        "unit": {
+          "kind": "literal",
+          "value": "tokens"
+        }
+      }
+    ],
+    "instructionName": "adjust",
+    "interpolatedIntentSuppressed": false,
+    "linkedAccountReads": [],
+    "publicKeyArguments": [],
+    "times": []
+  }
+}

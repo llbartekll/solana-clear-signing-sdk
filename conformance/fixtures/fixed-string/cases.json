@@ -1,0 +1,82 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAANg4xYAAAAAAA==",
+  "accounts": [
+    {
+      "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+      "role": "readonly"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "plain",
+      "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAANg4xYAAAAAAA=="
+    },
+    {
+      "name": "embeddedNul",
+      "dataBase64": "AWhlAGxsbwAAAAAAAAAAAABtAGUAdABhAANg4xYAAAAAAA=="
+    },
+    {
+      "name": "invalidUtf8",
+      "dataBase64": "Af/DYQAAAAAAAAAAAAAAAADwn5gAYQAAAANg4xYAAAAAAA=="
+    },
+    {
+      "name": "bom",
+      "dataBase64": "Ae+7v2FiAAAAAAAAAAAAAADvu7/vu79hAANg4xYAAAAAAA=="
+    },
+    {
+      "name": "allNul",
+      "dataBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANg4xYAAAAAAA=="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAA=="
+    },
+    {
+      "name": "trailingBytes",
+      "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAANg4xYAAAAAAAcH"
+    },
+    {
+      "name": "inStructEscaped",
+      "dataBase64": "AWEiYgAAAAAAAAAAAAAAAAAiYQFcAAAAAANg4xYAAAAAAA=="
+    },
+    {
+      "name": "unitFromStringField",
+      "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAANg4xYAAAAAAA==",
+      "fetchAccounts": true,
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "VVNEQwAAAAAG"
+        }
+      }
+    },
+    {
+      "name": "unitNulOnly",
+      "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAANg4xYAAAAAAA==",
+      "fetchAccounts": true,
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "AAAAAAAAAAAG"
+        }
+      }
+    },
+    {
+      "name": "truncatedMarket",
+      "dataBase64": "AWhlbGxvAAAAAAAAAAAAAABtZXRhAAAAAANg4xYAAAAAAA==",
+      "fetchAccounts": true,
+      "expectedError": "accountDecode",
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "VVNEQw=="
+        }
+      }
+    },
+    {
+      "name": "unicode",
+      "dataBase64": "AXrFgm90eQDigqwAAAAAAADDqQAAAAAAAANg4xYAAAAAAA=="
+    }
+  ]
+}

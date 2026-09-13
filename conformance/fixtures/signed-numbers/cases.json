@@ -1,0 +1,78 @@
+{
+  "programAddress": "11111111111111111111111111111111",
+  "dataBase64": "Afv/////////oBzp///////7/////////w==",
+  "accounts": [],
+  "scenarios": [
+    {
+      "name": "negative"
+    },
+    {
+      "name": "min",
+      "dataBase64": "AQAAAAAAAACAAAAAAAAAAIAAAAAAAAAAgA=="
+    },
+    {
+      "name": "max",
+      "dataBase64": "Af////////9//////////3//////////fw=="
+    },
+    {
+      "name": "zero",
+      "dataBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+    },
+    {
+      "name": "truncated",
+      "dataBase64": "Afv/////////oBzp///////7////////"
+    },
+    {
+      "name": "decimalsFromI64Field",
+      "dataBase64": "AmDjFgAAAAAA",
+      "fetchAccounts": true,
+      "accounts": [
+        {
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "role": "readonly"
+        }
+      ],
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "BgAAAAAAAAA="
+        }
+      }
+    },
+    {
+      "name": "negativeDecimalsDegrade",
+      "dataBase64": "AmDjFgAAAAAA",
+      "fetchAccounts": true,
+      "accounts": [
+        {
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "role": "readonly"
+        }
+      ],
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "//////////8="
+        }
+      }
+    },
+    {
+      "name": "truncatedScale",
+      "dataBase64": "AmDjFgAAAAAA",
+      "fetchAccounts": true,
+      "expectedError": "accountDecode",
+      "accounts": [
+        {
+          "address": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY",
+          "role": "readonly"
+        }
+      ],
+      "accountData": {
+        "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY": {
+          "programAddress": "11111111111111111111111111111111",
+          "dataBase64": "AAAAAAAAAA=="
+        }
+      }
+    }
+  ]
+}

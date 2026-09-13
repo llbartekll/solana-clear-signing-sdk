@@ -1,0 +1,210 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "keys",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "keys",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": {
+                  "kind": "publicKeyTypeNode"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 2
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "tag",
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "accounts": [],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "assign",
+        "optionalAccountStrategy": "programId",
+        "accounts": [],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 2
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "owners",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": {
+                "kind": "publicKeyTypeNode"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 4
+              }
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "label": "Owner"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "single",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": {
+                "kind": "publicKeyTypeNode"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 1
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "weights",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le",
+                "display": {
+                  "kind": "amountNumberDisplayNode",
+                  "decimals": {
+                    "kind": "numberValueNode",
+                    "number": 2
+                  }
+                }
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 3
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "keys"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maybeOwners",
+            "type": {
+              "kind": "optionTypeNode",
+              "item": {
+                "kind": "arrayTypeNode",
+                "item": {
+                  "kind": "publicKeyTypeNode"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 2
+                }
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              },
+              "fixed": true
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "optionalItems",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": {
+                "kind": "optionTypeNode",
+                "item": {
+                  "kind": "publicKeyTypeNode"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                },
+                "fixed": true
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 2
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "bytes",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 3
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "provides": [],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Assign ${data.owners} weights ${data.weights} bytes ${data.bytes}"
+        }
+      }
+    ]
+  }
+}

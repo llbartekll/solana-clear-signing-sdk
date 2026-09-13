@@ -1,0 +1,149 @@
+{
+  "online": {
+    "fields": [
+      {
+        "label": "args.Price",
+        "value": "1.5"
+      },
+      {
+        "label": "args.Size",
+        "value": "5"
+      },
+      {
+        "label": "args.Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "args.Keys #1",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "args.Keys #2",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "args.Inner",
+        "value": "{\"a\":9}"
+      },
+      {
+        "label": "args.Expires At",
+        "value": "2025-10-25T04:06:23.000Z"
+      },
+      {
+        "label": "args.Maybe",
+        "value": "7"
+      }
+    ],
+    "intent": "Place Order",
+    "interpolatedIntent": "Place {\"price\":\"1500000\",\"size\":\"5\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"inner\":{\"a\":9},\"hidden\":1,\"mint\":\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"expiresAt\":\"1761365183\",\"maybe\":{\"__option\":\"Some\",\"value\":7}}"
+  },
+  "offline": {
+    "fields": [
+      {
+        "label": "args.Price",
+        "value": "1500000 (raw)"
+      },
+      {
+        "label": "args.Size",
+        "value": "5"
+      },
+      {
+        "label": "args.Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "args.Keys #1",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "args.Keys #2",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "args.Inner",
+        "value": "{\"a\":9}"
+      },
+      {
+        "label": "args.Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "args.Expires At",
+        "value": "2025-10-25T04:06:23.000Z"
+      },
+      {
+        "label": "args.Maybe",
+        "value": "7"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Place Order",
+    "interpolatedIntent": "Place {\"price\":\"1500000\",\"size\":\"5\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"inner\":{\"a\":9},\"hidden\":1,\"mint\":\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"expiresAt\":\"1761365183\",\"maybe\":{\"__option\":\"Some\",\"value\":7}}"
+  },
+  "optionSome": {
+    "fields": [
+      {
+        "label": "Price",
+        "value": "1.5"
+      },
+      {
+        "label": "Size",
+        "value": "5"
+      },
+      {
+        "label": "Owner",
+        "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+      },
+      {
+        "label": "Keys #1",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      },
+      {
+        "label": "Keys #2",
+        "value": "SysvarRent111111111111111111111111111111111"
+      },
+      {
+        "label": "Inner",
+        "value": "{\"a\":9}"
+      },
+      {
+        "label": "Expires At",
+        "value": "2025-10-25T04:06:23.000Z"
+      },
+      {
+        "label": "Maybe",
+        "value": "7"
+      }
+    ],
+    "intent": "Maybe Order",
+    "interpolatedIntent": "Maybe {\"price\":\"1500000\",\"size\":\"5\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"inner\":{\"a\":9},\"hidden\":1,\"mint\":\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"expiresAt\":\"1761365183\",\"maybe\":{\"__option\":\"Some\",\"value\":7}}"
+  },
+  "optionNone": {
+    "fields": [
+      {
+        "label": "Args",
+        "value": "none"
+      }
+    ],
+    "intent": "Maybe Order",
+    "interpolatedIntent": "Maybe none"
+  },
+  "plainStruct": {
+    "fields": [
+      {
+        "label": "Order",
+        "value": "{\"price\":\"1500000\",\"size\":\"5\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"inner\":{\"a\":9},\"hidden\":1,\"mint\":\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"expiresAt\":\"1761365183\",\"maybe\":{\"__option\":\"None\"}}"
+      },
+      {
+        "label": "Token Mint",
+        "value": "86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY"
+      }
+    ],
+    "intent": "Plain Order",
+    "interpolatedIntent": "Plain {\"price\":\"1500000\",\"size\":\"5\",\"owner\":\"3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX\",\"keys\":[\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"SysvarRent111111111111111111111111111111111\"],\"inner\":{\"a\":9},\"hidden\":1,\"mint\":\"86xCnPeV69n6t3DnyGvkKobf9FdN2H9oiVDdaMpo2MMY\",\"expiresAt\":\"1761365183\",\"maybe\":{\"__option\":\"None\"}}"
+  },
+  "truncated": null
+}

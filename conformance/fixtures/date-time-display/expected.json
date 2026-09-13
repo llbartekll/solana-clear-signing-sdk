@@ -1,0 +1,237 @@
+{
+  "epoch": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 1970-01-01T00:00:00.000Z / 1970-01-01T00:00:00.000Z / 1970-01-01T00:00:00.000Z"
+  },
+  "reference": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "2025-10-25T04:06:23.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "2025-10-25T04:06:23.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "2025-10-25T04:06:23.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 2025-10-25T04:06:23.000Z / 2025-10-25T04:06:23.000Z / 2025-10-25T04:06:23.000Z"
+  },
+  "negativeSecond": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "1969-12-31T23:59:59.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "1969-12-31T23:59:59.999Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 1969-12-31T23:59:59.000Z / 1969-12-31T23:59:59.999Z / 1970-01-01T00:00:00.000Z"
+  },
+  "maxValid": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "+275760-09-13T00:00:00.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "+275760-09-13T00:00:00.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "+275760-09-13T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp +275760-09-13T00:00:00.000Z / +275760-09-13T00:00:00.000Z / +275760-09-13T00:00:00.000Z"
+  },
+  "overMax": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "8640000000001"
+      },
+      {
+        "label": "Millis",
+        "value": "8640000000000001"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "86400000000010000"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 8640000000001 / 8640000000000001 / 86400000000010000"
+  },
+  "minValid": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "-271821-04-20T00:00:00.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "-271821-04-20T00:00:00.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp -271821-04-20T00:00:00.000Z / -271821-04-20T00:00:00.000Z / 1970-01-01T00:00:00.000Z"
+  },
+  "underMin": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "-8640000000001"
+      },
+      {
+        "label": "Millis",
+        "value": "-8640000000000001"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp -8640000000001 / -8640000000000001 / 1970-01-01T00:00:00.000Z"
+  },
+  "i64Extremes": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "9223372036854775807"
+      },
+      {
+        "label": "Millis",
+        "value": "-9223372036854775808"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "18446744073709551615"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 9223372036854775807 / -9223372036854775808 / 18446744073709551615"
+  },
+  "msFraction": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "1970-01-01T00:00:01.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "1970-01-01T00:00:01.500Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.001Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 1970-01-01T00:00:01.000Z / 1970-01-01T00:00:01.500Z / 1970-01-01T00:00:00.001Z"
+  },
+  "rounding2p53": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "9007199254740993"
+      },
+      {
+        "label": "Millis",
+        "value": "9007199254740993"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "+030512-09-05T03:17:54.099Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 9007199254740993 / 9007199254740993 / +030512-09-05T03:17:54.099Z"
+  },
+  "upstreamRawCase": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "999999999999999"
+      },
+      {
+        "label": "Millis",
+        "value": "1970-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp 999999999999999 / 1970-01-01T00:00:00.000Z / 1970-01-01T00:00:00.000Z"
+  },
+  "yearBoundaries": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "+010000-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "0000-01-01T00:00:00.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "9999-12-31T23:59:59.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp +010000-01-01T00:00:00.000Z / 0000-01-01T00:00:00.000Z / 9999-12-31T23:59:59.000Z"
+  },
+  "negativeExpandedYear": {
+    "fields": [
+      {
+        "label": "Seconds",
+        "value": "-000001-12-31T23:59:59.000Z"
+      },
+      {
+        "label": "Millis",
+        "value": "-000001-12-31T23:59:59.000Z"
+      },
+      {
+        "label": "Ten Khz",
+        "value": "1970-01-01T00:00:00.000Z"
+      }
+    ],
+    "intent": "Stamp",
+    "interpolatedIntent": "Stamp -000001-12-31T23:59:59.000Z / -000001-12-31T23:59:59.000Z / 1970-01-01T00:00:00.000Z"
+  },
+  "truncated": null
+}

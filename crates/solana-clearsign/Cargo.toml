@@ -1,0 +1,38 @@
+[package]
+name = "solana-clearsign"
+version = "0.1.0"
+description = "Native sRFC 39 clear-signing core for Solana instructions"
+edition = { workspace = true }
+license = { workspace = true }
+license-file = { workspace = true }
+repository = { workspace = true }
+
+[dependencies]
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+bs58 = "0.5"
+sha2 = "0.10"
+
+# FFI layer (Swift/Kotlin) — optional, mirrors the reference lib's feature-gated uniffi_compat
+uniffi = { version = "0.29", optional = true, features = ["tokio"] }
+tokio = { version = "1", optional = true, features = ["rt-multi-thread"] }
+async-trait = { version = "0.1", optional = true }
+
+[dev-dependencies]
+base64 = "0.22"
+pollster = "0.4"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[features]
+default = []
+uniffi = ["dep:async-trait", "dep:uniffi", "dep:tokio"]
+# Enables the uniffi-bindgen bin (CLI deps kept out of normal builds)
+bindgen = ["uniffi", "uniffi/cli"]
+
+[[bin]]
+name = "uniffi-bindgen"
+required-features = ["bindgen"]
+
+[lib]
+crate-type = ["lib", "staticlib", "cdylib"]

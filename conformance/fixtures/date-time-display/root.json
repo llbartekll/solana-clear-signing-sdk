@@ -1,0 +1,87 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.8.0",
+  "program": {
+    "kind": "programNode",
+    "name": "testProgram",
+    "publicKey": "11111111111111111111111111111111",
+    "version": "0.0.0",
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "stamp",
+        "optionalAccountStrategy": "programId",
+        "accounts": [],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            },
+            "defaultValue": {
+              "kind": "numberValueNode",
+              "number": 1
+            },
+            "display": {
+              "kind": "structFieldDisplayNode",
+              "skip": "always"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "seconds",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "i64",
+              "endian": "le",
+              "display": {
+                "kind": "dateTimeNumberDisplayNode"
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "millis",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "i64",
+              "endian": "le",
+              "display": {
+                "kind": "dateTimeNumberDisplayNode",
+                "ticksPerSecond": 1000
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "tenKhz",
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le",
+              "display": {
+                "kind": "dateTimeNumberDisplayNode",
+                "ticksPerSecond": 10000
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
+        ],
+        "display": {
+          "kind": "instructionDisplayNode",
+          "interpolatedIntent": "Stamp ${data.seconds} / ${data.millis} / ${data.tenKhz}"
+        }
+      }
+    ]
+  }
+}
