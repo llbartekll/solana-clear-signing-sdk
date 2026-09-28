@@ -1,0 +1,125 @@
+name: Release Swift (iOS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (strict semver, e.g. 0.1.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-swift-${{ inputs.version }}
+  cancel-in-progress: false
+
+env:
+  VERSION: ${{ inputs.version }}
+  ARTIFACT: SolanaClearsignFFI.xcframework.zip
+  REPO_URL: https://github.com/llbartekll/solana-clear-signing-sdk
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - name: Validate version (strict semver)
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Invalid version '$VERSION' — must match ^[0-9]+\\.[0-9]+\\.[0-9]+\$" >&2
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure release tag does not already exist
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/$VERSION" >/dev/null 2>&1; then
+            echo "::error::Tag $VERSION already exists on origin. Refusing to overwrite an existing release." >&2
+            exit 1
+          fi
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
+
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ". -> target"
+
+      - name: Build XCFramework and Swift bindings
+        run: ./scripts/build-xcframework.sh
+
+      - name: Committed Swift bindings must match regeneration
+        run: |
+          if [ -n "$(git status --porcelain -- bindings/swift/generated)" ]; then
+            git --no-pager status --short -- bindings/swift/generated
+            git --no-pager diff -- bindings/swift/generated | head -200
+            echo "::error::bindings/swift/generated differs from the committed bindings. Run ./scripts/build-xcframework.sh locally, commit the result to main and re-run the release." >&2
+            exit 1
+          fi
+
+      - name: Test Swift package against the local XCFramework
+        run: swift test
+
+      - name: Zip XCFramework
+        run: |
+          mkdir -p Output
+          (cd target/ios && zip -r "../../Output/$ARTIFACT" SolanaClearsignFFI.xcframework)
+
+      - name: Compute checksum
+        id: checksum
+        run: |
+          CHECKSUM=$(swift package compute-checksum "Output/$ARTIFACT")
+          echo "checksum=$CHECKSUM" >> "$GITHUB_OUTPUT"
+
+      - name: Update Package.swift for release
+        env:
+          CHECKSUM: ${{ steps.checksum.outputs.checksum }}
+        run: |
+          # main keeps `useLocalRustXCFramework = true` for the local dev workflow;
+          # the release tag needs `false` so SPM consumers pull the published zip.
+          perl -0pi -e 's/private let useLocalRustXCFramework\s*=\s*true/private let useLocalRustXCFramework = false/' Package.swift
+          perl -0pi -e 's#/download/[^/\"]*/SolanaClearsignFFI#/download/$ENV{VERSION}/SolanaClearsignFFI#g' Package.swift
+          perl -0pi -e 's/checksum:\s*\"[^\"]*\"/checksum: \"$ENV{CHECKSUM}\"/g' Package.swift
+
+          MANIFEST_JSON=$(mktemp)
+          swift package dump-package > "$MANIFEST_JSON"
+
+          ruby -rjson -e '
+            manifest = JSON.parse(File.read(ARGV.fetch(0)))
+            target = manifest.fetch("targets").find { |entry| entry["name"] == "SolanaClearsignFFI" } or abort("missing SolanaClearsignFFI target in dump-package output")
+            abort("release manifest still points at a local path") if target.key?("path") && !target["path"].nil?
+
+            expected_url = "#{ENV.fetch("REPO_URL")}/releases/download/#{ENV.fetch("VERSION")}/#{ENV.fetch("ARTIFACT")}"
+            abort("release manifest URL mismatch: #{target["url"].inspect}") unless target["url"] == expected_url
+            abort("release manifest checksum mismatch: #{target["checksum"].inspect}") unless target["checksum"] == ENV.fetch("CHECKSUM")
+          ' "$MANIFEST_JSON"
+
+          echo "Updated Package.swift:"
+          grep 'useLocalRustXCFramework' Package.swift
+          grep 'url:' Package.swift
+          grep 'checksum:' Package.swift
+
+      - name: Tag release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Package.swift
+          git commit -m "Release $VERSION"
+          git tag "$VERSION"
+          git push origin "$VERSION"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: ${{ inputs.version }}
+          generate_release_notes: true
+          files: Output/SolanaClearsignFFI.xcframework.zip

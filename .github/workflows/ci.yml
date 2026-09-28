@@ -2,6 +2,9 @@ name: CI
 
 on:
   push:
+    # Branches only: the release workflow pushes a tag whose Package.swift
+    # points at a release asset that does not exist yet at tag-push time.
+    branches: ['**']
   pull_request:
 
 jobs:
@@ -50,6 +53,14 @@ jobs:
         run: brew install xcodegen
       - name: Build XCFramework and Swift bindings
         run: ./scripts/build-xcframework.sh
+      - name: Committed Swift bindings must match regeneration
+        run: |
+          if [ -n "$(git status --porcelain -- bindings/swift/generated)" ]; then
+            git --no-pager status --short -- bindings/swift/generated
+            git --no-pager diff -- bindings/swift/generated | head -200
+            echo "::error::bindings/swift/generated differs from the committed bindings. Run ./scripts/build-xcframework.sh locally and commit the result." >&2
+            exit 1
+          fi
       - name: Test public Swift SDK
         run: swift test
       - name: Generate demo project

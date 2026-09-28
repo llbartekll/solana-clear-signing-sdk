@@ -1,8 +1,9 @@
 # Swift integration
 
-Build the checkout using the [quickstart](../README.md#run-the-demo), then add
-its root as a local Swift package and import `SolanaClearsign`. The examples
-below assume your app already has instruction data and resource URLs.
+Depend on a [tagged release](release.md) by Git URL, or build the checkout using
+the [quickstart](../README.md#run-the-demo) and add its root as a local Swift
+package; then import `SolanaClearsign`. The examples below assume your app
+already has instruction data and resource URLs.
 
 ## Inputs and providers
 
@@ -189,11 +190,15 @@ fields. Diagnostics stay available even when a preview can explain the value.
 
 ## Build and test notes
 
-`Package.swift` references the ignored `target/ios/SolanaClearsignFFI.xcframework`
-and `bindings/swift/generated/`. Run `scripts/build-xcframework.sh` before
-resolving the package and after changing Rust or UniFFI interfaces. It builds
+On `main`, `Package.swift` references the ignored
+`target/ios/SolanaClearsignFFI.xcframework` and the committed UniFFI bindings in
+`bindings/swift/generated/`. Run `scripts/build-xcframework.sh` before resolving
+the package and after changing Rust or UniFFI interfaces, and commit the
+regenerated bindings: CI fails when a rebuild changes them. The script builds
 iOS device and both simulator architectures; the macOS slice matches the build
 machine. Missing SDKs or Rust targets produce setup instructions before compilation.
+Tagged releases point at the published XCFramework zip instead, so consumers add
+the Git URL with an exact version; see [release](release.md).
 
 For command-line demo tests, generate the project as in the
 [quickstart](../README.md#run-the-demo), then select a device from

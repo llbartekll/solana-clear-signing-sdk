@@ -50,10 +50,18 @@ Select **ClearsignDemo**, choose an iOS Simulator and Run. Simulator builds
 need no signing team. Start with **Enable Subscriptions** in the picker.
 
 The SDK supports iOS 15+ and macOS 13+; the demo requires iOS 16+.
-This is a source distribution: build the XCFramework and matching Swift
-bindings before resolving the package. Integrate the checkout as a **local
-Swift package**; adding the Git URL directly in SwiftPM is not supported yet.
-See [integration](docs/integration.md) for setup details and callbacks.
+Tagged releases are consumable directly from SwiftPM: the release commit points
+`Package.swift` at the published XCFramework zip and its checksum.
+
+```swift
+.package(url: "https://github.com/llbartekll/solana-clear-signing-sdk.git", exact: "X.Y.Z")
+```
+
+On `main` the manifest resolves the local XCFramework, so a checkout used as a
+**local Swift package** still needs `scripts/build-xcframework.sh` first. The
+generated Swift bindings are committed; CI fails when a rebuild changes them.
+See [integration](docs/integration.md) for setup details and callbacks, and
+[release](docs/release.md) for how versions are published.
 
 ## Use the SDK
 
@@ -134,5 +142,6 @@ for command-line iOS tests and setup troubleshooting.
 - [Integration](docs/integration.md): Swift API, providers, IDL and registry setup.
 - [Architecture](docs/architecture.md): runtime, supported schema and trust boundaries.
 - [Conformance](conformance/README.md): oracle, captures and regression coverage.
+- [Release](docs/release.md): publishing a tagged version and its XCFramework zip.
 - [MIT License](LICENSE). Third-party dependencies and upstream reference
   material retain their own licenses.
