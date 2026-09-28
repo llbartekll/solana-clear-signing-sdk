@@ -9,7 +9,7 @@
 // and checksum, so SwiftPM consumers of a tag pull the GitHub Release asset.
 import PackageDescription
 
-private let useLocalRustXCFramework = true
+private let useLocalRustXCFramework = false
 
 let package = Package(
     name: "SolanaClearsign",
@@ -25,8 +25,8 @@ let package = Package(
             )
             : .binaryTarget(
                 name: "SolanaClearsignFFI",
-                url: "https://github.com/llbartekll/solana-clear-signing-sdk/releases/download/0.0.0/SolanaClearsignFFI.xcframework.zip",
-                checksum: "0000000000000000000000000000000000000000000000000000000000000000"
+                url: "https://github.com/llbartekll/solana-clear-signing-sdk/releases/download/0.1.0/SolanaClearsignFFI.xcframework.zip",
+                checksum: "d1f30b928e988aa7473f58bd385d0fc04b0dad96825407ae2d086ee884267402"
             ),
         .target(
             name: "SolanaClearsign",
