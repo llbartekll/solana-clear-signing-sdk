@@ -1,6 +1,6 @@
 // Instruction builders for the Subscriptions program, ported 1:1 from the
-// program source (single-byte discriminator + #[repr(C, packed)] LE payloads)
-// and cross-checked against clients/typescript. Account ORDER is load-bearing.
+// program source (single-byte discriminator + #[repr(C, packed)] LE payloads).
+// Account ORDER is load-bearing.
 
 import Foundation
 import SolanaSwift
@@ -52,22 +52,6 @@ enum SubscriptionsProgram {
         )
     }
 
-    /// disc 1 — fixed (total) allowance. Payload: nonce u64 | amount u64 | expiry i64 | initId i64.
-    static func createFixedDelegation(
-        delegator: PublicKey, delegatee: PublicKey, mint: PublicKey,
-        nonce: UInt64, amount: UInt64, expiryTs: Int64, authorityInitId: Int64
-    ) throws -> TransactionInstruction {
-        let authority = try subscriptionAuthorityPda(user: delegator, mint: mint)
-        var payload = Data([1])
-        payload += le(nonce) + le(amount) + le(expiryTs) + le(authorityInitId)
-        precondition(payload.count == 33)
-        return TransactionInstruction(
-            keys: try delegationKeys(authority: authority, delegator: delegator, delegatee: delegatee, nonce: nonce),
-            programId: id,
-            data: [payload]
-        )
-    }
-
     /// disc 2 — recurring allowance. Payload: nonce | amountPerPeriod | periodLengthS | startTs | expiryTs | initId.
     static func createRecurringDelegation(
         delegator: PublicKey, delegatee: PublicKey, mint: PublicKey,
@@ -95,20 +79,6 @@ enum SubscriptionsProgram {
             ],
             programId: id,
             data: [Data([3])]
-        )
-    }
-
-    /// disc 14 — the kill switch: SPL Revoke of the program's delegate on the ATA.
-    static func revokeSubscriptionAuthority(user: PublicKey, userAta: PublicKey, mint: PublicKey) -> TransactionInstruction {
-        TransactionInstruction(
-            keys: [
-                .init(publicKey: user, isSigner: true, isWritable: false),
-                .init(publicKey: userAta, isSigner: false, isWritable: true),
-                .init(publicKey: mint, isSigner: false, isWritable: false),
-                .init(publicKey: TokenProgram.id, isSigner: false, isWritable: false),
-            ],
-            programId: id,
-            data: [Data([14])]
         )
     }
 
@@ -160,12 +130,6 @@ enum SubscriptionsProgram {
             periodLengthSecs: periodLen, expiryTs: expiry,
             amountPerPeriod: perPeriod, amountPulledInPeriod: pulled
         )
-    }
-
-    /// SPL token account: mint @0 | owner @32 | amount u64 @64.
-    static func tokenAccountAmount(accountData d: Data) -> UInt64? {
-        guard d.count >= 72 else { return nil }
-        return leU64(d, at: 64)
     }
 }
 

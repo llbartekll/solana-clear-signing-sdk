@@ -24,7 +24,7 @@ final class DevnetRenderE2ETests: XCTestCase {
 
         var found: (pda: String, owner: String, data: Data)?
         for candidate in candidates {
-            if let account = await rpc.rawAccount(candidate),
+            if let account = try await rpc.rawAccount(candidate),
                account.data.count == 106, account.data.first == 0 {
                 found = (candidate, account.owner, account.data)
                 break

@@ -269,7 +269,23 @@ final class InspectorTests: XCTestCase {
         XCTAssertEqual(first, SolanaAccountData(owner: "owner", data: Data([1, 2, 3])))
         XCTAssertEqual(second, first)
         XCTAssertEqual(callCount, 1)
-        XCTAssertEqual(source, "Live @ slot 42")
+        XCTAssertEqual(source.text, "Live @ slot 42")
+        XCTAssertTrue(source.isRequired)
+        XCTAssertFalse(source.isDegraded)
+    }
+
+    func testAccountSourceSummaryNamesEveryContributingSource() {
+        let unused = AccountDataSourceSummary(origins: [])
+        XCTAssertEqual(unused.text, "Not required")
+        XCTAssertFalse(unused.isRequired)
+        XCTAssertFalse(unused.isDegraded)
+
+        let mixed = AccountDataSourceSummary(origins: [.missing, .snapshot(slot: 7), .live(slot: 42), .live(slot: 41)])
+        XCTAssertEqual(mixed.text, "Live @ slot 42, Snapshot @ slot 7, 1 missing")
+        XCTAssertTrue(mixed.isDegraded)
+
+        XCTAssertTrue(AccountDataSourceSummary(origins: [.missing]).isDegraded)
+        XCTAssertTrue(AccountDataSourceSummary(origins: [.snapshot(slot: 7)]).isDegraded)
     }
 
     func testRpcAccountTupleDecodesBase64() throws {
@@ -282,17 +298,12 @@ final class InspectorTests: XCTestCase {
     }
 
     func testRpcEndpointsFollowTheCatalogDeclaration() {
-        XCTAssertNil(RPCEndpoint.url(for: RPCSpec(kind: "alchemy", endpoint: nil), alchemyAPIKey: nil))
         XCTAssertEqual(
-            RPCEndpoint.url(for: RPCSpec(kind: "alchemy", endpoint: nil), alchemyAPIKey: "key")?.host,
-            "solana-mainnet.g.alchemy.com"
-        )
-        XCTAssertEqual(
-            RPCEndpoint.url(for: RPCSpec(kind: "public", endpoint: "https://api.devnet.solana.com"), alchemyAPIKey: nil)?
-                .absoluteString,
+            RPCEndpoint.url(for: RPCSpec(kind: "public", endpoint: "https://api.devnet.solana.com"))?.absoluteString,
             "https://api.devnet.solana.com"
         )
-        XCTAssertNil(RPCEndpoint.url(for: RPCSpec(kind: "unknown", endpoint: nil), alchemyAPIKey: "key"))
+        XCTAssertNil(RPCEndpoint.url(for: RPCSpec(kind: "public", endpoint: nil)))
+        XCTAssertNil(RPCEndpoint.url(for: RPCSpec(kind: "unknown", endpoint: "https://example.com")))
     }
 
     @MainActor

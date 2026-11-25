@@ -1,7 +1,7 @@
-// Deterministic, PRE-FUNDED devnet test wallet (seed = [42;32], a publicly
-// known devnet-only key — never reuse anywhere real). Airdrop faucets are
-// IP-rate-limited, so gate tests self-fund from this wallet and only fall
-// back to the faucet (then skip) when it somehow runs dry.
+// Deterministic devnet-only test wallet. Its secret key is committed below, so
+// anyone can spend from it: never fund it on mainnet or reuse it anywhere real.
+// Airdrop faucets are IP-rate-limited, so the live tests pay from this wallet
+// and only fall back to the faucet (then skip) when it runs dry.
 
 import Foundation
 import XCTest
@@ -13,7 +13,7 @@ enum TestFunding {
     /// The default test suite must remain deterministic and network-free.
     static func requireDevnetOptIn() throws {
         guard ProcessInfo.processInfo.environment["RUN_DEVNET_TESTS"] == "1" else {
-            throw XCTSkip("set RUN_DEVNET_TESTS=1 to run live devnet integration tests")
+            throw XCTSkip("set TEST_RUNNER_RUN_DEVNET_TESTS=1 for xcodebuild, or enable RUN_DEVNET_TESTS in the scheme, to run live devnet tests")
         }
     }
 
@@ -54,7 +54,7 @@ enum TestFunding {
         let ata = try PublicKey.associatedTokenAddress(
             walletAddress: user, tokenMintAddress: mint, tokenProgramId: TokenProgram.id
         )
-        if await rpc.rawAccount(ata.base58EncodedString) != nil {
+        if try await rpc.rawAccount(ata.base58EncodedString) != nil {
             return (ata, nil)
         }
         let ix = try AssociatedTokenProgram.createAssociatedTokenAccountInstruction(

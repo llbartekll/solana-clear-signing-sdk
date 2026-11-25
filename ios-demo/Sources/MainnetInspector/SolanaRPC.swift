@@ -5,19 +5,12 @@ protocol SolanaRPCServing: Sendable {
     func account(address: String) async throws -> RPCResolvedAccount?
 }
 
-/// Resolves a catalog's RPC declaration to a concrete endpoint. Mainnet goes
-/// through Alchemy and needs the app's key; public clusters need none.
+/// Resolves a catalog's RPC declaration to a concrete endpoint. Only public,
+/// keyless endpoints are supported.
 enum RPCEndpoint {
-    static func url(for spec: RPCSpec, alchemyAPIKey: String?) -> URL? {
-        switch spec.kind {
-        case "alchemy":
-            guard let key = alchemyAPIKey else { return nil }
-            return URL(string: "https://solana-mainnet.g.alchemy.com/v2/\(key)")
-        case "public":
-            return spec.endpoint.flatMap { URL(string: $0) }
-        default:
-            return nil
-        }
+    static func url(for spec: RPCSpec) -> URL? {
+        guard spec.kind == "public" else { return nil }
+        return spec.endpoint.flatMap { URL(string: $0) }
     }
 }
 

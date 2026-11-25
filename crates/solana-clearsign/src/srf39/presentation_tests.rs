@@ -8,7 +8,7 @@ use crate::provider::Srf39AccountProvider;
 use crate::InstructionContext;
 
 use super::client::{RenderOutcome, Srf39Client};
-use super::conformance_tests::{fixture_provider, load_fixture, OwnedInstruction};
+use super::conformance_tests::{fixture_names, fixture_provider, load_fixture, OwnedInstruction};
 use super::presentation::{
     AddressLabel, AnnotationKind, PresentationMetadataProvider, TokenMetadata,
 };
@@ -18,25 +18,6 @@ use super::UnsupportedReason;
 
 const TOKEN_PROGRAM: &str = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
 const USDC: &str = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
-
-const FIXTURES: &[&str] = &[
-    "default-display",
-    "transfer-checked",
-    "spl-token-transfer-checked",
-    "spl-token-instructions",
-    "struct-argument",
-    "inert-nodes",
-    "defined-types",
-    "signed-numbers",
-    "date-time-display",
-    "duration-display",
-    "enum-display",
-    "fixed-string",
-    "fixed-array",
-    "cross-program-link",
-    "flatten-struct",
-    "subscriptions",
-];
 
 #[derive(Default)]
 struct MapProvider {
@@ -311,7 +292,19 @@ fn registry_decimals_mismatch_suppresses_the_annotation() {
         "transferChecked-online",
         provider_with(Some(usdc(Some(9), None))),
     );
-    assert_eq!(codes(&outcome), ["token_registry_decimals_mismatch"]);
+    assert_eq!(
+        codes(&outcome),
+        [
+            "token_registry_decimals_mismatch",
+            "interpolated_intent_scale_conflict"
+        ]
+    );
+    let RenderOutcome::Rendered(rendered) = &outcome else {
+        unreachable!()
+    };
+    let presented = &rendered.presentation.token_amounts[0];
+    assert_eq!(presented.value, "1469 (raw)");
+    assert_eq!(presented.decimals, None);
     assert!(token_annotations(&outcome).is_empty());
 }
 
@@ -322,7 +315,19 @@ fn registry_owner_mismatch_suppresses_the_annotation() {
         "transferChecked-online",
         provider_with(Some(usdc(None, Some("11111111111111111111111111111111")))),
     );
-    assert_eq!(codes(&outcome), ["token_registry_owner_mismatch"]);
+    assert_eq!(
+        codes(&outcome),
+        [
+            "token_registry_owner_mismatch",
+            "interpolated_intent_scale_conflict"
+        ]
+    );
+    let RenderOutcome::Rendered(rendered) = &outcome else {
+        unreachable!()
+    };
+    let presented = &rendered.presentation.token_amounts[0];
+    assert_eq!(presented.value, "1469 (raw)");
+    assert_eq!(presented.decimals, None);
     assert!(token_annotations(&outcome).is_empty());
 }
 
@@ -422,7 +427,7 @@ fn labels_are_applied_to_named_and_remaining_account_fields() {
 
 #[test]
 fn canonical_output_is_independent_of_the_presentation_provider() {
-    for fixture_name in FIXTURES {
+    for fixture_name in &fixture_names() {
         let (root_json, fixture, expected) = load_fixture(fixture_name);
         let engine = Srf39Engine::from_json(&root_json).expect("engine");
         for scenario in &fixture.scenarios {
@@ -1285,5 +1290,306 @@ fn callback_scaling_preserves_signed_values() {
             metadata_provider(USDC, Some(6)),
         );
         assert_eq!(result.presentation.token_amounts[0].value, expected);
+    }
+}
+
+const MINT_ACCOUNT_PROGRAM: &str = "11111111111111111111111111111111";
+
+/// One account `mint` holding `decimals` (and a sized layout), plus arguments
+/// supplied by the test.
+fn linked_mint_root(arguments: serde_json::Value, display: serde_json::Value) -> serde_json::Value {
+    serde_json::json!({
+        "kind": "rootNode", "standard": "codama", "version": "1.0.0",
+        "program": { "kind": "programNode", "name": "billing", "publicKey": MINT_ACCOUNT_PROGRAM,
+            "accounts": [{ "kind": "accountNode", "name": "mint",
+                "discriminators": [{ "kind": "sizeDiscriminatorNode", "size": 1 }],
+                "data": { "kind": "structTypeNode", "fields": [
+                    { "kind": "structFieldTypeNode", "name": "decimals",
+                      "type": { "kind": "numberTypeNode", "format": "u8" } } ] } }],
+            "instructions": [{ "kind": "instructionNode", "name": "pay",
+                "accounts": [{ "kind": "instructionAccountNode", "name": "mint",
+                    "accountLink": { "kind": "accountLinkNode", "name": "mint" } }],
+                "arguments": arguments,
+                "provides": [{ "kind": "providedNode", "name": "scale", "node":
+                    { "kind": "accountFieldValueNode", "account": "mint", "path": "decimals" } }],
+                "display": display
+            }]
+        }
+    })
+}
+
+fn amount_type(decimals: Option<serde_json::Value>) -> serde_json::Value {
+    let mut display = serde_json::json!({ "kind": "amountNumberDisplayNode" });
+    if let Some(decimals) = decimals {
+        display["decimals"] = decimals;
+    }
+    serde_json::json!({ "kind": "numberTypeNode", "format": "u64", "display": display })
+}
+
+fn injected_scale() -> Option<serde_json::Value> {
+    Some(serde_json::json!({ "kind": "injectedValueNode", "key": "scale" }))
+}
+
+fn argument(name: &str, ty: serde_json::Value) -> serde_json::Value {
+    serde_json::json!({ "kind": "instructionArgumentNode", "name": name, "type": ty })
+}
+
+fn render_linked_mint(
+    root: &serde_json::Value,
+    values: &[u64],
+    mint_bytes: &[u8],
+    metadata: Option<TokenMetadata>,
+) -> super::RenderedInstruction {
+    let mut accounts = super::conformance_tests::FixtureProvider::default();
+    accounts.accounts.insert(
+        USDC.into(),
+        crate::AccountData {
+            owner: TOKEN_PROGRAM.into(),
+            data: mint_bytes.to_vec(),
+        },
+    );
+    let client = Srf39Client::from_idl_json(
+        &root.to_string(),
+        Some(Arc::new(accounts)),
+        Some(provider_with(metadata)),
+    )
+    .expect("IDL");
+    let data: Vec<u8> = values
+        .iter()
+        .flat_map(|value| value.to_le_bytes())
+        .collect();
+    let RenderOutcome::Rendered(rendered) =
+        pollster::block_on(client.render(&InstructionContext {
+            program_id: MINT_ACCOUNT_PROGRAM,
+            instruction_data: &data,
+            accounts: &[crate::AccountMeta {
+                pubkey: USDC,
+                is_signer: false,
+                is_writable: false,
+            }],
+            fee_payer: None,
+        }))
+        .expect("render")
+    else {
+        panic!("expected rendered");
+    };
+    *rendered
+}
+
+fn has_code(rendered: &super::RenderedInstruction, code: &str) -> bool {
+    rendered.diagnostics.iter().any(|d| d.code == code)
+}
+
+#[test]
+fn array_amounts_get_scale_diagnostics_and_token_cross_checks() {
+    let array = |decimals| {
+        serde_json::json!({ "kind": "arrayTypeNode", "item": amount_type(decimals),
+            "count": { "kind": "fixedCountNode", "value": 2 } })
+    };
+    let display = serde_json::json!({ "kind": "instructionDisplayNode" });
+
+    let unresolved = Some(serde_json::json!({ "kind": "injectedValueNode", "key": "absent" }));
+    let root = linked_mint_root(
+        serde_json::json!([argument("values", array(unresolved))]),
+        display.clone(),
+    );
+    let rendered = render_linked_mint(&root, &[15, 20], &[6], None);
+    assert_eq!(rendered.canonical.fields[0].value, "15 (raw), 20 (raw)");
+    assert!(has_code(&rendered, "amount_scale_unresolved"));
+    assert!(rendered.hints.amounts.is_empty());
+
+    let root = linked_mint_root(
+        serde_json::json!([argument("values", array(injected_scale()))]),
+        display,
+    );
+    let agreed = render_linked_mint(&root, &[1_500_000, 2], &[6], Some(usdc(Some(6), None)));
+    assert!(agreed.presentation.token_amounts.is_empty());
+    assert_eq!(agreed.presentation.annotations.len(), 2);
+
+    let conflict = render_linked_mint(&root, &[1_500_000, 2], &[9], Some(usdc(Some(6), None)));
+    assert!(has_code(&conflict, "token_registry_decimals_mismatch"));
+    assert!(
+        conflict.presentation.annotations.is_empty(),
+        "the scale account must not bypass the failed check"
+    );
+    assert_eq!(
+        conflict.presentation.token_amounts[0].value,
+        "1500000 (raw), 2 (raw)"
+    );
+}
+
+#[test]
+fn a_mint_that_failed_for_one_amount_fails_for_every_amount() {
+    let root = linked_mint_root(
+        serde_json::json!([
+            argument("fee", amount_type(None)),
+            argument("principal", amount_type(injected_scale())),
+        ]),
+        serde_json::json!({ "kind": "instructionDisplayNode", "x-solana-clearsign": {
+            "tokenAmounts": [{ "amount": "fee", "mint": { "source": "account", "name": "mint" } }] } }),
+    );
+    let rendered = render_linked_mint(&root, &[5, 7], &[9], Some(usdc(Some(6), None)));
+    assert_eq!(
+        rendered
+            .presentation
+            .token_amounts
+            .iter()
+            .map(|amount| amount.value.as_str())
+            .collect::<Vec<_>>(),
+        ["5 (raw)", "7 (raw)"]
+    );
+    assert!(rendered.presentation.annotations.is_empty());
+}
+
+#[test]
+fn bound_amount_without_idl_decimals_never_disagrees_with_the_canonical_number() {
+    let mut root = metadata_root();
+    root["program"]["instructions"][0]["arguments"][0]["type"]["display"] =
+        serde_json::json!({ "kind": "amountNumberDisplayNode" });
+    root["program"]["instructions"][0]["display"]["interpolatedIntent"] =
+        "Pay ${data.quantity}".into();
+    let conflict = render_metadata_amount(
+        &root,
+        9_990_000,
+        USDC,
+        &[],
+        metadata_provider(USDC, Some(6)),
+    );
+    assert_eq!(
+        conflict.presentation.token_amounts[0].value,
+        "9990000 (raw)"
+    );
+    assert!(has_code(&conflict, "token_amount_scale_conflict"));
+    assert!(has_code(&conflict, "interpolated_intent_scale_conflict"));
+    let agreed = render_metadata_amount(
+        &root,
+        9_990_000,
+        USDC,
+        &[],
+        metadata_provider(USDC, Some(0)),
+    );
+    assert_eq!(agreed.presentation.token_amounts[0].value, "9990000");
+    assert!(!has_code(&agreed, "interpolated_intent_scale_conflict"));
+}
+
+#[test]
+fn empty_literal_unit_is_not_a_conflict() {
+    let mut root = metadata_root();
+    root["program"]["instructions"][0]["arguments"][0]["type"]["display"]["unit"] =
+        serde_json::json!({ "kind": "stringValueNode", "string": "" });
+    let rendered = render_metadata_amount(
+        &root,
+        9_990_000,
+        USDC,
+        &[],
+        metadata_provider(USDC, Some(6)),
+    );
+    assert_eq!(rendered.presentation.token_amounts[0].value, "9.99");
+    assert!(!has_code(&rendered, "unit_literal_conflicts_with_metadata"));
+}
+
+#[test]
+fn wrong_sized_linked_account_is_presented_raw_unless_the_host_confirms_the_scale() {
+    let root = linked_mint_root(
+        serde_json::json!([argument("amount", amount_type(injected_scale()))]),
+        serde_json::json!({ "kind": "instructionDisplayNode", "interpolatedIntent": "Pay ${data.amount}" }),
+    );
+    let spoofed = [6, 0, 0];
+    let unknown = render_linked_mint(&root, &[1_500_000], &spoofed, None);
+    assert_eq!(unknown.canonical.fields[0].value, "1.5", "reference parity");
+    assert!(has_code(&unknown, "linked_account_layout_mismatch"));
+    assert!(has_code(&unknown, "interpolated_intent_scale_conflict"));
+    assert_eq!(unknown.presentation.token_amounts[0].value, "1500000 (raw)");
+
+    let confirmed = render_linked_mint(&root, &[1_500_000], &spoofed, Some(usdc(Some(6), None)));
+    assert!(has_code(&confirmed, "linked_account_layout_mismatch"));
+    assert!(confirmed.presentation.token_amounts.is_empty());
+
+    let exact = render_linked_mint(&root, &[1_500_000], &[6], None);
+    assert!(!has_code(&exact, "linked_account_layout_mismatch"));
+    assert!(exact.presentation.token_amounts.is_empty());
+}
+
+#[test]
+fn unsafe_decoded_text_is_escaped_flagged_and_kept_out_of_the_sentence() {
+    let root = linked_mint_root(
+        serde_json::json!([argument(
+            "memo",
+            serde_json::json!({
+            "kind": "fixedSizeTypeNode", "size": 8,
+            "type": { "kind": "stringTypeNode", "encoding": "utf8" } })
+        )]),
+        serde_json::json!({ "kind": "instructionDisplayNode", "interpolatedIntent": "Memo ${data.memo}" }),
+    );
+    let word = |bytes: &[u8; 8]| u64::from_le_bytes(*bytes);
+    let spoofed = render_linked_mint(
+        &root,
+        &[word(
+            "a\n\u{202E}b\0\0".as_bytes().try_into().expect("8 bytes"),
+        )],
+        &[6],
+        None,
+    );
+    assert_eq!(
+        spoofed.canonical.fields[0].value, "a\n\u{202E}b",
+        "reference parity"
+    );
+    assert_eq!(spoofed.canonical.interpolated_intent, None);
+    assert!(spoofed.hints.interpolated_intent_suppressed);
+    assert!(has_code(&spoofed, "unsafe_display_text"));
+    assert!(has_code(&spoofed, "interpolated_intent_unavailable"));
+    assert_eq!(spoofed.presentation.escaped_texts[0].field_index, 0);
+    assert_eq!(
+        spoofed.presentation.escaped_texts[0].value,
+        "a\\u{a}\\u{202e}b"
+    );
+    let plain = render_linked_mint(&root, &[word(b"hello\0\0\0")], &[6], None);
+    assert_eq!(
+        plain.canonical.interpolated_intent.as_deref(),
+        Some("Memo hello")
+    );
+    assert!(plain.presentation.escaped_texts.is_empty());
+    assert!(!has_code(&plain, "unsafe_display_text"));
+}
+
+#[test]
+fn host_names_and_labels_must_pass_the_text_policy() {
+    for (label, source) in [
+        ("9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM", None),
+        ("Treasury\nAmount", None),
+        ("Treasury", Some("app\u{202E}")),
+    ] {
+        let mut provider = MapProvider::default();
+        let mut metadata = usdc(Some(6), None);
+        metadata.name = Some("USDC\u{202E}".into());
+        provider.tokens.insert(USDC.into(), metadata);
+        provider.labels.insert(
+            USDC.into(),
+            AddressLabel {
+                label: label.into(),
+                source: source.map(str::to_string),
+            },
+        );
+        let rendered = render_metadata_amount(&metadata_root(), 1, USDC, &[], Arc::new(provider));
+        assert!(has_code(&rendered, "address_label_rejected"), "{label}");
+        assert_eq!(
+            rendered
+                .diagnostics
+                .iter()
+                .filter(|d| d.code == "token_name_rejected")
+                .count(),
+            1
+        );
+        assert!(!rendered.presentation.annotations.is_empty());
+        for annotation in &rendered.presentation.annotations {
+            assert!(
+                matches!(
+                    &annotation.kind,
+                    AnnotationKind::TokenAmount { name: None, .. }
+                        | AnnotationKind::TokenMint { name: None, .. }
+                ),
+                "{annotation:?}"
+            );
+        }
     }
 }

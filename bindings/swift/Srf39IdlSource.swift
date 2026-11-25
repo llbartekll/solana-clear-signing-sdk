@@ -3,7 +3,9 @@ import Foundation
 /// Answers "which IDL describes this program?".
 ///
 /// Return `nil` when the source does not know the program; that is an
-/// expected outcome, not an error. Throw `Srf39IdlSourceError.unavailable` to
+/// expected outcome, not an error. The client caches that answer like a
+/// document: call `invalidate(programId:)` when the source learns a new
+/// program. Throw `Srf39IdlSourceError.unavailable` to
 /// report a source failure with a `retryable` hint; any other thrown error is
 /// reported to the client as a non-retryable source failure.
 public protocol Srf39IdlSource: AnyObject, Sendable {
@@ -69,6 +71,8 @@ public enum BundledSrf39IdlSourceError: Error, Sendable, Equatable {
     case unsupportedSchemaVersion(Int)
     case duplicateProgramId(String)
     case malformedDigest(programId: String, digest: String)
+    /// `file` must be a plain file name inside the manifest directory.
+    case invalidFileName(programId: String, fileName: String)
 }
 
 /// Reference source: a manifest listing IDL files that live next to it.
@@ -137,6 +141,11 @@ public actor BundledSrf39IdlSource: Srf39IdlSource {
             if let digest = entry.sha256, !Self.isHexDigest(digest) {
                 throw BundledSrf39IdlSourceError.malformedDigest(programId: entry.programId, digest: digest)
             }
+            guard Self.isPlainFileName(entry.fileName) else {
+                throw BundledSrf39IdlSourceError.invalidFileName(
+                    programId: entry.programId, fileName: entry.fileName
+                )
+            }
             indexed[entry.programId] = entry
         }
         self.entries = indexed
@@ -152,7 +161,13 @@ public actor BundledSrf39IdlSource: Srf39IdlSource {
         } else {
             let url = directory.appendingPathComponent(entry.fileName)
             do {
-                json = try String(contentsOf: url, encoding: .utf8)
+                // `String(contentsOf:encoding:)` drops a BOM, and the digest
+                // covers the exact file bytes.
+                let data = try Data(contentsOf: url)
+                json = String(decoding: data, as: UTF8.self)
+                guard json.utf8.elementsEqual(data) else {
+                    throw CocoaError(.fileReadInapplicableStringEncoding)
+                }
             } catch {
                 throw Srf39IdlSourceError.unavailable(
                     detail: "could not read \(entry.fileName): \(error.localizedDescription)",
@@ -175,7 +190,16 @@ public actor BundledSrf39IdlSource: Srf39IdlSource {
     }
 
     private static func isHexDigest(_ value: String) -> Bool {
-        value.count == 64 && value.allSatisfy(\.isHexDigit)
+        value.utf8.count == 64 && value.utf8.allSatisfy { byte in
+            switch byte {
+            case 0x30 ... 0x39, 0x41 ... 0x46, 0x61 ... 0x66: return true
+            default: return false
+            }
+        }
+    }
+
+    private static func isPlainFileName(_ name: String) -> Bool {
+        !name.isEmpty && name != "." && name != ".." && !name.contains("/") && !name.contains("\0")
     }
 
     private struct Manifest: Decodable {

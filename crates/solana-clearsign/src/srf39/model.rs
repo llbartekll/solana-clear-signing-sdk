@@ -1,3 +1,5 @@
+use std::collections::{HashMap, HashSet};
+
 use serde::Deserialize;
 use serde_json::Value;
 
@@ -6,6 +8,18 @@ use super::Srf39IdlError;
 // A host-side resource limit, not a Codama schema rule. Count containers as
 // well as leaves so nested arrays of zero-byte values cannot amplify work.
 const MAX_DECODED_VALUES: usize = 65_536;
+
+/// Deepest type tree accepted once links are followed. Loading, decoding and
+/// formatting recurse per level, and hosts may run on 512 KB stacks.
+const MAX_TYPE_DEPTH: usize = 32;
+
+/// Total JSON bytes of defined types that links may copy while inlining one
+/// document. Bounds the expansion before the decoded-value limit can run.
+const MAX_INLINED_BYTES: usize = 16 * 1024 * 1024;
+
+/// Struct field names are repeated per decoded value, so names longer than
+/// this count as additional values.
+const FIELD_NAME_BYTES_PER_VALUE: usize = 64;
 
 const SUPPORTED_KINDS: &[&str] = &[
     "accountFieldValueNode",
@@ -49,24 +63,9 @@ const SUPPORTED_KINDS: &[&str] = &[
     "structTypeNode",
 ];
 
-/// Node kinds the reference display runtime never consults. They are accepted
-/// only inside [`INERT_POSITIONS`], where they describe PDA derivation,
-/// program errors, or client-side account defaults; anywhere else they are
-/// unsupported like any other unknown kind.
-const INERT_KINDS: &[&str] = &[
-    "accountValueNode",
-    "constantPdaSeedNode",
-    "errorNode",
-    "pdaLinkNode",
-    "pdaNode",
-    "pdaSeedValueNode",
-    "pdaValueNode",
-    "publicKeyValueNode",
-    "stringTypeNode",
-    "variablePdaSeedNode",
-];
-
-/// `(enclosing node kind, key)` pairs whose subtree is inert for display.
+/// `(enclosing node kind, key)` pairs whose subtree the reference display
+/// runtime never consults (PDA derivation, program errors, client-side account
+/// defaults). The engine keeps these opaque, so any node kind may appear there.
 const INERT_POSITIONS: &[(&str, &str)] = &[
     ("programNode", "errors"),
     ("programNode", "pdas"),
@@ -85,13 +84,15 @@ impl LoadedSrf39Idl {
             serde_json::from_str(json).map_err(|error| Srf39IdlError::InvalidJson {
                 detail: error.to_string(),
             })?;
-        validate_known_kinds(&value, "$", false)?;
+        validate_known_kinds(&value, "$")?;
+        let type_sizes = defined_type_sizes(&value);
         let mut root: RootNode =
             serde_json::from_value(value).map_err(|error| Srf39IdlError::InvalidSchema {
                 detail: error.to_string(),
             })?;
         check_links(&root)?;
-        resolve_links(&mut root)?;
+        validate_definitions(&root)?;
+        resolve_links(&mut root, &type_sizes)?;
         validate_root(&root)?;
         Ok(Self { root })
     }
@@ -509,22 +510,19 @@ pub(crate) enum DisplaySkip {
     WhenInjected,
 }
 
-/// Walks the whole JSON tree and rejects any `kind` outside the implemented
-/// set. `inert` is `true` inside an [`INERT_POSITIONS`] subtree, where the
-/// reference display runtime never looks and [`INERT_KINDS`] are tolerated.
-fn validate_known_kinds(value: &Value, path: &str, inert: bool) -> Result<(), Srf39IdlError> {
+/// Walks the JSON tree outside [`INERT_POSITIONS`] and rejects any `kind`
+/// outside the implemented set.
+fn validate_known_kinds(value: &Value, path: &str) -> Result<(), Srf39IdlError> {
     match value {
         Value::Array(values) => {
             for (index, child) in values.iter().enumerate() {
-                validate_known_kinds(child, &format!("{path}[{index}]"), inert)?;
+                validate_known_kinds(child, &format!("{path}[{index}]"))?;
             }
         }
         Value::Object(object) => {
             let kind = object.get("kind").and_then(Value::as_str);
             if let Some(kind) = kind {
-                let allowed =
-                    SUPPORTED_KINDS.contains(&kind) || (inert && INERT_KINDS.contains(&kind));
-                if !allowed {
+                if !SUPPORTED_KINDS.contains(&kind) {
                     return Err(Srf39IdlError::UnsupportedIdlNode {
                         path: path.to_string(),
                         kind: kind.to_string(),
@@ -532,14 +530,37 @@ fn validate_known_kinds(value: &Value, path: &str, inert: bool) -> Result<(), Sr
                 }
             }
             for (key, child) in object {
-                let child_inert = inert
-                    || kind.is_some_and(|kind| INERT_POSITIONS.contains(&(kind, key.as_str())));
-                validate_known_kinds(child, &format!("{path}.{key}"), child_inert)?;
+                if kind.is_some_and(|kind| INERT_POSITIONS.contains(&(kind, key.as_str()))) {
+                    continue;
+                }
+                validate_known_kinds(child, &format!("{path}.{key}"))?;
             }
         }
         _ => {}
     }
     Ok(())
+}
+
+/// JSON size of every defined type, keyed by `(program name, type name)`.
+type TypeSizes = HashMap<(String, String), usize>;
+
+fn defined_type_sizes(root: &Value) -> TypeSizes {
+    let additional = root["additionalPrograms"].as_array().into_iter().flatten();
+    let mut sizes = TypeSizes::new();
+    for program in std::iter::once(&root["program"]).chain(additional) {
+        let defined_types = program["definedTypes"].as_array().into_iter().flatten();
+        for defined in defined_types {
+            if let (Some(program), Some(name)) =
+                (program["name"].as_str(), defined["name"].as_str())
+            {
+                sizes.insert(
+                    (program.to_string(), name.to_string()),
+                    defined["type"].to_string().len(),
+                );
+            }
+        }
+    }
+    sizes
 }
 
 /// `(program, JSON path)` for the primary and every additional program.
@@ -554,11 +575,29 @@ fn programs_with_paths(root: &RootNode) -> Vec<(&ProgramNode, String)> {
         .collect()
 }
 
+/// Names address nodes; the reference and this engine would pick different
+/// winners for a repeated one.
+fn ensure_unique<'a>(
+    names: impl IntoIterator<Item = &'a str>,
+    what: &str,
+    path: &str,
+) -> Result<(), Srf39IdlError> {
+    let mut seen = HashSet::new();
+    for (index, name) in names.into_iter().enumerate() {
+        if !seen.insert(name) {
+            return Err(Srf39IdlError::InvalidSchema {
+                detail: format!("duplicate {what} name '{name}' at {path}[{index}]"),
+            });
+        }
+    }
+    Ok(())
+}
+
 /// Structural checks that must hold before links are followed: unique program
 /// and defined-type names, and every `definedTypeLinkNode` naming an existing
 /// program and type.
 fn check_links(root: &RootNode) -> Result<(), Srf39IdlError> {
-    let mut program_names = std::collections::HashSet::new();
+    let mut program_names = HashSet::new();
     for (program, path) in programs_with_paths(root) {
         ensure_kind(&program.kind, "programNode", &path)?;
         if !program_names.insert(program.name.as_str()) {
@@ -566,7 +605,7 @@ fn check_links(root: &RootNode) -> Result<(), Srf39IdlError> {
                 detail: format!("duplicate program name '{}' at {path}", program.name),
             });
         }
-        let mut type_names = std::collections::HashSet::new();
+        let mut type_names = HashSet::new();
         for (index, defined) in program.defined_types.iter().enumerate() {
             let defined_path = format!("{path}.definedTypes[{index}]");
             ensure_kind(&defined.kind, "definedTypeNode", &defined_path)?;
@@ -665,8 +704,9 @@ fn check_type_links(
 /// nested links to the target's own program (the reference rebases the owner
 /// path the same way). Defined types are inlined first, each with itself on
 /// the expansion stack, so a recursive type is reported at its own definition.
-fn resolve_links(root: &mut RootNode) -> Result<(), Srf39IdlError> {
+fn resolve_links(root: &mut RootNode, sizes: &TypeSizes) -> Result<(), Srf39IdlError> {
     let source = root.clone();
+    let mut inliner = Inliner::new(&source, sizes);
     let mut programs: Vec<(&mut ProgramNode, String)> =
         vec![(&mut root.program, "$.program".to_string())];
     programs.extend(
@@ -678,32 +718,30 @@ fn resolve_links(root: &mut RootNode) -> Result<(), Srf39IdlError> {
     for (program, path) in programs {
         let scope = program.name.clone();
         for (index, defined) in program.defined_types.iter_mut().enumerate() {
-            let mut stack = vec![(scope.clone(), defined.name.clone())];
-            defined.ty = inline_type(
-                &source,
+            inliner.stack = vec![(scope.clone(), defined.name.clone())];
+            defined.ty = inliner.inline(
                 &scope,
                 &defined.ty,
                 &format!("{path}.definedTypes[{index}].type"),
-                &mut stack,
+                1,
             )?;
         }
+        inliner.stack.clear();
         for (index, account) in program.accounts.iter_mut().enumerate() {
-            account.data = inline_type(
-                &source,
+            account.data = inliner.inline(
                 &scope,
                 &account.data,
                 &format!("{path}.accounts[{index}].data"),
-                &mut Vec::new(),
+                1,
             )?;
         }
         for (index, instruction) in program.instructions.iter_mut().enumerate() {
             for (argument_index, argument) in instruction.arguments.iter_mut().enumerate() {
-                argument.ty = inline_type(
-                    &source,
+                argument.ty = inliner.inline(
                     &scope,
                     &argument.ty,
                     &format!("{path}.instructions[{index}].arguments[{argument_index}].type"),
-                    &mut Vec::new(),
+                    1,
                 )?;
             }
         }
@@ -711,112 +749,134 @@ fn resolve_links(root: &mut RootNode) -> Result<(), Srf39IdlError> {
     Ok(())
 }
 
-fn inline_type(
-    source: &RootNode,
-    scope: &str,
-    node: &TypeNode,
-    path: &str,
-    stack: &mut Vec<(String, String)>,
-) -> Result<TypeNode, Srf39IdlError> {
-    Ok(match node {
-        TypeNode::Boolean { size } => TypeNode::Boolean {
-            size: Box::new(inline_type(
-                source,
-                scope,
-                size,
-                &format!("{path}.size"),
-                stack,
-            )?),
-        },
-        TypeNode::Number { .. } | TypeNode::PublicKey | TypeNode::String { .. } => node.clone(),
-        TypeNode::FixedSize { size, ty } => TypeNode::FixedSize {
-            size: *size,
-            ty: Box::new(inline_type(
-                source,
-                scope,
-                ty,
-                &format!("{path}.type"),
-                stack,
-            )?),
-        },
-        TypeNode::Array { item, count } => TypeNode::Array {
-            item: Box::new(inline_type(
-                source,
-                scope,
+struct Inliner<'a> {
+    targets: HashMap<(&'a str, &'a str), (&'a TypeNode, usize)>,
+    stack: Vec<(String, String)>,
+    remaining_bytes: usize,
+}
+
+impl<'a> Inliner<'a> {
+    fn new(source: &'a RootNode, sizes: &TypeSizes) -> Self {
+        let mut targets = HashMap::new();
+        for program in source.programs() {
+            for defined in &program.defined_types {
+                let size = sizes
+                    .get(&(program.name.clone(), defined.name.clone()))
+                    .copied()
+                    .unwrap_or(0);
+                targets.insert(
+                    (program.name.as_str(), defined.name.as_str()),
+                    (&defined.ty, size),
+                );
+            }
+        }
+        Self {
+            targets,
+            stack: Vec::new(),
+            remaining_bytes: MAX_INLINED_BYTES,
+        }
+    }
+
+    fn inline(
+        &mut self,
+        scope: &str,
+        node: &TypeNode,
+        path: &str,
+        depth: usize,
+    ) -> Result<TypeNode, Srf39IdlError> {
+        if depth > MAX_TYPE_DEPTH {
+            return Err(Srf39IdlError::InvalidSchema {
+                detail: format!("type nesting exceeds the SDK limit of {MAX_TYPE_DEPTH} at {path}"),
+            });
+        }
+        let mut child = |node: &TypeNode, key: &str| {
+            self.inline(scope, node, &format!("{path}.{key}"), depth + 1)
+                .map(Box::new)
+        };
+        Ok(match node {
+            TypeNode::Number { .. } | TypeNode::PublicKey | TypeNode::String { .. } => node.clone(),
+            TypeNode::Boolean { size } => TypeNode::Boolean {
+                size: child(size, "size")?,
+            },
+            TypeNode::FixedSize { size, ty } => TypeNode::FixedSize {
+                size: *size,
+                ty: child(ty, "type")?,
+            },
+            TypeNode::Array { item, count } => TypeNode::Array {
+                item: child(item, "item")?,
+                count: count.clone(),
+            },
+            TypeNode::Enum { size, variants } => TypeNode::Enum {
+                size: child(size, "size")?,
+                variants: variants.clone(),
+            },
+            TypeNode::Option {
                 item,
-                &format!("{path}.item"),
-                stack,
-            )?),
-            count: count.clone(),
-        },
-        TypeNode::Enum { size, variants } => TypeNode::Enum {
-            size: Box::new(inline_type(
-                source,
-                scope,
-                size,
-                &format!("{path}.size"),
-                stack,
-            )?),
-            variants: variants.clone(),
-        },
-        TypeNode::Option {
-            item,
-            prefix,
-            fixed,
-        } => TypeNode::Option {
-            item: Box::new(inline_type(
-                source,
-                scope,
-                item,
-                &format!("{path}.item"),
-                stack,
-            )?),
-            prefix: Box::new(inline_type(
-                source,
-                scope,
                 prefix,
-                &format!("{path}.prefix"),
-                stack,
-            )?),
-            fixed: *fixed,
-        },
-        TypeNode::Struct { fields } => {
-            let mut inlined = Vec::with_capacity(fields.len());
-            for (index, field) in fields.iter().enumerate() {
-                inlined.push(StructFieldTypeNode {
-                    ty: inline_type(
-                        source,
-                        scope,
-                        &field.ty,
-                        &format!("{path}.fields[{index}].type"),
-                        stack,
-                    )?,
-                    ..field.clone()
-                });
+                fixed,
+            } => TypeNode::Option {
+                item: child(item, "item")?,
+                prefix: child(prefix, "prefix")?,
+                fixed: *fixed,
+            },
+            TypeNode::Struct { fields } => {
+                let mut inlined = Vec::with_capacity(fields.len());
+                for (index, field) in fields.iter().enumerate() {
+                    inlined.push(StructFieldTypeNode {
+                        kind: field.kind.clone(),
+                        name: field.name.clone(),
+                        ty: *child(&field.ty, &format!("fields[{index}].type"))?,
+                        display: field.display.clone(),
+                    });
+                }
+                TypeNode::Struct { fields: inlined }
             }
-            TypeNode::Struct { fields: inlined }
-        }
-        TypeNode::DefinedTypeLink { name, program } => {
-            let program_name = program.as_ref().map_or(scope, |link| link.name.as_str());
-            let key = (program_name.to_string(), name.clone());
-            if stack.contains(&key) {
-                return Err(Srf39IdlError::UnsupportedIdlNode {
-                    path: path.to_string(),
-                    kind: "definedTypeLinkNode(cycle)".to_string(),
-                });
+            TypeNode::DefinedTypeLink { name, program } => {
+                let program_name = program.as_ref().map_or(scope, |link| link.name.as_str());
+                let key = (program_name.to_string(), name.clone());
+                if self.stack.contains(&key) {
+                    return Err(Srf39IdlError::UnsupportedIdlNode {
+                        path: path.to_string(),
+                        kind: "definedTypeLinkNode(cycle)".to_string(),
+                    });
+                }
+                let Some((target, size)) =
+                    self.targets.get(&(program_name, name.as_str())).copied()
+                else {
+                    return Err(Srf39IdlError::UnsupportedIdlNode {
+                        path: path.to_string(),
+                        kind: "definedTypeLinkNode(unresolved)".to_string(),
+                    });
+                };
+                self.remaining_bytes = self.remaining_bytes.checked_sub(size).ok_or_else(|| {
+                    Srf39IdlError::InvalidSchema {
+                        detail: format!(
+                            "defined type expansion exceeds the SDK limit of {MAX_INLINED_BYTES} bytes at {path}"
+                        ),
+                    }
+                })?;
+                self.stack.push(key);
+                let inlined = self.inline(program_name, target, path, depth + 1)?;
+                self.stack.pop();
+                inlined
             }
-            let Some(target) = source.defined_type(program_name, name) else {
-                return Err(Srf39IdlError::UnsupportedIdlNode {
-                    path: path.to_string(),
-                    kind: "definedTypeLinkNode(unresolved)".to_string(),
-                });
-            };
-            stack.push(key);
-            let inlined = inline_type(source, program_name, &target.ty, path, stack)?;
-            stack.pop();
-            inlined
+        })
+    }
+}
+
+/// Validates every defined type at its own location, before inlining copies it
+/// to the places that link to it, so errors cite a path that exists.
+fn validate_definitions(root: &RootNode) -> Result<(), Srf39IdlError> {
+    for (program, path) in programs_with_paths(root) {
+        for (index, defined) in program.defined_types.iter().enumerate() {
+            validate_type_tree(
+                &defined.ty,
+                &format!("{path}.definedTypes[{index}].type"),
+                true,
+            )?;
         }
-    })
+    }
+    Ok(())
 }
 
 fn validate_root(root: &RootNode) -> Result<(), Srf39IdlError> {
@@ -840,6 +900,11 @@ fn validate_root(root: &RootNode) -> Result<(), Srf39IdlError> {
 
 fn validate_program(program: &ProgramNode, path: &str) -> Result<(), Srf39IdlError> {
     ensure_kind(&program.kind, "programNode", path)?;
+    ensure_unique(
+        program.accounts.iter().map(|account| account.name.as_str()),
+        "account",
+        &format!("{path}.accounts"),
+    )?;
     for (index, defined) in program.defined_types.iter().enumerate() {
         validate_type(&defined.ty, &format!("{path}.definedTypes[{index}].type"))?;
     }
@@ -866,6 +931,16 @@ fn validate_program(program: &ProgramNode, path: &str) -> Result<(), Srf39IdlErr
 
 fn validate_instruction(instruction: &InstructionNode, path: &str) -> Result<(), Srf39IdlError> {
     ensure_kind(&instruction.kind, "instructionNode", path)?;
+    ensure_unique(
+        instruction.accounts.iter().map(|node| node.name.as_str()),
+        "instruction account",
+        &format!("{path}.accounts"),
+    )?;
+    ensure_unique(
+        instruction.arguments.iter().map(|node| node.name.as_str()),
+        "argument",
+        &format!("{path}.arguments"),
+    )?;
     if let Some(display) = &instruction.display {
         ensure_kind(
             &display.kind,
@@ -901,10 +976,15 @@ fn validate_instruction(instruction: &InstructionNode, path: &str) -> Result<(),
             )?;
         }
     }
+    let mut decoded_values = 0usize;
     for (index, argument) in instruction.arguments.iter().enumerate() {
         let argument_path = format!("{path}.arguments[{index}]");
         ensure_kind(&argument.kind, "instructionArgumentNode", &argument_path)?;
-        validate_type(&argument.ty, &format!("{argument_path}.type"))?;
+        let count = validate_type(&argument.ty, &format!("{argument_path}.type"))?;
+        decoded_values = check_decoded_values(
+            decoded_values.checked_add(count),
+            &format!("{path}.arguments"),
+        )?;
         if let Some(display) = &argument.display {
             validate_field_display(
                 display,
@@ -918,10 +998,11 @@ fn validate_instruction(instruction: &InstructionNode, path: &str) -> Result<(),
         let discriminator_path = format!("{path}.discriminators[{index}]");
         match discriminator {
             DiscriminatorNode::Field { name, .. } => {
-                let Some(argument) = instruction
+                let Some((argument_index, argument)) = instruction
                     .arguments
                     .iter()
-                    .find(|argument| argument.name == *name)
+                    .enumerate()
+                    .find(|(_, argument)| argument.name == *name)
                 else {
                     return Err(Srf39IdlError::InvalidSchema {
                         detail: format!(
@@ -929,13 +1010,29 @@ fn validate_instruction(instruction: &InstructionNode, path: &str) -> Result<(),
                         ),
                     });
                 };
-                if !matches!(
-                    argument.default_value.as_ref(),
-                    Some(ValueNode::Number { .. })
-                ) {
+                let Some(ValueNode::Number { number }) = argument.default_value.as_ref() else {
                     return Err(Srf39IdlError::InvalidSchema {
                         detail: format!(
                             "field discriminator at {discriminator_path} requires a numeric default value"
+                        ),
+                    });
+                };
+                let TypeNode::Number { format, .. } = &argument.ty else {
+                    return Err(Srf39IdlError::UnsupportedIdlNode {
+                        path: discriminator_path,
+                        kind: "fieldDiscriminatorNode(non-number argument)".to_string(),
+                    });
+                };
+                let maximum = match format.as_str() {
+                    "u8" => u64::from(u8::MAX),
+                    "u32" => u64::from(u32::MAX),
+                    "i64" => i64::MAX as u64,
+                    _ => u64::MAX,
+                };
+                if *number > maximum {
+                    return Err(Srf39IdlError::InvalidSchema {
+                        detail: format!(
+                            "discriminator default {number} does not fit {format} at {path}.arguments[{argument_index}].defaultValue"
                         ),
                     });
                 }
@@ -986,7 +1083,7 @@ fn validate_token_amounts(
     metadata: &MetadataDisplay,
     path: &str,
 ) -> Result<(), Srf39IdlError> {
-    let mut amounts = std::collections::HashSet::new();
+    let mut amounts = HashSet::new();
     for binding in &metadata.token_amounts {
         let valid_amount = instruction.arguments.iter().any(|argument| {
             argument.name == binding.amount
@@ -1020,7 +1117,23 @@ fn validate_token_amounts(
     Ok(())
 }
 
-fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
+fn validate_type(node: &TypeNode, path: &str) -> Result<usize, Srf39IdlError> {
+    validate_type_tree(node, path, false)?;
+    check_decoded_values(decoded_value_count(node), path)
+}
+
+fn check_decoded_values(count: Option<usize>, path: &str) -> Result<usize, Srf39IdlError> {
+    count
+        .filter(|count| *count <= MAX_DECODED_VALUES)
+        .ok_or_else(|| Srf39IdlError::InvalidSchema {
+            detail: format!(
+                "decoded value count exceeds the SDK limit of {MAX_DECODED_VALUES} at {path}"
+            ),
+        })
+}
+
+/// `allow_links` is set only for the pre-inlining pass over definitions.
+fn validate_type_tree(node: &TypeNode, path: &str, allow_links: bool) -> Result<(), Srf39IdlError> {
     match node {
         TypeNode::Boolean { size } => {
             if !matches!(
@@ -1036,7 +1149,7 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
                     kind: "booleanTypeNode(non-u8 size)".to_string(),
                 });
             }
-            validate_type(size, &format!("{path}.size"))?;
+            validate_type_tree(size, &format!("{path}.size"), allow_links)?;
         }
         TypeNode::Number {
             format,
@@ -1064,6 +1177,7 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
                             });
                         }
                         validate_value(value, &format!("{path}.display.decimals"))?;
+                        validate_literal_scale(value, &format!("{path}.display.decimals"))?;
                     }
                     if let Some(value) = unit {
                         if !matches!(value, ValueNode::String { .. } | ValueNode::Injected { .. }) {
@@ -1097,8 +1211,8 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
             prefix,
             fixed,
         } => {
-            validate_type(item, &format!("{path}.item"))?;
-            validate_type(prefix, &format!("{path}.prefix"))?;
+            validate_type_tree(item, &format!("{path}.item"), allow_links)?;
+            validate_type_tree(prefix, &format!("{path}.prefix"), allow_links)?;
             if !*fixed {
                 return Err(Srf39IdlError::UnsupportedIdlNode {
                     path: path.to_string(),
@@ -1118,7 +1232,7 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
                     kind: "optionTypeNode(non-u32 prefix)".to_string(),
                 });
             }
-            if fixed_size(item).is_none() {
+            if !allow_links && fixed_size(item).is_none() {
                 return Err(Srf39IdlError::UnsupportedIdlNode {
                     path: format!("{path}.item"),
                     kind: "optionTypeNode(variable-size item)".to_string(),
@@ -1127,10 +1241,15 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
         }
         TypeNode::PublicKey => {}
         TypeNode::Struct { fields } => {
+            ensure_unique(
+                fields.iter().map(|field| field.name.as_str()),
+                "struct field",
+                &format!("{path}.fields"),
+            )?;
             for (index, field) in fields.iter().enumerate() {
                 let field_path = format!("{path}.fields[{index}]");
                 ensure_kind(&field.kind, "structFieldTypeNode", &field_path)?;
-                validate_type(&field.ty, &format!("{field_path}.type"))?;
+                validate_type_tree(&field.ty, &format!("{field_path}.type"), allow_links)?;
                 if let Some(display) = &field.display {
                     validate_field_display(
                         display,
@@ -1141,6 +1260,7 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
                 }
             }
         }
+        TypeNode::DefinedTypeLink { .. } if allow_links => {}
         TypeNode::DefinedTypeLink { .. } => {
             // `resolve_links` runs first and inlines every link.
             return Err(Srf39IdlError::InvalidSchema {
@@ -1178,7 +1298,7 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
                     kind: "arrayTypeNode(zero count)".to_string(),
                 });
             }
-            validate_type(item, &format!("{path}.item"))?;
+            validate_type_tree(item, &format!("{path}.item"), allow_links)?;
         }
         TypeNode::Enum { size, variants } => {
             if !matches!(
@@ -1200,7 +1320,7 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
                     kind: "enumTypeNode(no variants)".to_string(),
                 });
             }
-            let mut names = std::collections::HashSet::new();
+            let mut names = HashSet::new();
             for (index, variant) in variants.iter().enumerate() {
                 let variant_path = format!("{path}.variants[{index}]");
                 ensure_kind(&variant.kind, "enumEmptyVariantTypeNode", &variant_path)?;
@@ -1229,13 +1349,6 @@ fn validate_type(node: &TypeNode, path: &str) -> Result<(), Srf39IdlError> {
             }
         }
     }
-    if !matches!(decoded_value_count(node), Some(count) if count <= MAX_DECODED_VALUES) {
-        return Err(Srf39IdlError::InvalidSchema {
-            detail: format!(
-                "decoded value count exceeds the SDK limit of {MAX_DECODED_VALUES} at {path}"
-            ),
-        });
-    }
     Ok(())
 }
 
@@ -1247,7 +1360,9 @@ fn decoded_value_count(node: &TypeNode) -> Option<usize> {
             decoded_value_count(item)?.checked_mul(*value)?
         }
         TypeNode::Struct { fields } => fields.iter().try_fold(0usize, |total, field| {
-            total.checked_add(decoded_value_count(&field.ty)?)
+            total
+                .checked_add(decoded_value_count(&field.ty)?)?
+                .checked_add(field.name.len() / FIELD_NAME_BYTES_PER_VALUE)
         })?,
         TypeNode::Option { item, .. } => decoded_value_count(item)?,
         _ => 0,
@@ -1282,6 +1397,23 @@ pub(crate) fn fixed_size(node: &TypeNode) -> Option<usize> {
             let CountNode::Fixed { value } = count;
             fixed_size(item)?.checked_mul(*value)
         }
+    }
+}
+
+/// Scales above 255 render raw; a literal one can never scale, so it is refused.
+fn validate_literal_scale(node: &ValueNode, path: &str) -> Result<(), Srf39IdlError> {
+    match node {
+        ValueNode::Number { number } if *number > u64::from(u8::MAX) => {
+            Err(Srf39IdlError::UnsupportedIdlNode {
+                path: path.to_string(),
+                kind: "numberValueNode(amount decimals above 255)".to_string(),
+            })
+        }
+        ValueNode::Injected {
+            fallback: Some(fallback),
+            ..
+        } => validate_literal_scale(fallback, &format!("{path}.fallback")),
+        _ => Ok(()),
     }
 }
 

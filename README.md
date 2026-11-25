@@ -26,7 +26,9 @@ lookups require RPC access. The app does not create or sign transactions.
 The same engine is also tested against SPL Token mainnet captures; those
 examples are not bundled in the demo.
 
-## Run the demo
+## Build and test
+
+### Prerequisites
 
 You need **macOS**, full **Xcode** with the iOS SDK and a Simulator runtime,
 **Git**, stable Rust installed through [rustup](https://rustup.rs/), and
@@ -34,6 +36,8 @@ You need **macOS**, full **Xcode** with the iOS SDK and a Simulator runtime,
 Launch Xcode once to complete setup and select it under **Settings → Locations
 → Command Line Tools**. Standalone Command Line Tools are insufficient.
 The first build downloads dependencies.
+
+### Run the demo
 
 ```bash
 git clone https://github.com/llbartekll/solana-clear-signing-sdk.git
@@ -128,10 +132,19 @@ pnpm --dir conformance/oracle mainnet:verify
 ```
 
 After generating the demo project, use **Product → Test** in Xcode on a
-Simulator. The default suite includes the bundled captures. Live Devnet tests
-are opt-in (`RUN_DEVNET_TESTS=1`); they submit transactions and need a funded
-signer. The live lifecycle test covers initialization, delegation and
-revocation, not payment collection.
+Simulator. The default suite includes the bundled captures.
+
+Live Devnet tests are opt-in: two of the three submit transactions, paid by a
+committed, publicly known Devnet-only key that may need a faucet top-up. A plain
+shell variable does not reach the Simulator; pass it with the prefix
+`xcodebuild` forwards, or enable `RUN_DEVNET_TESTS` in the scheme's Test action:
+
+```bash
+TEST_RUNNER_RUN_DEVNET_TESTS=1 xcodebuild -project ios-demo/ClearsignDemo.xcodeproj -scheme ClearsignDemo -destination 'platform=iOS Simulator,id=YOUR_SIMULATOR_UDID' test CODE_SIGNING_ALLOWED=NO
+```
+
+The live lifecycle test covers initialization, delegation and revocation, not
+payment collection.
 
 See [conformance](conformance/README.md) for fixture coverage, provenance and
 intentional regeneration commands. See [integration](docs/integration.md#build-and-test-notes)

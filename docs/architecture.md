@@ -23,14 +23,20 @@ Host transaction parser
 ```
 
 The core contains no networking or program-specific decoder branches. Swift
-exposes domain types and maps errors; generated UniFFI types stay internal.
+exposes domain types and maps errors. The generated UniFFI types are compiled
+into the same module and are therefore public symbols, but they are not a
+supported API: use the handwritten types only.
 
 The high-level client checks that program IDs are base58 32-byte keys. For an
 IDL returned by a source, its primary program must match the requested program;
-when a digest is supplied, SHA-256 must match the exact JSON bytes. Parsed
-engines and rejected IDLs are cached until invalidation. Source failures are
-not cached. Inline IDLs are parsed eagerly and register their primary and
-additional programs without a pinned digest.
+when a digest is supplied, SHA-256 must match the exact JSON bytes, and it is
+checked before those bytes are parsed. Parsed engines, rejected IDLs and
+"not found" answers (at most 256) are cached until invalidation, so a source
+that learns a new program must be followed by an invalidation. Source failures
+are not cached. An answer requested before an invalidation is used by the call
+that requested it but is never cached. Inline IDLs are parsed eagerly, register
+their primary and additional programs without a pinned digest, and are kept
+when the cache is invalidated.
 
 The low-level display API uses the same strict engine, without the presentation
 overlay. A host can render instructions independently so an unsupported or
@@ -42,7 +48,7 @@ failed instruction does not hide the rest of a transaction.
 | --- | --- |
 | Canonical display | Intents, interpolated sentences and ordered fields derived from the IDL, instruction and raw account data. Shared fixtures match the pinned oracle. |
 | Structural hints | Field indexes, decoded addresses, exact time values, scale/unit sources and linked-account reads, derived from the same resolution pass. |
-| Presentation overlay | Address labels, token annotations and numeric values for explicit amount/mint bindings, keyed by canonical field index. |
+| Presentation overlay | Address labels, token annotations, numeric values for explicit amount/mint bindings, raw forms of amounts whose scale is contradicted and escaped forms of unsafe text, keyed by canonical field index. |
 | Diagnostics | Machine-readable reasons for unavailable context, metadata conflicts and suppressed sentences. |
 
 Hints never fetch extra accounts or infer meaning from field labels, program
@@ -91,20 +97,31 @@ Supported shapes include:
   representation, preserving declaration order and quoted `u64`/`i64` values.
 
 PDA definitions, errors and account defaults are accepted only in positions
-where the display runtime ignores them. Other unsupported node forms fail
-with a JSON path rather than being silently reinterpreted.
+where the display runtime ignores them; those subtrees are opaque and may use
+any node kind. Other unsupported node forms fail with a JSON path rather than
+being silently reinterpreted; inside a defined type the path is that of the
+definition. A document that does not have the expected JSON shape (for example,
+a missing required key) fails with the deserializer's message, without a path.
 
 Additional implementation constraints: `ticksPerSecond` must be a positive
 integer when present; enum discriminators must equal variant indexes; strings
-must have a fixed-size wrapper; fixed array counts must be positive. Trailing
+must have a fixed-size wrapper; fixed array counts must be positive. Account,
+instruction-account, argument and struct-field names must be unique in their
+scope. A field discriminator must be a number that can hold its default. Amount
+decimals must fit `0..=255`: a larger literal is refused at load, and a larger
+account or provided value renders raw. Boolean bytes and option tags other than 0 and 1
+do not decode, since programs disagree on their meaning. Trailing
 bytes are accepted where the reference accepts them; a size discriminator
 is exact during identification.
 
-Each argument or account type may expand to at most **65,536 decoded values**,
-including containers. Validation counts nested arrays, structs and options,
+The arguments of one instruction together, and each account type, may expand to
+at most **65,536 decoded values**, including containers; struct field names
+longer than 64 bytes count extra. Types may nest at most **32 levels**, counting
+followed type links, and links may copy at most **16 MiB** of defined-type JSON
+per document; both limits apply before anything is expanded. Validation counts nested arrays, structs and options,
 including zero-byte elements, using checked arithmetic. The decoder checks
 an array's full wire span before reserving storage and handles reservation
-failure as a decode miss. This is an SDK resource limit, not a Codama rule.
+failure as a decode miss. These are SDK resource limits, not Codama rules.
 
 ## Subscriptions and current limitations
 
@@ -169,7 +186,18 @@ partially rendered instructions.
 The strict engine decodes linked account bytes using the selected layout; it
 does not enforce account-owner policy. Owners are passed through in hints and
 used to cross-check token registry claims. Missing linked data can produce a
-raw fallback; supplied malformed data produces an error.
+raw fallback; supplied malformed data produces an error. Like the reference,
+the canonical layer ignores an account's size discriminators. When the length
+contradicts one, the SDK reports `linked_account_layout_mismatch` and presents
+the amount raw unless the host's token metadata confirms the scale.
+
+Strings decoded from instruction or account bytes are attacker-controlled. The
+canonical field keeps the reference's exact text (which drops NUL bytes), so it
+may contain newlines, bidi controls or invisible characters. Such a field is
+reported as `unsafe_display_text` with an escaped form in the overlay, and a
+sentence that would include such text is withheld. Host-supplied token names,
+labels and label sources with such characters, over 128 characters, or (labels)
+reading as another address are dropped with a diagnostic.
 
 Token symbols and names are host-curated metadata with no issuer attestation.
 A readable render is not a transaction-validation or authorization verdict.

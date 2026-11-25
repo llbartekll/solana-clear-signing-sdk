@@ -140,10 +140,15 @@ Refresh captures only when intended:
 
 ```bash
 ALCHEMY_API_KEY=... pnpm --dir conformance/oracle mainnet:update
-pnpm --dir conformance/oracle devnet:discover   # read-only scan, prints catalog entries
+pnpm --dir conformance/oracle devnet:discover   # read-only scan, prints catalog entry drafts
 pnpm --dir conformance/oracle devnet:update     # public devnet RPC, no key
 ```
 
-The updates validate expected signatures, slots, message versions, instruction
-indexes, opcodes, account owners, lengths, and hashes before writing. CI uses
-only the read-only commands.
+Discovered entries need a real `title` and `summary` before they go into the
+catalog. Both updates refetch every example and write nothing until all of them
+pass: transactions are checked for the catalog's signature, slot, message
+version, instruction index and opcode; account snapshots for owner, layout
+length and a slot not older than the transaction, and on Devnet also for their
+embedded mint. Hashes are recomputed on update and compared by the `:verify`
+commands. An update fails when an account in the catalog has since been closed.
+CI uses only the read-only commands.

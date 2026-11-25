@@ -47,13 +47,7 @@ pub(crate) fn verify_binding(
             declared: resolved.program_id.clone(),
         });
     }
-    let engine = Srf39Engine::from_json(&resolved.json).map_err(IdlRejection::Invalid)?;
-    if engine.program_id() != requested {
-        return Err(IdlRejection::ProgramMismatch {
-            requested: requested.to_string(),
-            declared: engine.program_id().to_string(),
-        });
-    }
+    // Before parsing: pinned sources must never feed the parser other bytes.
     let actual = sha256_hex(resolved.json.as_bytes());
     let digest_pinned = match &resolved.provenance.expected_sha256_hex {
         Some(expected) => {
@@ -67,6 +61,13 @@ pub(crate) fn verify_binding(
         }
         None => false,
     };
+    let engine = Srf39Engine::from_json(&resolved.json).map_err(IdlRejection::Invalid)?;
+    if engine.program_id() != requested {
+        return Err(IdlRejection::ProgramMismatch {
+            requested: requested.to_string(),
+            declared: engine.program_id().to_string(),
+        });
+    }
     let binding = IdlBinding {
         program_id: requested.to_string(),
         program_name: engine.program_name().to_string(),

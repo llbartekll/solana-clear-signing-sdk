@@ -1,4 +1,5 @@
 use std::collections::BTreeMap;
+use std::collections::BTreeSet;
 use std::collections::HashMap;
 use std::collections::HashSet;
 
@@ -22,6 +23,7 @@ use super::hints::TokenHint;
 use super::hints::UnitSource;
 use super::model::display_type;
 use super::model::ticks_per_second;
+use super::model::DiscriminatorNode;
 use super::model::DisplaySkip;
 use super::model::InstructionArgumentNode;
 use super::model::InstructionNode;
@@ -32,6 +34,7 @@ use super::model::StructFieldTypeNode;
 use super::model::TokenMintReference;
 use super::model::TypeNode;
 use super::model::ValueNode;
+use super::text::has_unsafe_characters;
 use super::DisplayField;
 use super::InstructionDisplay;
 use super::LoadedSrf39Idl;
@@ -170,6 +173,7 @@ struct RenderContext<'a> {
     provider: Option<&'a dyn Srf39AccountProvider>,
     account_cache: HashMap<String, Option<AccountData>>,
     decoded_account_cache: HashMap<(String, String), Option<DecodedValue>>,
+    layout_mismatches: BTreeSet<String>,
 }
 
 pub(crate) async fn render(
@@ -200,6 +204,7 @@ pub(crate) async fn render(
         provider,
         account_cache: HashMap::new(),
         decoded_account_cache: HashMap::new(),
+        layout_mismatches: BTreeSet::new(),
     };
 
     let consumed = context.resolve_consumed_accounts().await?;
@@ -685,21 +690,30 @@ impl<'a> RenderContext<'a> {
         let mut rest = template;
         while let Some(start) = rest.find("${") {
             output.push_str(&rest[..start]);
-            let token_start = start + 2;
-            let Some(relative_end) = rest[token_start..].find('}') else {
-                output.push_str(&rest[start..]);
-                return Ok(Some(output));
+            rest = &rest[start..];
+            let Some(placeholder) = match_placeholder(rest) else {
+                output.push_str("${");
+                rest = &rest[2..];
+                continue;
             };
-            let token_end = token_start + relative_end;
-            let token = rest[token_start..token_end].trim();
-            let replacement =
-                resolve_placeholder(token, formatted_arguments, &self.account_addresses);
-            match replacement {
-                Placeholder::Resolved(value) => output.push_str(value),
-                Placeholder::Missing => return Ok(None),
-                Placeholder::Unrecognized => output.push_str(&rest[start..=token_end]),
+            let replacement = match placeholder.root {
+                // Only top-level arguments are addressable; flattened fields are not.
+                "data" => formatted_arguments
+                    .get(&(placeholder.name.to_string(), None))
+                    .filter(|value| !value.degraded)
+                    .map(|value| value.text.as_str()),
+                _ => self
+                    .account_addresses
+                    .get(placeholder.name)
+                    .map(String::as_str),
+            };
+            // Text that could rewrite the rest of the sentence makes it
+            // unavailable; the field keeps the reference's exact value.
+            match replacement.filter(|value| !has_unsafe_characters(value)) {
+                Some(value) => output.push_str(value),
+                None => return Ok(None),
             }
-            rest = &rest[token_end + 1..];
+            rest = &rest[placeholder.length..];
         }
         output.push_str(rest);
         Ok(Some(output))
@@ -729,57 +743,41 @@ impl<'a> RenderContext<'a> {
         };
 
         let mut amounts = Vec::new();
+        let mut array_amounts = Vec::new();
         for member in &members {
+            let item = innermost_item(member.ty);
             let TypeNode::Number {
                 display: Some(NumberDisplayNode::Amount { decimals, unit }),
                 ..
-            } = display_type(member.ty)
+            } = item
             else {
                 continue;
             };
-            let Some(DecodedValue::Number(raw)) = member.value.and_then(unwrap_option_value) else {
+            let mut raw = Vec::new();
+            member
+                .value
+                .into_iter()
+                .for_each(|value| collect_numbers(value, &mut raw));
+            if raw.is_empty() {
                 continue;
-            };
-            let degraded = formatted_arguments
-                .get(&member.key())
-                .is_some_and(|value| value.degraded);
-            let field_index = field_position(member, None);
-            let decimals = self.decimals_source(decimals.as_ref()).await?;
-            let unit = self.unit_source(unit.as_ref()).await?;
-            amounts.push(AmountHint {
-                field_index,
+            }
+            let hint = AmountHint {
+                field_index: field_position(member, None),
                 argument: member.argument.name.clone(),
                 member: member.field.map(|field| field.name.clone()),
-                raw_value: raw.value.to_string(),
-                degraded,
-                decimals,
-                unit,
-                token: self
-                    .instruction
-                    .display
-                    .as_ref()
-                    .and_then(|display| display.metadata.as_ref())
-                    .and_then(|metadata| {
-                        metadata.token_amounts.iter().find(|binding| {
-                            member.field.is_none() && binding.amount == member.argument.name
-                        })
-                    })
-                    .map(|binding| TokenHint {
-                        mint: match &binding.mint {
-                            TokenMintReference::Argument { name } => {
-                                self.data.get(name).and_then(unwrap_option_value).and_then(
-                                    |value| match value {
-                                        DecodedValue::PublicKey(address) => Some(address.clone()),
-                                        _ => None,
-                                    },
-                                )
-                            }
-                            TokenMintReference::Account { name } => {
-                                self.account_addresses.get(name).cloned()
-                            }
-                        },
-                    }),
-            });
+                raw_value: raw.join(", "),
+                degraded: formatted_arguments
+                    .get(&member.key())
+                    .is_some_and(|value| value.degraded),
+                decimals: self.decimals_source(decimals.as_ref()).await?,
+                unit: self.unit_source(unit.as_ref()).await?,
+                token: self.token_hint(member),
+            };
+            if matches!(display_type(member.ty), TypeNode::Number { .. }) {
+                amounts.push(hint);
+            } else {
+                array_amounts.push(hint);
+            }
         }
 
         let mut times = Vec::new();
@@ -922,6 +920,33 @@ impl<'a> RenderContext<'a> {
             public_key_arguments,
             accounts,
             linked_account_reads,
+            array_amounts,
+            layout_mismatches: self.layout_mismatches.iter().cloned().collect(),
+        })
+    }
+
+    /// The explicit SDK binding of a top-level amount, if any.
+    fn token_hint(&self, member: &Member<'_>) -> Option<TokenHint> {
+        if member.field.is_some() {
+            return None;
+        }
+        let metadata = self.instruction.display.as_ref()?.metadata.as_ref()?;
+        let binding = metadata
+            .token_amounts
+            .iter()
+            .find(|binding| binding.amount == member.argument.name)?;
+        Some(TokenHint {
+            mint: match &binding.mint {
+                TokenMintReference::Argument { name } => {
+                    self.data.get(name).and_then(unwrap_option_value).and_then(
+                        |value| match value {
+                            DecodedValue::PublicKey(address) => Some(address.clone()),
+                            _ => None,
+                        },
+                    )
+                }
+                TokenMintReference::Account { name } => self.account_addresses.get(name).cloned(),
+            },
         })
     }
 
@@ -1083,6 +1108,14 @@ impl<'a> RenderContext<'a> {
                 account: account_name.to_string(),
                 detail: "bytes do not match the linked account type".to_string(),
             })?;
+        let size_matches = account_node.discriminators.iter().all(|discriminator| {
+            !matches!(discriminator, DiscriminatorNode::Size { size } if *size != account_data.data.len())
+        });
+        if !size_matches {
+            // Another account type can decode as a prefix of this layout. The
+            // reference accepts it, so only the overlay reacts.
+            self.layout_mismatches.insert(decode_key.0);
+        }
         if !matches!(decoded, DecodedValue::Struct(_)) {
             return Err(Srf39DisplayError::AccountDecode {
                 account: account_name.to_string(),
@@ -1112,38 +1145,38 @@ impl<'a> RenderContext<'a> {
     }
 }
 
-enum Placeholder<'a> {
-    Resolved(&'a str),
-    Missing,
-    Unrecognized,
+struct Placeholder<'a> {
+    root: &'a str,
+    name: &'a str,
+    length: usize,
 }
 
-fn resolve_placeholder<'a>(
-    token: &str,
-    arguments: &'a BTreeMap<MemberKey, FormattedValue>,
-    accounts: &'a BTreeMap<String, String>,
-) -> Placeholder<'a> {
-    let Some((root, name)) = token.split_once('.') else {
-        return Placeholder::Unrecognized;
-    };
-    if name.is_empty()
-        || !name
-            .chars()
-            .all(|character| character.is_ascii_alphanumeric() || character == '_')
-    {
-        return Placeholder::Unrecognized;
-    }
-    match root {
-        // Only top-level arguments are addressable; flattened fields are not.
-        "data" => match arguments.get(&(name.to_string(), None)) {
-            Some(value) if !value.degraded => Placeholder::Resolved(&value.text),
-            _ => Placeholder::Missing,
-        },
-        "accounts" => accounts
-            .get(name)
-            .map_or(Placeholder::Missing, |value| Placeholder::Resolved(value)),
-        _ => Placeholder::Unrecognized,
-    }
+/// The reference regex `\$\{\s*(data|accounts)\.([a-zA-Z0-9_]+)\s*\}`, anchored
+/// at the start of `text`.
+fn match_placeholder(text: &str) -> Option<Placeholder<'_>> {
+    let body = text
+        .strip_prefix("${")?
+        .trim_start_matches(is_ecmascript_space);
+    let (root, body) = ["data", "accounts"]
+        .into_iter()
+        .find_map(|root| Some((root, body.strip_prefix(root)?.strip_prefix('.')?)))?;
+    let end = body
+        .find(|character: char| !character.is_ascii_alphanumeric() && character != '_')
+        .filter(|end| *end > 0)?;
+    let (name, rest) = body.split_at(end);
+    let rest = rest
+        .trim_start_matches(is_ecmascript_space)
+        .strip_prefix('}')?;
+    Some(Placeholder {
+        root,
+        name,
+        length: text.len() - rest.len(),
+    })
+}
+
+/// ECMAScript `\s`, which differs from Unicode `White_Space`.
+fn is_ecmascript_space(character: char) -> bool {
+    character == '\u{FEFF}' || (character != '\u{85}' && character.is_whitespace())
 }
 
 fn is_skipped(skip: Option<DisplaySkip>, name: &str, consumed: &HashSet<String>) -> bool {
@@ -1174,6 +1207,25 @@ fn public_key_elements<'v>(
     match unwrap_option_value(value?)? {
         DecodedValue::Array(elements) => Some(elements),
         _ => None,
+    }
+}
+
+/// The display type of an argument or, for (nested) arrays, of its elements.
+fn innermost_item(ty: &TypeNode) -> &TypeNode {
+    match display_type(ty) {
+        TypeNode::Array { item, .. } => innermost_item(item),
+        other => other,
+    }
+}
+
+/// The raw integers of an amount argument, or of every present array element.
+fn collect_numbers(value: &DecodedValue, output: &mut Vec<String>) {
+    match unwrap_option_value(value) {
+        Some(DecodedValue::Number(number)) => output.push(number.value.to_string()),
+        Some(DecodedValue::Array(elements)) => elements
+            .iter()
+            .for_each(|element| collect_numbers(element, output)),
+        _ => {}
     }
 }
 

@@ -30,7 +30,7 @@ pub struct InstructionDisplayHints {
     /// or referenced a degraded amount.
     pub interpolated_intent_suppressed: bool,
     /// One entry per top-level argument carrying an `amountNumberDisplayNode`,
-    /// in IDL argument order.
+    /// in IDL argument order. Arrays of amounts have no entry here.
     pub amounts: Vec<AmountHint>,
     /// One entry per top-level argument carrying a `dateTimeNumberDisplayNode`
     /// or `durationNumberDisplayNode`, in IDL argument order.
@@ -44,6 +44,13 @@ pub struct InstructionDisplayHints {
     /// Every linked account the renderer needed, sorted by address. `Missing`
     /// covers both "no provider supplied" and "provider returned nothing".
     pub linked_account_reads: Vec<LinkedAccountRead>,
+    /// Arrays of amounts, for the presentation checks: one entry per argument,
+    /// with the elements' raw values joined like the canonical text.
+    #[serde(skip)]
+    pub(crate) array_amounts: Vec<AmountHint>,
+    /// Addresses whose bytes contradict the linked layout's size discriminator.
+    #[serde(skip)]
+    pub(crate) layout_mismatches: Vec<String>,
 }
 
 /// How one amount argument was presented and where its inputs came from.

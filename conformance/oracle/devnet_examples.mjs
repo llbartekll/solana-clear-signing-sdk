@@ -104,16 +104,19 @@ async function discoverExamples() {
             if (found.has(opcode)) continue;
             const snapshotAccountPositions = await usableSnapshotPositions(result, index, opcode);
             if (snapshotAccountPositions === null) continue;
+            const id = WANTED[opcode].instruction.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
             found.set(opcode, {
-                id: WANTED[opcode].instruction.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`),
+                id,
                 instruction: WANTED[opcode].instruction,
+                title: 'TODO',
+                summary: 'TODO',
                 signature: entry.signature,
                 slot: result.slot,
                 version: transactionVersion(result),
                 instructionIndex: index,
                 opcode,
                 snapshotAccountPositions,
-                blockTime: result.blockTime,
+                transactionFile: `${id}.json`,
             });
             process.stderr.write(`found ${WANTED[opcode].instruction} at ${entry.signature}\n`);
         }
@@ -165,7 +168,7 @@ async function updateSnapshots() {
     const accounts = {};
     const transactions = {};
     const results = {};
-    await mkdir(transactionsDir, { recursive: true });
+    const files = new Map();
 
     const snapshot = async address => {
         if (accounts[address]) return;
@@ -188,7 +191,7 @@ async function updateSnapshots() {
         validateTransaction(catalog, example, result);
         results[example.id] = result;
         const canonical = stringify(result);
-        await writeFile(join(transactionsDir, example.transactionFile), canonical);
+        files.set(join(transactionsDir, example.transactionFile), canonical);
         transactions[example.id] = {
             blockTime: result.blockTime,
             resultSha256: sha256(canonical),
@@ -203,8 +206,10 @@ async function updateSnapshots() {
         await snapshot(address);
     }
 
-    await writeFile(accountsPath, stringify({ accounts }));
-    await writeFile(provenancePath, stringify({
+    validateAccounts(catalog, results, accounts);
+
+    files.set(accountsPath, stringify({ accounts }));
+    files.set(provenancePath, stringify({
         capturedAt,
         rpc: {
             provider: 'Solana public devnet',
@@ -218,11 +223,13 @@ async function updateSnapshots() {
         transactions,
     }));
     const cases = readJson(casesPath);
-    cases.scenarios = [
-        ...cases.scenarios.filter(scenario => !scenario.name.endsWith('-devnet')),
-        ...devnetScenarios(catalog, results, accounts),
-    ];
-    await writeFile(casesPath, `${JSON.stringify(cases, null, 2)}\n`);
+    cases.scenarios = mergeDevnetScenarios(cases.scenarios, devnetScenarios(catalog, results, accounts));
+    files.set(casesPath, `${JSON.stringify(cases, null, 2)}\n`);
+
+    // Everything above is fetched and validated in memory; a failed check
+    // leaves the committed captures untouched.
+    await mkdir(transactionsDir, { recursive: true });
+    for (const [path, contents] of files) await writeFile(path, contents);
     process.stdout.write('updated devnet examples\n');
 }
 
@@ -250,30 +257,21 @@ async function verifySnapshots() {
             provenance.transactions[example.id].resultSha256,
             `Transaction hash changed for ${example.id}`,
         );
-        const metas = instructionAccounts(result, example.instructionIndex);
-        if (example.instruction === 'createFixedDelegation') {
-            assert.notEqual(metas[3], '11111111111111111111111111111111', 'Demo spender must be usable');
-            const signers = completeAccountKeys(result).slice(0, result.transaction.message.header.numRequiredSignatures);
-            assert.ok(signers.includes(metas[3]), 'The selected demo spender signed as rent sponsor');
-        }
-        for (const position of example.snapshotAccountPositions ?? []) {
-            const address = metas[position];
-            const account = accountsDocument.accounts[address];
-            assert.ok(account, `Missing snapshot ${address} for ${example.id}`);
-            assert.ok(account.contextSlot >= example.slot, `Invalid snapshot slot for ${address}`);
-            verifySnapshotBytes(address, account, example.expectedMint ?? USDC_DEVNET);
-        }
+        // Examples recaptured on their own carry their own capture time.
+        const capturedAt = Date.parse(provenance.transactions[example.id].capturedAt ?? provenance.capturedAt);
+        assert.ok(capturedAt >= result.blockTime * 1000, `Capture of ${example.id} predates its transaction`);
     }
-    for (const address of catalog.extraSnapshotAddresses ?? []) {
-        const account = accountsDocument.accounts[address];
-        assert.ok(account, `Missing extra snapshot ${address}`);
-        verifySnapshotBytes(address, account);
-    }
+    assert.deepStrictEqual(
+        Object.keys(provenance.transactions).sort(),
+        catalog.examples.map(example => example.id).sort(),
+        'provenance does not list exactly the catalog transactions',
+    );
+    validateAccounts(catalog, results, accountsDocument.accounts);
 
     const cases = readJson(casesPath);
     assert.deepStrictEqual(
-        cases.scenarios.filter(scenario => scenario.name.endsWith('-devnet')),
-        devnetScenarios(catalog, results, accountsDocument.accounts),
+        cases.scenarios,
+        mergeDevnetScenarios(cases.scenarios, devnetScenarios(catalog, results, accountsDocument.accounts)),
         'the -devnet scenarios are not derivable from the catalog',
     );
 
@@ -294,6 +292,46 @@ async function verifySnapshots() {
         assert.equal(data[MINT_DECIMALS_OFFSET], usdc.decimals, 'registry decimals disagree with the mint');
     }
     process.stdout.write('verified devnet examples\n');
+}
+
+/** Checks every account snapshot, and that there are none the catalog does not use. */
+function validateAccounts(catalog, results, accounts) {
+    const used = new Set();
+    const verify = (address, label, expectedMint) => {
+        const account = accounts[address];
+        assert.ok(account, `Missing snapshot ${address} for ${label}`);
+        verifySnapshotBytes(address, account, expectedMint);
+        used.add(address);
+        return account;
+    };
+    for (const example of catalog.examples) {
+        const result = results[example.id];
+        const metas = instructionAccounts(result, example.instructionIndex);
+        if (example.instruction === 'createFixedDelegation') {
+            assert.notEqual(metas[3], '11111111111111111111111111111111', 'Demo spender must be usable');
+            const signers = completeAccountKeys(result).slice(0, result.transaction.message.header.numRequiredSignatures);
+            assert.ok(signers.includes(metas[3]), 'The selected demo spender signed as rent sponsor');
+        }
+        for (const position of example.snapshotAccountPositions ?? []) {
+            const account = verify(metas[position], example.id, example.expectedMint ?? USDC_DEVNET);
+            assert.ok(account.contextSlot >= example.slot, `Invalid snapshot slot for ${metas[position]}`);
+        }
+    }
+    for (const address of catalog.extraSnapshotAddresses ?? []) verify(address, 'extraSnapshotAddresses');
+    assert.deepStrictEqual(
+        Object.keys(accounts).sort(),
+        [...used].sort(),
+        'accounts.json holds snapshots the catalog does not use',
+    );
+}
+
+/** Replaces the -devnet scenarios in place, keeping the others where they are. */
+function mergeDevnetScenarios(existing, devnet) {
+    const remaining = [...devnet];
+    const merged = existing.flatMap(scenario =>
+        scenario.name.endsWith('-devnet') ? remaining.splice(0, 1) : [scenario],
+    );
+    return [...merged, ...remaining];
 }
 
 function verifySnapshotBytes(address, account, expectedMint = USDC_DEVNET) {

@@ -41,7 +41,7 @@ async function post(endpoint, method, params) {
 const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
 export function decodeBase58(value) {
-    let bytes = [0];
+    const bytes = [];
     for (const character of value) {
         const digit = BASE58_ALPHABET.indexOf(character);
         if (digit < 0) throw new Error(`Invalid base58 character: ${character}`);
@@ -56,14 +56,14 @@ export function decodeBase58(value) {
             carry >>= 8;
         }
     }
-    for (let index = 0; index < value.length - 1 && value[index] === '1'; index += 1) {
+    for (let index = 0; index < value.length && value[index] === '1'; index += 1) {
         bytes.push(0);
     }
     return Uint8Array.from(bytes.reverse());
 }
 
 export function encodeBase58(bytes) {
-    let digits = [0];
+    const digits = [];
     for (const byte of bytes) {
         let carry = byte;
         for (let index = 0; index < digits.length; index += 1) {

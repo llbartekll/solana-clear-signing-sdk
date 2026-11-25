@@ -474,19 +474,21 @@ fn program_mismatch_is_rejected_for_both_claim_and_content() {
         }
     );
 
-    // The source returns an entry for a different program than requested.
+    // The source returns an entry for a different program than requested. The
+    // document itself declares the requested one, so only the claim can fail.
+    owned.program_id = TOKEN_PROGRAM.to_string();
     let lying = Arc::new(LyingSource {
-        claimed_program: TOKEN_PROGRAM.to_string(),
+        claimed_program: OTHER_PROGRAM.to_string(),
         json: root_json,
     });
     let client = Srf39Client::new(lying, None, None);
     assert_eq!(
         render(&client, &owned).expect_err("claim mismatch"),
         RenderFailure::IdlRejected {
-            program_id: OTHER_PROGRAM.to_string(),
+            program_id: TOKEN_PROGRAM.to_string(),
             rejection: IdlRejection::ProgramMismatch {
-                requested: OTHER_PROGRAM.to_string(),
-                declared: TOKEN_PROGRAM.to_string(),
+                requested: TOKEN_PROGRAM.to_string(),
+                declared: OTHER_PROGRAM.to_string(),
             },
         }
     );
@@ -684,4 +686,101 @@ fn not_found_cache_is_capped_without_evicting_ready_entries() {
     assert_eq!(source.calls(), 1 + 257 + 1);
     render(&client, &owned).expect("ready entry");
     assert_eq!(source.calls(), 1 + 257 + 1);
+}
+
+#[test]
+fn digest_is_checked_before_the_document_is_parsed() {
+    let (root_json, _) = spl_token_instruction_idl(None);
+    let (owned, _) = scenario("spl-token-instructions", "transferChecked-online");
+    for json in [
+        "{".to_string(),
+        root_json.replace(TOKEN_PROGRAM, OTHER_PROGRAM),
+    ] {
+        let idl = ResolvedSrf39Idl {
+            program_id: TOKEN_PROGRAM.to_string(),
+            json,
+            provenance: provenance(Some(SPL_TOKEN_ROOT_SHA256)),
+        };
+        let client = Srf39Client::new(CountingSource::new(vec![idl]), None, None);
+        assert!(matches!(
+            render(&client, &owned),
+            Err(RenderFailure::IdlRejected {
+                rejection: IdlRejection::DigestMismatch { .. },
+                ..
+            })
+        ));
+    }
+}
+
+#[test]
+fn invalidation_keeps_inline_idls() {
+    let (root_json, _, _) = load_fixture("spl-token-instructions");
+    let (owned, _) = scenario("spl-token-instructions", "transferChecked-online");
+    let client = Srf39Client::from_idl_json(&root_json, None, None).expect("client");
+    client.invalidate(TOKEN_PROGRAM);
+    client.invalidate_all();
+    assert!(matches!(
+        render(&client, &owned),
+        Ok(RenderOutcome::Rendered(_))
+    ));
+}
+
+/// Runs a hook while the client waits for the source's first answer.
+struct HookSource {
+    answers: std::sync::Mutex<Vec<IdlResolution>>,
+    hook: std::sync::Mutex<Option<Box<dyn FnOnce() + Send>>>,
+    calls: AtomicUsize,
+}
+
+impl Srf39IdlSource for HookSource {
+    fn idl_for_program<'a>(
+        &'a self,
+        _program_id: &'a str,
+    ) -> Fut<'a, Result<IdlResolution, IdlSourceError>> {
+        self.calls.fetch_add(1, Ordering::SeqCst);
+        let answer = self.answers.lock().expect("lock").remove(0);
+        let hook = self.hook.lock().expect("lock").take();
+        Box::pin(async move {
+            if let Some(hook) = hook {
+                hook();
+            }
+            Ok(answer)
+        })
+    }
+}
+
+#[test]
+fn an_answer_requested_before_invalidation_is_not_cached() {
+    let (_, idl) = spl_token_instruction_idl(None);
+    let (owned, _) = scenario("spl-token-instructions", "transferChecked-online");
+    for invalidate_one in [true, false] {
+        let source = Arc::new(HookSource {
+            answers: std::sync::Mutex::new(vec![
+                IdlResolution::NotFound,
+                IdlResolution::Found(idl.clone()),
+            ]),
+            hook: std::sync::Mutex::new(None),
+            calls: AtomicUsize::new(0),
+        });
+        let client = Arc::new(Srf39Client::new(source.clone(), None, None));
+        let invalidator = Arc::clone(&client);
+        *source.hook.lock().expect("lock") = Some(Box::new(move || {
+            if invalidate_one {
+                invalidator.invalidate(TOKEN_PROGRAM);
+            } else {
+                invalidator.invalidate_all();
+            }
+        }));
+        assert!(matches!(
+            render(&client, &owned),
+            Ok(RenderOutcome::Unsupported { .. })
+        ));
+        for _ in 0..2 {
+            assert!(matches!(
+                render(&client, &owned),
+                Ok(RenderOutcome::Rendered(_))
+            ));
+        }
+        assert_eq!(source.calls.load(Ordering::SeqCst), 2);
+    }
 }

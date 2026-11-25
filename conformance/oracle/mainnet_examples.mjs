@@ -45,7 +45,7 @@ async function updateSnapshots() {
     const accounts = {};
     const transactions = {};
     const results = {};
-    await mkdir(transactionsDir, { recursive: true });
+    const files = new Map();
 
     for (const example of catalog.examples) {
         const result = await rpc(endpoint, 'getTransaction', [
@@ -55,7 +55,7 @@ async function updateSnapshots() {
         validateTransaction(example, result);
         results[example.id] = result;
         const canonical = stringify(result);
-        await writeFile(join(transactionsDir, example.transactionFile), canonical);
+        files.set(join(transactionsDir, example.transactionFile), canonical);
         transactions[example.id] = {
             blockTime: result.blockTime,
             resultSha256: sha256(canonical),
@@ -75,6 +75,7 @@ async function updateSnapshots() {
                 const data = Buffer.from(dataBase64, 'base64');
                 assert.equal(account.owner, catalog.programId, `Unexpected owner for ${mint}`);
                 assert.equal(data.length, 82, `Unexpected Mint size for ${mint}`);
+                assert.ok(response.context.slot >= example.slot, `Invalid account context slot for ${mint}`);
                 accounts[mint] = {
                     contextSlot: response.context.slot,
                     dataBase64,
@@ -86,9 +87,9 @@ async function updateSnapshots() {
         }
     }
 
-    await writeFile(accountsPath, stringify({ accounts }));
-    await writeFile(join(conformanceDir, 'cases.json'), stringify(buildConformanceCases(results, accounts)));
-    await writeFile(provenancePath, stringify({
+    files.set(accountsPath, stringify({ accounts }));
+    files.set(join(conformanceDir, 'cases.json'), stringify(buildConformanceCases(results, accounts)));
+    files.set(provenancePath, stringify({
         capturedAt,
         rpc: {
             provider: 'Alchemy Solana Mainnet',
@@ -103,6 +104,11 @@ async function updateSnapshots() {
         },
         transactions,
     }));
+
+    // Everything above is fetched and validated in memory; a failed check
+    // leaves the committed captures untouched.
+    await mkdir(transactionsDir, { recursive: true });
+    for (const [path, contents] of files) await writeFile(path, contents);
     process.stdout.write('updated mainnet examples\n');
 }
 

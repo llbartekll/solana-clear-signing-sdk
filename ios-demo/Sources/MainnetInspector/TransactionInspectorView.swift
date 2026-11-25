@@ -144,7 +144,15 @@ struct TransactionInspectorView: View {
                     color: inspection.transaction.succeeded ? .green : .red
                 )
             }
-            StatusPill(text: inspection.transactionSource.rawValue, color: .blue)
+            VStack(alignment: .leading, spacing: 6) {
+                StatusPill(text: "Transaction: \(inspection.transactionSource.rawValue)", color: .blue)
+                if inspection.accountSource.isRequired {
+                    StatusPill(
+                        text: "Accounts: \(inspection.accountSource.text)",
+                        color: inspection.accountSource.isDegraded ? .orange : .blue
+                    )
+                }
+            }
 
             if inspection.primaryInstructions.isEmpty {
                 Text("No top-level Subscriptions instruction was found. Expand the other instructions to inspect this transaction.")
@@ -183,7 +191,7 @@ struct TransactionInspectorView: View {
                     ValueRow(label: "Network", value: inspection.cluster)
                     ValueRow(label: "Slot", value: String(inspection.transaction.slot))
                     ValueRow(label: "Version", value: inspection.transaction.version)
-                    ValueRow(label: "Account data", value: inspection.accountSource)
+                    ValueRow(label: "Account data", value: inspection.accountSource.text)
                     Text("\(inspection.renderedCount) of \(inspection.instructions.count) top-level instructions rendered. Inner instructions are not included in this preview.")
                         .font(.caption)
                         .foregroundStyle(.secondary)

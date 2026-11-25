@@ -8,7 +8,18 @@
     <array/>
     <key>NSPrivacyCollectedDataTypes</key>
     <array/>
+    <!-- The Rust standard library's panic backtraces call fstat to size the
+         app's own binary before mapping it. -->
     <key>NSPrivacyAccessedAPITypes</key>
-    <array/>
+    <array>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C617.1</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

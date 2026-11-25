@@ -71,69 +71,15 @@ impl Srf39AccountProvider for FixtureProvider {
     }
 }
 
+/// Enumerates the corpus like the JS oracle, so a new fixture directory cannot
+/// be covered by the reference only.
 #[test]
-fn rust_matches_reference_transfer_checked_fixture() {
-    run_fixture("transfer-checked");
-}
-
-#[test]
-fn rust_matches_reference_default_display_fixture() {
-    run_fixture("default-display");
-}
-
-#[test]
-fn rust_matches_reference_real_spl_token_fixture() {
-    run_fixture("spl-token-transfer-checked");
-}
-
-#[test]
-fn rust_matches_reference_spl_token_fixture() {
-    run_fixture("spl-token-instructions");
-}
-
-#[test]
-fn rust_matches_reference_struct_argument_fixture() {
-    run_fixture("struct-argument");
-}
-
-#[test]
-fn rust_matches_reference_inert_nodes_fixture() {
-    run_fixture("inert-nodes");
-}
-
-#[test]
-fn rust_matches_reference_defined_types_fixture() {
-    run_fixture("defined-types");
-}
-
-#[test]
-fn rust_matches_reference_signed_numbers_fixture() {
-    run_fixture("signed-numbers");
-}
-
-#[test]
-fn rust_matches_reference_date_time_display_fixture() {
-    run_fixture("date-time-display");
-}
-
-#[test]
-fn rust_matches_reference_duration_display_fixture() {
-    run_fixture("duration-display");
-}
-
-#[test]
-fn rust_matches_reference_enum_display_fixture() {
-    run_fixture("enum-display");
-}
-
-#[test]
-fn rust_matches_reference_fixed_string_fixture() {
-    run_fixture("fixed-string");
-}
-
-#[test]
-fn rust_matches_reference_fixed_array_fixture() {
-    run_fixture("fixed-array");
+fn rust_matches_reference_for_every_fixture() {
+    let names = fixture_names();
+    assert!(!names.is_empty(), "the conformance corpus is missing");
+    for name in names {
+        run_fixture(&name);
+    }
 }
 
 /// The pristine Subscriptions program IDL (as emitted by the program's own
@@ -651,21 +597,6 @@ fn cross_program_account_links_load_and_dangling_links_degrade() {
 }
 
 #[test]
-fn rust_matches_reference_cross_program_link_fixture() {
-    run_fixture("cross-program-link");
-}
-
-#[test]
-fn rust_matches_reference_flatten_struct_fixture() {
-    run_fixture("flatten-struct");
-}
-
-#[test]
-fn rust_matches_reference_subscriptions_fixture() {
-    run_fixture("subscriptions");
-}
-
-#[test]
 fn subscriptions_scenario_preserves_the_original_devnet_capture() {
     #[derive(Deserialize)]
     #[serde(rename_all = "camelCase")]
@@ -940,6 +871,17 @@ pub(super) fn role_flags(role: &str) -> (bool, bool) {
         "writableSigner" => (true, true),
         other => panic!("unknown fixture account role: {other}"),
     }
+}
+
+pub(super) fn fixture_names() -> Vec<String> {
+    let mut names: Vec<String> = std::fs::read_dir(fixture_directory(""))
+        .expect("read conformance/fixtures")
+        .map(|entry| entry.expect("fixture entry"))
+        .filter(|entry| entry.file_type().expect("file type").is_dir())
+        .map(|entry| entry.file_name().into_string().expect("UTF-8 name"))
+        .collect();
+    names.sort();
+    names
 }
 
 pub(super) fn fixture_directory(name: &str) -> PathBuf {

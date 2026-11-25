@@ -153,8 +153,13 @@ fn matches_discriminator(
 fn decode_type(node: &TypeNode, bytes: &[u8], cursor: &mut usize) -> Option<DecodedValue> {
     match node {
         TypeNode::Boolean { size } => {
-            let value = decode_number(size, bytes, cursor)?;
-            Some(DecodedValue::Boolean(value.value == 1))
+            // Programs disagree on tags other than 0 and 1 (`== 1` or `!= 0`),
+            // so showing either reading could be wrong.
+            match decode_number(size, bytes, cursor)?.value {
+                0 => Some(DecodedValue::Boolean(false)),
+                1 => Some(DecodedValue::Boolean(true)),
+                _ => None,
+            }
         }
         TypeNode::Number { .. } => decode_number(node, bytes, cursor).map(DecodedValue::Number),
         TypeNode::Option {
@@ -166,6 +171,8 @@ fn decode_type(node: &TypeNode, bytes: &[u8], cursor: &mut usize) -> Option<Deco
             if tag.value == 1 {
                 let value = decode_type(item, bytes, cursor)?;
                 Some(DecodedValue::Option(Some(Box::new(value))))
+            } else if tag.value != 0 {
+                None
             } else if *fixed {
                 let item_size = fixed_size(item)?;
                 let end = cursor.checked_add(item_size)?;
@@ -256,7 +263,9 @@ fn matches_number_at(node: &TypeNode, number: u64, bytes: &[u8], offset: usize) 
         return false;
     };
     match format.as_str() {
-        "u8" => bytes.get(offset).copied() == u8::try_from(number).ok(),
+        "u8" => u8::try_from(number)
+            .ok()
+            .is_some_and(|number| bytes.get(offset) == Some(&number)),
         "u32" => u32::try_from(number).ok().is_some_and(|number| {
             bytes
                 .get(offset..offset.saturating_add(4))
@@ -502,17 +511,36 @@ mod tests {
     }
 
     #[test]
-    fn boolean_is_true_only_for_one() {
+    fn option_tags_other_than_zero_and_one_do_not_decode() {
+        for tag in [2u32, 0x101, u32::MAX] {
+            let mut bytes = tag.to_le_bytes().to_vec();
+            bytes.extend([0; 32]);
+            assert_eq!(
+                decode_type(&fixed_public_key_option(), &bytes, &mut 0),
+                None
+            );
+        }
+    }
+
+    #[test]
+    fn out_of_range_discriminators_never_match_short_data() {
+        assert!(!matches_number_at(&number_type("u8"), 256, &[], 0));
+        assert!(!matches_number_at(&number_type("u8"), 300, &[9], 5));
+        assert!(matches_number_at(&number_type("u8"), 9, &[9], 0));
+    }
+
+    #[test]
+    fn booleans_accept_only_zero_and_one() {
         let ty = TypeNode::Boolean {
             size: Box::new(number_type("u8")),
         };
-        for (byte, expected) in [(0, false), (1, true), (2, false)] {
-            let mut cursor = 0;
-            assert_eq!(
-                decode_type(&ty, &[byte], &mut cursor),
-                Some(DecodedValue::Boolean(expected))
-            );
-            assert_eq!(cursor, 1);
+        for (byte, expected) in [
+            (0, Some(DecodedValue::Boolean(false))),
+            (1, Some(DecodedValue::Boolean(true))),
+            (2, None),
+            (255, None),
+        ] {
+            assert_eq!(decode_type(&ty, &[byte], &mut 0), expected);
         }
     }
 

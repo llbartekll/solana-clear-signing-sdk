@@ -1,5 +1,5 @@
-// M4 GATE: InitSubscriptionAuthority lands on devnet, built/signed/submitted
-// entirely by the app's own code path (builders + DevnetClient + local key).
+// Opt-in devnet check: InitSubscriptionAuthority lands on devnet, built, signed
+// and submitted by the test-support code (builders + DevnetClient + test key).
 // Init is idempotent per (user, mint) — re-running refreshes the approval.
 
 import XCTest
@@ -30,9 +30,9 @@ final class DevnetInitTests: XCTestCase {
 
         // Verify on-chain effects: authority PDA exists, program-owned, init_id parses.
         let auth = try SubscriptionsProgram.subscriptionAuthorityPda(user: user, mint: mint)
-        let account = await rpc.rawAccount(auth.base58EncodedString)
-        XCTAssertNotNil(account, "SubscriptionAuthority PDA missing after init")
-        XCTAssertEqual(account?.owner, SubscriptionsProgram.id.base58EncodedString)
-        XCTAssertNotNil(SubscriptionsProgram.authorityInitId(accountData: account!.data))
+        let fetched = try await rpc.rawAccount(auth.base58EncodedString)
+        let account = try XCTUnwrap(fetched, "SubscriptionAuthority PDA missing after init")
+        XCTAssertEqual(account.owner, SubscriptionsProgram.id.base58EncodedString)
+        XCTAssertNotNil(SubscriptionsProgram.authorityInitId(accountData: account.data))
     }
 }

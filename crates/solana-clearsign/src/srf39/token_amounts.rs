@@ -7,8 +7,8 @@ use super::diagnostics::{FormatDiagnostic, Srf39DiagnosticKind};
 use super::display::scale_by_decimals;
 use super::hints::{AmountHint, InstructionDisplayHints, TokenHint};
 use super::presentation::{
-    metadata_matches, AnnotationKind, FieldAnnotation, PresentationMetadataProvider,
-    PresentedTokenAmount, TokenMetadata,
+    cached_metadata, metadata_conflict, raw_text, AnnotationKind, FieldAnnotation,
+    PresentationMetadataProvider, PresentedTokenAmount, TokenMetadata,
 };
 
 pub(crate) struct TokenAmountContext<'a> {
@@ -34,7 +34,7 @@ pub(crate) async fn present(
     } = context;
     let mut result = PresentedTokenAmount {
         field_index,
-        value: format!("{} (raw)", amount.raw_value),
+        value: raw_text(amount),
         mint: token.mint.clone(),
         decimals: None,
     };
@@ -42,10 +42,7 @@ pub(crate) async fn present(
         unresolved(amount, diagnostics);
         return result;
     };
-    if !token_cache.contains_key(address) {
-        token_cache.insert(address.clone(), provider.token_metadata(address).await);
-    }
-    let Some(metadata) = token_cache.get(address).and_then(Option::as_ref) else {
+    let Some(metadata) = cached_metadata(provider, token_cache, diagnostics, address).await else {
         diagnostics.push(
             Srf39DiagnosticKind::TokenMetadataNotFound {
                 address: address.clone(),
@@ -55,7 +52,7 @@ pub(crate) async fn present(
         unresolved(amount, diagnostics);
         return result;
     };
-    if !metadata_matches(amount, address, metadata, hints, diagnostics) {
+    if metadata_conflict(amount, address, &metadata, hints, diagnostics).is_some() {
         unresolved(amount, diagnostics);
         return result;
     }

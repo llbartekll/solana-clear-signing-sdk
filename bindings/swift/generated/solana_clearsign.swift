@@ -1101,7 +1101,7 @@ public convenience init(idlSource: Srf39IdlSourceFfi, accountProvider: Srf39Acco
 
     
     /**
-     * Eagerly parses one inline IDL; errors exactly like `Srf39EngineFfi::from_json`.
+     * Eagerly parses one inline IDL; the IDL survives invalidation.
      */
 public static func fromIdlJson(idlJson: String, accountProvider: Srf39AccountProviderFfi?, presentationProvider: PresentationMetadataProviderFfi?)throws  -> Srf39ClientFfi  {
     return try  FfiConverterTypeSrf39ClientFfi_lift(try rustCallWithError(FfiConverterTypeSrf39IdlFailureFfi_lift) {
@@ -1230,146 +1230,6 @@ public func FfiConverterTypeSrf39ClientFfi_lift(_ pointer: UnsafeMutableRawPoint
 #endif
 public func FfiConverterTypeSrf39ClientFfi_lower(_ value: Srf39ClientFfi) -> UnsafeMutableRawPointer {
     return FfiConverterTypeSrf39ClientFfi.lower(value)
-}
-
-
-
-
-
-
-public protocol Srf39EngineFfiProtocol: AnyObject, Sendable {
-    
-    func displayInstruction(instruction: Srf39InstructionInputFfi, accountProvider: Srf39AccountProviderFfi?) async throws  -> Srf39InstructionDisplayFfi?
-    
-}
-open class Srf39EngineFfi: Srf39EngineFfiProtocol, @unchecked Sendable {
-    fileprivate let pointer: UnsafeMutableRawPointer!
-
-    /// Used to instantiate a [FFIObject] without an actual pointer, for fakes in tests, mostly.
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    public struct NoPointer {
-        public init() {}
-    }
-
-    // TODO: We'd like this to be `private` but for Swifty reasons,
-    // we can't implement `FfiConverter` without making this `required` and we can't
-    // make it `required` without making it `public`.
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    required public init(unsafeFromRawPointer pointer: UnsafeMutableRawPointer) {
-        self.pointer = pointer
-    }
-
-    // This constructor can be used to instantiate a fake object.
-    // - Parameter noPointer: Placeholder value so we can have a constructor separate from the default empty one that may be implemented for classes extending [FFIObject].
-    //
-    // - Warning:
-    //     Any object instantiated with this constructor cannot be passed to an actual Rust-backed object. Since there isn't a backing [Pointer] the FFI lower functions will crash.
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    public init(noPointer: NoPointer) {
-        self.pointer = nil
-    }
-
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    public func uniffiClonePointer() -> UnsafeMutableRawPointer {
-        return try! rustCall { uniffi_solana_clearsign_fn_clone_srf39engineffi(self.pointer, $0) }
-    }
-    // No primary constructor declared for this class.
-
-    deinit {
-        guard let pointer = pointer else {
-            return
-        }
-
-        try! rustCall { uniffi_solana_clearsign_fn_free_srf39engineffi(pointer, $0) }
-    }
-
-    
-public static func fromJson(idlJson: String)throws  -> Srf39EngineFfi  {
-    return try  FfiConverterTypeSrf39EngineFfi_lift(try rustCallWithError(FfiConverterTypeSrf39IdlFailureFfi_lift) {
-    uniffi_solana_clearsign_fn_constructor_srf39engineffi_from_json(
-        FfiConverterString.lower(idlJson),$0
-    )
-})
-}
-    
-
-    
-open func displayInstruction(instruction: Srf39InstructionInputFfi, accountProvider: Srf39AccountProviderFfi?)async throws  -> Srf39InstructionDisplayFfi?  {
-    return
-        try  await uniffiRustCallAsync(
-            rustFutureFunc: {
-                uniffi_solana_clearsign_fn_method_srf39engineffi_display_instruction(
-                    self.uniffiClonePointer(),
-                    FfiConverterTypeSrf39InstructionInputFfi_lower(instruction),FfiConverterOptionTypeSrf39AccountProviderFfi.lower(accountProvider)
-                )
-            },
-            pollFunc: ffi_solana_clearsign_rust_future_poll_rust_buffer,
-            completeFunc: ffi_solana_clearsign_rust_future_complete_rust_buffer,
-            freeFunc: ffi_solana_clearsign_rust_future_free_rust_buffer,
-            liftFunc: FfiConverterOptionTypeSrf39InstructionDisplayFfi.lift,
-            errorHandler: FfiConverterTypeSrf39DisplayFailureFfi_lift
-        )
-}
-    
-
-}
-
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-public struct FfiConverterTypeSrf39EngineFfi: FfiConverter {
-
-    typealias FfiType = UnsafeMutableRawPointer
-    typealias SwiftType = Srf39EngineFfi
-
-    public static func lift(_ pointer: UnsafeMutableRawPointer) throws -> Srf39EngineFfi {
-        return Srf39EngineFfi(unsafeFromRawPointer: pointer)
-    }
-
-    public static func lower(_ value: Srf39EngineFfi) -> UnsafeMutableRawPointer {
-        return value.uniffiClonePointer()
-    }
-
-    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> Srf39EngineFfi {
-        let v: UInt64 = try readInt(&buf)
-        // The Rust code won't compile if a pointer won't fit in a UInt64.
-        // We have to go via `UInt` because that's the thing that's the size of a pointer.
-        let ptr = UnsafeMutableRawPointer(bitPattern: UInt(truncatingIfNeeded: v))
-        if (ptr == nil) {
-            throw UniffiInternalError.unexpectedNullPointer
-        }
-        return try lift(ptr!)
-    }
-
-    public static func write(_ value: Srf39EngineFfi, into buf: inout [UInt8]) {
-        // This fiddling is because `Int` is the thing that's the same size as a pointer.
-        // The Rust code won't compile if a pointer won't fit in a `UInt64`.
-        writeInt(&buf, UInt64(bitPattern: Int64(Int(bitPattern: lower(value)))))
-    }
-}
-
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-public func FfiConverterTypeSrf39EngineFfi_lift(_ pointer: UnsafeMutableRawPointer) throws -> Srf39EngineFfi {
-    return try FfiConverterTypeSrf39EngineFfi.lift(pointer)
-}
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-public func FfiConverterTypeSrf39EngineFfi_lower(_ value: Srf39EngineFfi) -> UnsafeMutableRawPointer {
-    return FfiConverterTypeSrf39EngineFfi.lower(value)
 }
 
 
@@ -1983,6 +1843,76 @@ public func FfiConverterTypeDisplayHintsFfi_lower(_ value: DisplayHintsFfi) -> R
 }
 
 
+public struct EscapedTextFfi {
+    public var fieldIndex: UInt32
+    public var value: String
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(fieldIndex: UInt32, value: String) {
+        self.fieldIndex = fieldIndex
+        self.value = value
+    }
+}
+
+#if compiler(>=6)
+extension EscapedTextFfi: Sendable {}
+#endif
+
+
+extension EscapedTextFfi: Equatable, Hashable {
+    public static func ==(lhs: EscapedTextFfi, rhs: EscapedTextFfi) -> Bool {
+        if lhs.fieldIndex != rhs.fieldIndex {
+            return false
+        }
+        if lhs.value != rhs.value {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(fieldIndex)
+        hasher.combine(value)
+    }
+}
+
+
+
+#if swift(>=5.8)
+@_documentation(visibility: private)
+#endif
+public struct FfiConverterTypeEscapedTextFfi: FfiConverterRustBuffer {
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> EscapedTextFfi {
+        return
+            try EscapedTextFfi(
+                fieldIndex: FfiConverterUInt32.read(from: &buf), 
+                value: FfiConverterString.read(from: &buf)
+        )
+    }
+
+    public static func write(_ value: EscapedTextFfi, into buf: inout [UInt8]) {
+        FfiConverterUInt32.write(value.fieldIndex, into: &buf)
+        FfiConverterString.write(value.value, into: &buf)
+    }
+}
+
+
+#if swift(>=5.8)
+@_documentation(visibility: private)
+#endif
+public func FfiConverterTypeEscapedTextFfi_lift(_ buf: RustBuffer) throws -> EscapedTextFfi {
+    return try FfiConverterTypeEscapedTextFfi.lift(buf)
+}
+
+#if swift(>=5.8)
+@_documentation(visibility: private)
+#endif
+public func FfiConverterTypeEscapedTextFfi_lower(_ value: EscapedTextFfi) -> RustBuffer {
+    return FfiConverterTypeEscapedTextFfi.lower(value)
+}
+
+
 public struct FieldAnnotationFfi {
     public var fieldIndex: UInt32
     public var kind: AnnotationKindFfi
@@ -2392,12 +2322,14 @@ public func FfiConverterTypeLinkedAccountReadFfi_lower(_ value: LinkedAccountRea
 public struct PresentationOverlayFfi {
     public var annotations: [FieldAnnotationFfi]
     public var tokenAmounts: [PresentedTokenAmountFfi]
+    public var escapedTexts: [EscapedTextFfi]
 
     // Default memberwise initializers are never public by default, so we
     // declare one manually.
-    public init(annotations: [FieldAnnotationFfi], tokenAmounts: [PresentedTokenAmountFfi]) {
+    public init(annotations: [FieldAnnotationFfi], tokenAmounts: [PresentedTokenAmountFfi], escapedTexts: [EscapedTextFfi]) {
         self.annotations = annotations
         self.tokenAmounts = tokenAmounts
+        self.escapedTexts = escapedTexts
     }
 }
 
@@ -2414,12 +2346,16 @@ extension PresentationOverlayFfi: Equatable, Hashable {
         if lhs.tokenAmounts != rhs.tokenAmounts {
             return false
         }
+        if lhs.escapedTexts != rhs.escapedTexts {
+            return false
+        }
         return true
     }
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(annotations)
         hasher.combine(tokenAmounts)
+        hasher.combine(escapedTexts)
     }
 }
 
@@ -2433,13 +2369,15 @@ public struct FfiConverterTypePresentationOverlayFfi: FfiConverterRustBuffer {
         return
             try PresentationOverlayFfi(
                 annotations: FfiConverterSequenceTypeFieldAnnotationFfi.read(from: &buf), 
-                tokenAmounts: FfiConverterSequenceTypePresentedTokenAmountFfi.read(from: &buf)
+                tokenAmounts: FfiConverterSequenceTypePresentedTokenAmountFfi.read(from: &buf), 
+                escapedTexts: FfiConverterSequenceTypeEscapedTextFfi.read(from: &buf)
         )
     }
 
     public static func write(_ value: PresentationOverlayFfi, into buf: inout [UInt8]) {
         FfiConverterSequenceTypeFieldAnnotationFfi.write(value.annotations, into: &buf)
         FfiConverterSequenceTypePresentedTokenAmountFfi.write(value.tokenAmounts, into: &buf)
+        FfiConverterSequenceTypeEscapedTextFfi.write(value.escapedTexts, into: &buf)
     }
 }
 
@@ -4338,94 +4276,6 @@ extension RenderOutcomeFfi: Equatable, Hashable {}
 
 
 
-public enum Srf39DisplayFailureFfi: Swift.Error {
-
-    
-    
-    case AccountDecode(account: String, detail: String
-    )
-    case Internal(detail: String
-    )
-}
-
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-public struct FfiConverterTypeSrf39DisplayFailureFfi: FfiConverterRustBuffer {
-    typealias SwiftType = Srf39DisplayFailureFfi
-
-    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> Srf39DisplayFailureFfi {
-        let variant: Int32 = try readInt(&buf)
-        switch variant {
-
-        
-
-        
-        case 1: return .AccountDecode(
-            account: try FfiConverterString.read(from: &buf), 
-            detail: try FfiConverterString.read(from: &buf)
-            )
-        case 2: return .Internal(
-            detail: try FfiConverterString.read(from: &buf)
-            )
-
-         default: throw UniffiInternalError.unexpectedEnumCase
-        }
-    }
-
-    public static func write(_ value: Srf39DisplayFailureFfi, into buf: inout [UInt8]) {
-        switch value {
-
-        
-
-        
-        
-        case let .AccountDecode(account,detail):
-            writeInt(&buf, Int32(1))
-            FfiConverterString.write(account, into: &buf)
-            FfiConverterString.write(detail, into: &buf)
-            
-        
-        case let .Internal(detail):
-            writeInt(&buf, Int32(2))
-            FfiConverterString.write(detail, into: &buf)
-            
-        }
-    }
-}
-
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-public func FfiConverterTypeSrf39DisplayFailureFfi_lift(_ buf: RustBuffer) throws -> Srf39DisplayFailureFfi {
-    return try FfiConverterTypeSrf39DisplayFailureFfi.lift(buf)
-}
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-public func FfiConverterTypeSrf39DisplayFailureFfi_lower(_ value: Srf39DisplayFailureFfi) -> RustBuffer {
-    return FfiConverterTypeSrf39DisplayFailureFfi.lower(value)
-}
-
-
-extension Srf39DisplayFailureFfi: Equatable, Hashable {}
-
-
-
-
-extension Srf39DisplayFailureFfi: Foundation.LocalizedError {
-    public var errorDescription: String? {
-        String(reflecting: self)
-    }
-}
-
-
-
-
-
 public enum Srf39IdlFailureFfi: Swift.Error {
 
     
@@ -5180,6 +5030,31 @@ fileprivate struct FfiConverterSequenceTypeAmountHintFfi: FfiConverterRustBuffer
 #if swift(>=5.8)
 @_documentation(visibility: private)
 #endif
+fileprivate struct FfiConverterSequenceTypeEscapedTextFfi: FfiConverterRustBuffer {
+    typealias SwiftType = [EscapedTextFfi]
+
+    public static func write(_ value: [EscapedTextFfi], into buf: inout [UInt8]) {
+        let len = Int32(value.count)
+        writeInt(&buf, len)
+        for item in value {
+            FfiConverterTypeEscapedTextFfi.write(item, into: &buf)
+        }
+    }
+
+    public static func read(from buf: inout (data: Data, offset: Data.Index)) throws -> [EscapedTextFfi] {
+        let len: Int32 = try readInt(&buf)
+        var seq = [EscapedTextFfi]()
+        seq.reserveCapacity(Int(len))
+        for _ in 0 ..< len {
+            seq.append(try FfiConverterTypeEscapedTextFfi.read(from: &buf))
+        }
+        return seq
+    }
+}
+
+#if swift(>=5.8)
+@_documentation(visibility: private)
+#endif
 fileprivate struct FfiConverterSequenceTypeFieldAnnotationFfi: FfiConverterRustBuffer {
     typealias SwiftType = [FieldAnnotationFfi]
 
@@ -5545,19 +5420,13 @@ private let initializationResult: InitializationResult = {
     if (uniffi_solana_clearsign_checksum_method_srf39clientffi_required_accounts() != 23933) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_solana_clearsign_checksum_method_srf39engineffi_display_instruction() != 24470) {
-        return InitializationResult.apiChecksumMismatch
-    }
     if (uniffi_solana_clearsign_checksum_method_srf39idlsourceffi_idl_for_program() != 37745) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_solana_clearsign_checksum_constructor_srf39clientffi_from_idl_json() != 45150) {
+    if (uniffi_solana_clearsign_checksum_constructor_srf39clientffi_from_idl_json() != 21591) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_solana_clearsign_checksum_constructor_srf39clientffi_new() != 3243) {
-        return InitializationResult.apiChecksumMismatch
-    }
-    if (uniffi_solana_clearsign_checksum_constructor_srf39engineffi_from_json() != 64302) {
         return InitializationResult.apiChecksumMismatch
     }
 

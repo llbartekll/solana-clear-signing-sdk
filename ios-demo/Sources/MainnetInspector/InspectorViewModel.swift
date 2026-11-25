@@ -24,7 +24,7 @@ struct TransactionInspection: Sendable, Equatable {
     let cluster: String
     let programId: String
     let transactionSource: TransactionDataSource
-    let accountSource: String
+    let accountSource: AccountDataSourceSummary
     let targetInstructionIndex: Int?
     let instructions: [InspectedInstruction]
 
@@ -66,9 +66,8 @@ final class InspectorViewModel: ObservableObject {
     private var requestId = UUID()
 
     init(bundle: Bundle = .main) {
-        let apiKey = AppConfig.alchemyAPIKey
         rpcFactory = { catalog in
-            RPCEndpoint.url(for: catalog.rpc, alchemyAPIKey: apiKey).map { SolanaRPCClient(endpoint: $0) }
+            RPCEndpoint.url(for: catalog.rpc).map { SolanaRPCClient(endpoint: $0) }
         }
         do {
             let resources = try InspectorResources(bundle: bundle)

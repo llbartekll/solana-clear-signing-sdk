@@ -120,6 +120,10 @@ extension SolanaClearSigningError: LocalizedError {
 /// `display(instruction:)` returns only the canonical sRFC 39 display.
 /// `render(instruction:)` adds the IDL binding, structural hints, the
 /// presentation overlay and diagnostics. The canonical half is identical.
+///
+/// Cancelling the calling task ends an async method with `CancellationError`.
+/// Provider callbacks already running are not cancelled and must bound their
+/// own latency.
 public final class SolanaClearSigningClient: Sendable {
     private let client: Srf39ClientFfi
     private let sourceAdapter: Srf39IdlSourceAdapter?
@@ -172,9 +176,9 @@ public final class SolanaClearSigningClient: Sendable {
     ) async throws -> InstructionDisplay? {
         let ffiProvider = accountProvider.map(Srf39AccountProviderAdapter.init)
         do {
-            return try await client
-                .display(instruction: instruction.ffi, accountProvider: ffiProvider)
-                .map(InstructionDisplay.init)
+            return try await cancellable { [client] in
+                try await client.display(instruction: instruction.ffi, accountProvider: ffiProvider)
+            }.map(InstructionDisplay.init)
         } catch let error as RenderFailureFfi {
             throw SolanaClearSigningError(error)
         }
@@ -185,7 +189,9 @@ public final class SolanaClearSigningClient: Sendable {
     /// per instruction.
     public func render(instruction: SolanaInstructionInput) async throws -> SolanaRenderOutcome {
         do {
-            return SolanaRenderOutcome(try await client.render(instruction: instruction.ffi))
+            return SolanaRenderOutcome(try await cancellable { [client] in
+                try await client.render(instruction: instruction.ffi)
+            })
         } catch let error as RenderFailureFfi {
             throw SolanaClearSigningError(error)
         }
@@ -196,19 +202,74 @@ public final class SolanaClearSigningClient: Sendable {
     /// program is unknown or the instruction is not recognised.
     public func requiredAccounts(for instruction: SolanaInstructionInput) async throws -> [String]? {
         do {
-            return try await client.requiredAccounts(instruction: instruction.ffi)
+            return try await cancellable { [client] in
+                try await client.requiredAccounts(instruction: instruction.ffi)
+            }
         } catch let error as RenderFailureFfi {
             throw SolanaClearSigningError(error)
         }
     }
 
-    /// Forgets the cached IDL for one program so the source is consulted again.
+    /// Forgets the cached answer (IDL, rejection or "not found") for one
+    /// program so the source is consulted again. An IDL passed to
+    /// `init(idlJSON:)` is kept; calls already in flight keep their answer.
     public func invalidate(programId: String) {
         client.invalidate(programId: programId)
     }
 
     public func invalidateAll() {
         client.invalidateAll()
+    }
+}
+
+/// Races `operation` against cancellation of the calling task: the FFI future
+/// cannot be interrupted while a provider callback is pending.
+private func cancellable<T: Sendable>(
+    _ operation: @escaping @Sendable () async throws -> T
+) async throws -> T {
+    try Task.checkCancellation()
+    let race = CancellationRace<T>()
+    return try await withTaskCancellationHandler {
+        try await withCheckedThrowingContinuation { continuation in
+            race.start(continuation)
+            Task {
+                do {
+                    race.finish(.success(try await operation()))
+                } catch {
+                    race.finish(.failure(error))
+                }
+            }
+        }
+    } onCancel: {
+        race.finish(.failure(CancellationError()))
+    }
+}
+
+/// Resumes a continuation with the first result, whichever arrives first.
+private final class CancellationRace<T: Sendable>: @unchecked Sendable {
+    private let lock = NSLock()
+    private var continuation: CheckedContinuation<T, Error>?
+    private var result: Result<T, Error>?
+
+    func start(_ continuation: CheckedContinuation<T, Error>) {
+        lock.lock()
+        let result = self.result
+        if result == nil { self.continuation = continuation }
+        lock.unlock()
+        if let result { continuation.resume(with: result) }
+    }
+
+    func finish(_ result: Result<T, Error>) {
+        lock.lock()
+        guard self.result == nil else {
+            lock.unlock()
+            return
+        }
+        self.result = result
+        let continuation = self.continuation
+        self.continuation = nil
+        lock.unlock()
+        continuation?.resume(with: result)
     }
 }
 

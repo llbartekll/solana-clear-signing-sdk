@@ -14,6 +14,7 @@ mod hints;
 mod model;
 mod presentation;
 mod source;
+mod text;
 mod token_amounts;
 
 #[cfg(test)]
@@ -24,6 +25,10 @@ mod conformance_tests;
 mod hints_tests;
 #[cfg(test)]
 mod presentation_tests;
+#[cfg(test)]
+mod reference_tests;
+#[cfg(test)]
+mod validation_tests;
 
 use serde::Deserialize;
 use serde::Serialize;
@@ -45,8 +50,9 @@ pub use hints::{
     LinkedAccountStatus, PublicKeyArgumentHint, TimeDisplay, TimeHint, TokenHint, UnitSource,
 };
 pub use presentation::{
-    symbol_is_acceptable, AddressLabel, AnnotationKind, EmptyPresentationProvider, FieldAnnotation,
-    PresentationMetadataProvider, PresentationOverlay, PresentedTokenAmount, TokenMetadata,
+    symbol_is_acceptable, AddressLabel, AnnotationKind, EmptyPresentationProvider, EscapedText,
+    FieldAnnotation, PresentationMetadataProvider, PresentationOverlay, PresentedTokenAmount,
+    TokenMetadata,
 };
 pub use source::{
     IdlOrigin, IdlProvenance, IdlResolution, IdlSourceError, ResolvedSrf39Idl, Srf39IdlSource,
@@ -107,6 +113,8 @@ pub enum DisplayMiss {
 
 /// The detailed result of rendering: either the canonical display together
 /// with its structural hints, or the reason for a miss.
+// Short-lived; boxing would change the public shape for no benefit.
+#[allow(clippy::large_enum_variant)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum DisplayResult {
     Rendered {

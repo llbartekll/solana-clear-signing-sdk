@@ -8,8 +8,7 @@ on:
         required: true
         type: string
 
-permissions:
-  contents: write
+permissions: {}
 
 concurrency:
   group: release-swift-${{ inputs.version }}
@@ -20,9 +19,17 @@ env:
   ARTIFACT: SolanaClearsignFFI.xcframework.zip
   REPO_URL: https://github.com/llbartekll/solana-clear-signing-sdk
 
+# Actions are pinned to commit SHAs. The build job runs dependency code (build
+# scripts, proc macros, tests) and has no write access; only the publish job,
+# which runs no project code, can push the tag and create the release.
 jobs:
-  release:
+  build:
     runs-on: macos-15
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      checksum: ${{ steps.checksum.outputs.checksum }}
     steps:
       - name: Validate version (strict semver)
         run: |
@@ -31,30 +38,52 @@ jobs:
             exit 1
           fi
 
+      - name: Require main
+        run: |
+          if [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            echo "::error::Releases are cut from main only; this run was dispatched from $GITHUB_REF." >&2
+            exit 1
+          fi
+
+      - name: Require successful CI for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Newest CI run for the push of this exact commit to main.
+          result="$(
+            gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml \
+              --branch main --event push --commit "$GITHUB_SHA" --limit 1 \
+              --json status,conclusion --jq '.[0] | "\(.status)/\(.conclusion)"'
+          )"
+          if [ "$result" != "completed/success" ]; then
+            echo "::error::CI for $GITHUB_SHA on main is '${result:-missing}', expected 'completed/success'." >&2
+            exit 1
+          fi
+
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
-          fetch-depth: 0
+          persist-credentials: false
 
       - name: Ensure release tag does not already exist
         run: |
-          if git ls-remote --exit-code --tags origin "refs/tags/$VERSION" >/dev/null 2>&1; then
+          existing="$(git ls-remote --tags "$REPO_URL" "refs/tags/$VERSION")"
+          if [ -n "$existing" ]; then
             echo "::error::Tag $VERSION already exists on origin. Refusing to overwrite an existing release." >&2
             exit 1
           fi
 
       - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
-
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: ". -> target"
+        run: |
+          rustup toolchain install stable --profile minimal \
+            --target aarch64-apple-ios,aarch64-apple-ios-sim,x86_64-apple-ios
+          rustup default stable
 
       - name: Build XCFramework and Swift bindings
         run: ./scripts/build-xcframework.sh
+
+      - name: Cargo.lock must describe the shipped binary
+        run: git --no-pager diff --exit-code -- Cargo.lock
 
       - name: Committed Swift bindings must match regeneration
         run: |
@@ -106,20 +135,104 @@ jobs:
           grep 'useLocalRustXCFramework' Package.swift
           grep 'url:' Package.swift
           grep 'checksum:' Package.swift
+          cp Package.swift Output/Package.swift
 
-      - name: Tag release
+      # The exact bytes the manifest checksum is bound to; "Re-run failed jobs"
+      # publishes these instead of rebuilding.
+      - name: Save release files
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: release-files
+          path: |
+            Output/SolanaClearsignFFI.xcframework.zip
+            Output/Package.swift
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Download release files
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: release-files
+          path: Output
+
+      - name: Verify release files
+        env:
+          CHECKSUM: ${{ needs.build.outputs.checksum }}
         run: |
+          echo "$CHECKSUM  Output/$ARTIFACT" | sha256sum --check --strict
+          grep -F "checksum: \"$CHECKSUM\"" Output/Package.swift
+
+      - name: Ensure the version is unused
+        run: |
+          existing="$(git ls-remote --tags origin "refs/tags/$VERSION")"
+          if [ -n "$existing" ]; then
+            echo "::error::Tag $VERSION already exists on origin. Refusing to overwrite an existing release." >&2
+            exit 1
+          fi
+          # Drafts have no tag, so they need their own check.
+          if releases="$(gh api --paginate "repos/$GITHUB_REPOSITORY/releases" --jq '.[].tag_name')"; then
+            if grep -Fxq "$VERSION" <<< "$releases"; then
+              echo "::error::A release or draft named $VERSION already exists. See Recovery in docs/release.md." >&2
+              exit 1
+            fi
+          else
+            echo "::error::Could not list releases." >&2
+            exit 1
+          fi
+
+      - name: Commit release manifest
+        run: |
+          cp Output/Package.swift Package.swift
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Package.swift
           git commit -m "Release $VERSION"
           git tag "$VERSION"
-          git push origin "$VERSION"
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ inputs.version }}
-          name: ${{ inputs.version }}
-          generate_release_notes: true
-          files: Output/SolanaClearsignFFI.xcframework.zip
+      # The asset is uploaded before the tag becomes public, so a failed upload
+      # leaves nothing for consumers to resolve.
+      - name: Create draft release with the asset
+        id: draft
+        run: |
+          gh release create "$VERSION" "Output/$ARTIFACT" --repo "$GITHUB_REPOSITORY" \
+            --draft --target "$GITHUB_SHA" --title "$VERSION" --generate-notes
+
+      - name: Push tag
+        run: git push origin "refs/tags/$VERSION"
+
+      - name: Publish release
+        run: |
+          for attempt in 1 2 3; do
+            if gh release edit "$VERSION" --repo "$GITHUB_REPOSITORY" --draft=false; then exit 0; fi
+            sleep 10
+          done
+          exit 1
+
+      - name: Roll back an unpublished release
+        if: (failure() || cancelled()) && steps.draft.outcome != 'skipped'
+        run: |
+          # Never touch a version that did become public.
+          if ! draft="$(gh release view "$VERSION" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)"; then
+            echo "::warning::No readable release for $VERSION; check the tag and releases by hand (docs/release.md, Recovery)." >&2
+            exit 0
+          fi
+          if [ "$draft" != "true" ]; then
+            echo "Release $VERSION is already public; leaving it and its tag in place."
+            exit 0
+          fi
+          # Delete the tag only if it is the one this run pushed.
+          ours="$(git rev-parse "refs/tags/$VERSION")"
+          if git ls-remote --tags origin "refs/tags/$VERSION" | grep -q "^$ours"; then
+            git push --force-with-lease="refs/tags/$VERSION:$ours" origin ":refs/tags/$VERSION"
+          fi
+          gh release delete "$VERSION" --repo "$GITHUB_REPOSITORY" --yes

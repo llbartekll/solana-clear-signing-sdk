@@ -151,8 +151,18 @@ public struct SolanaLinkedAccountRead: Sendable, Equatable {
 public struct SolanaPresentationOverlay: Sendable, Equatable {
     /// Sorted by `(fieldIndex, kind)`, without duplicates.
     public let annotations: [SolanaFieldAnnotation]
-    /// SDK-formatted amounts from explicit IDL bindings. Canonical text is unchanged.
+    /// SDK-formatted amounts from explicit IDL bindings, plus the raw form of
+    /// any other amount whose canonical scale was contradicted. Show these
+    /// instead of the canonical text, which is unchanged.
     public let tokenAmounts: [SolanaPresentedTokenAmount]
+    /// Fields whose canonical value contains control, bidi or invisible
+    /// characters, with those characters made visible. Show these instead of
+    /// the canonical text.
+    public let escapedTexts: [SolanaEscapedText]
+
+    public func escapedText(for fieldIndex: Int) -> SolanaEscapedText? {
+        escapedTexts.first { $0.fieldIndex == fieldIndex }
+    }
 
     public func tokenAmount(for fieldIndex: Int) -> SolanaPresentedTokenAmount? {
         tokenAmounts.first { $0.fieldIndex == fieldIndex }
@@ -162,6 +172,11 @@ public struct SolanaPresentationOverlay: Sendable, Equatable {
     public func annotations(for fieldIndex: Int) -> [SolanaFieldAnnotation] {
         annotations.filter { $0.fieldIndex == fieldIndex }
     }
+}
+
+public struct SolanaEscapedText: Sendable, Equatable {
+    public let fieldIndex: Int
+    public let value: String
 }
 
 public struct SolanaPresentedTokenAmount: Sendable, Equatable {
@@ -187,9 +202,12 @@ public struct SolanaFieldAnnotation: Sendable, Equatable {
             sourceAddress: String,
             appliesToValue: Bool
         )
-        /// The field is the account that supplied an amount's scale.
+        /// The provider knows the address in this field as a token mint: the
+        /// account that supplied an amount's scale, any other rendered account
+        /// or a public-key argument. Only `tokenAmount` ties a token to an amount.
         case tokenMint(symbol: String, name: String?)
-        /// A host label for the address in this field; shown next to it, never instead.
+        /// A host label for the address in this field. It does not attest to the
+        /// address, so keep the address reachable next to the label.
         case addressLabel(label: String, source: String?)
     }
 }
@@ -257,6 +275,9 @@ extension SolanaRenderedInstruction {
             tokenAmounts: ffi.presentation.tokenAmounts.map {
                 SolanaPresentedTokenAmount(fieldIndex: Int($0.fieldIndex), value: $0.value,
                                            mint: $0.mint, decimals: $0.decimals)
+            },
+            escapedTexts: ffi.presentation.escapedTexts.map {
+                SolanaEscapedText(fieldIndex: Int($0.fieldIndex), value: $0.value)
             }
         )
         diagnostics = ffi.diagnostics.map(SolanaDiagnostic.init)

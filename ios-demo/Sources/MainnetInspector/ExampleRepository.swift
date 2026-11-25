@@ -15,7 +15,8 @@ struct ExampleCatalog: Decodable, Sendable {
 }
 
 struct RPCSpec: Decodable, Sendable, Equatable {
-    /// `alchemy` (needs the app's API key) or `public` (uses `endpoint`).
+    /// `public` uses `endpoint`. Other kinds (the mainnet capture catalog used
+    /// by tests) have no live endpoint in the app.
     let kind: String
     let endpoint: String?
 }
@@ -235,46 +236,43 @@ actor InspectorAccountProvider: SolanaAccountDataProvider {
         return nil
     }
 
-    func sourceSummary() -> String {
-        guard let first = origins.first else { return "Not required" }
-        let kinds = Set(origins.map(\.kind))
-        if kinds.count > 1 { return "Mixed" }
-        switch first {
-        case .live:
-            let slots = origins.compactMap(\.slot)
-            return "Live @ slot \(slots.max() ?? 0)"
-        case .snapshot:
-            let slots = origins.compactMap(\.slot)
-            return "Snapshot @ slot \(slots.max() ?? 0)"
-        case .missing:
-            return "Missing"
-        }
+    func sourceSummary() -> AccountDataSourceSummary {
+        AccountDataSourceSummary(origins: origins)
     }
 }
 
-private enum AccountDataOrigin: Sendable {
+enum AccountDataOrigin: Sendable {
     case live(slot: UInt64)
     case snapshot(slot: UInt64)
     case missing
+}
 
-    enum Kind: Hashable {
-        case live
-        case snapshot
-        case missing
-    }
+/// Where the account data behind one inspection came from. Every kind that
+/// contributed is named, so a snapshot or a missing account is never hidden.
+struct AccountDataSourceSummary: Sendable, Equatable {
+    let text: String
+    /// Whether any account data was requested at all.
+    let isRequired: Bool
+    /// Whether some requested account came from a snapshot or was missing.
+    let isDegraded: Bool
 
-    var kind: Kind {
-        switch self {
-        case .live: return .live
-        case .snapshot: return .snapshot
-        case .missing: return .missing
+    init(origins: [AccountDataOrigin]) {
+        var liveSlots: [UInt64] = []
+        var snapshotSlots: [UInt64] = []
+        var missingCount = 0
+        for origin in origins {
+            switch origin {
+            case let .live(slot): liveSlots.append(slot)
+            case let .snapshot(slot): snapshotSlots.append(slot)
+            case .missing: missingCount += 1
+            }
         }
-    }
-
-    var slot: UInt64? {
-        switch self {
-        case let .live(slot), let .snapshot(slot): return slot
-        case .missing: return nil
-        }
+        var parts: [String] = []
+        if let slot = liveSlots.max() { parts.append("Live @ slot \(slot)") }
+        if let slot = snapshotSlots.max() { parts.append("Snapshot @ slot \(slot)") }
+        if missingCount > 0 { parts.append("\(missingCount) missing") }
+        text = parts.isEmpty ? "Not required" : parts.joined(separator: ", ")
+        isRequired = !origins.isEmpty
+        isDegraded = !snapshotSlots.isEmpty || missingCount > 0
     }
 }

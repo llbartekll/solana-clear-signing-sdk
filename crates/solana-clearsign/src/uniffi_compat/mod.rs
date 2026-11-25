@@ -10,8 +10,6 @@ use crate::provider::Fut;
 use crate::provider::Srf39AccountProvider;
 use crate::DiagnosticSeverity;
 use crate::FormatDiagnostic;
-use crate::Srf39DisplayError;
-use crate::Srf39Engine;
 use crate::Srf39IdlError;
 use crate::{
     AccountMeta, AddressLabel, AnnotationKind, DecimalsSource, IdlBinding, IdlOrigin,
@@ -106,25 +104,6 @@ impl From<Srf39IdlError> for Srf39IdlFailureFfi {
     }
 }
 
-#[derive(Debug, Clone, thiserror::Error, uniffi::Error)]
-pub enum Srf39DisplayFailureFfi {
-    #[error("could not decode linked account '{account}': {detail}")]
-    AccountDecode { account: String, detail: String },
-    #[error("sRFC 39 display invariant failed: {detail}")]
-    Internal { detail: String },
-}
-
-impl From<Srf39DisplayError> for Srf39DisplayFailureFfi {
-    fn from(value: Srf39DisplayError) -> Self {
-        match value {
-            Srf39DisplayError::AccountDecode { account, detail } => {
-                Self::AccountDecode { account, detail }
-            }
-            Srf39DisplayError::Internal { detail } => Self::Internal { detail },
-        }
-    }
-}
-
 #[uniffi::export(with_foreign)]
 #[async_trait::async_trait]
 pub trait Srf39AccountProviderFfi: Send + Sync {
@@ -141,52 +120,6 @@ impl Srf39AccountProvider for Srf39AccountProviderFfiProxy {
         let provider = Arc::clone(&self.0);
         let address = address.to_string();
         Box::pin(async move { provider.resolve_account(address).await.map(Into::into) })
-    }
-}
-
-#[derive(Debug, uniffi::Object)]
-pub struct Srf39EngineFfi {
-    engine: Srf39Engine,
-}
-
-#[uniffi::export(async_runtime = "tokio")]
-impl Srf39EngineFfi {
-    #[uniffi::constructor]
-    pub fn from_json(idl_json: String) -> Result<Arc<Self>, Srf39IdlFailureFfi> {
-        let engine = Srf39Engine::from_json(&idl_json).map_err(Srf39IdlFailureFfi::from)?;
-        Ok(Arc::new(Self { engine }))
-    }
-
-    pub async fn display_instruction(
-        &self,
-        instruction: Srf39InstructionInputFfi,
-        account_provider: Option<Arc<dyn Srf39AccountProviderFfi>>,
-    ) -> Result<Option<Srf39InstructionDisplayFfi>, Srf39DisplayFailureFfi> {
-        let metas: Vec<AccountMeta<'_>> = instruction
-            .accounts
-            .iter()
-            .map(|account| AccountMeta {
-                pubkey: &account.pubkey,
-                is_signer: account.is_signer,
-                is_writable: account.is_writable,
-            })
-            .collect();
-        let context = InstructionContext {
-            program_id: &instruction.program_id,
-            instruction_data: &instruction.instruction_data,
-            accounts: &metas,
-            fee_payer: instruction.fee_payer.as_deref(),
-        };
-        let provider = account_provider.map(Srf39AccountProviderFfiProxy);
-        let provider = provider
-            .as_ref()
-            .map(|value| value as &dyn Srf39AccountProvider);
-
-        self.engine
-            .display_instruction(&context, provider)
-            .await
-            .map(|display| display.map(Into::into))
-            .map_err(Into::into)
     }
 }
 
@@ -606,6 +539,13 @@ pub struct FieldAnnotationFfi {
 pub struct PresentationOverlayFfi {
     pub annotations: Vec<FieldAnnotationFfi>,
     pub token_amounts: Vec<PresentedTokenAmountFfi>,
+    pub escaped_texts: Vec<EscapedTextFfi>,
+}
+
+#[derive(Debug, Clone, uniffi::Record)]
+pub struct EscapedTextFfi {
+    pub field_index: u32,
+    pub value: String,
 }
 
 #[derive(Debug, Clone, uniffi::Record)]
@@ -893,6 +833,17 @@ fn convert_rendered(
             })
         })
         .collect::<Result<Vec<_>, RenderFailureFfi>>()?;
+    let escaped_texts = rendered
+        .presentation
+        .escaped_texts
+        .into_iter()
+        .map(|text| {
+            Ok(EscapedTextFfi {
+                field_index: index_to_u32(text.field_index)?,
+                value: text.value,
+            })
+        })
+        .collect::<Result<Vec<_>, RenderFailureFfi>>()?;
     Ok(RenderedInstructionFfi {
         canonical: rendered.canonical.into(),
         idl: rendered.idl.into(),
@@ -900,6 +851,7 @@ fn convert_rendered(
         presentation: PresentationOverlayFfi {
             annotations,
             token_amounts,
+            escaped_texts,
         },
         diagnostics: rendered.diagnostics.into_iter().map(Into::into).collect(),
     })
@@ -931,7 +883,7 @@ pub struct Srf39ClientFfi {
     inner: Srf39Client,
 }
 
-#[uniffi::export(async_runtime = "tokio")]
+#[uniffi::export]
 impl Srf39ClientFfi {
     #[uniffi::constructor]
     pub fn new(
@@ -948,7 +900,7 @@ impl Srf39ClientFfi {
         })
     }
 
-    /// Eagerly parses one inline IDL; errors exactly like `Srf39EngineFfi::from_json`.
+    /// Eagerly parses one inline IDL; the IDL survives invalidation.
     #[uniffi::constructor]
     pub fn from_idl_json(
         idl_json: String,
@@ -1181,67 +1133,71 @@ mod tests {
         )
     }
 
-    #[tokio::test]
-    async fn high_level_client_renders_through_foreign_traits() {
-        let (root, input, mint) = spl_token_transfer();
-        let client = Srf39ClientFfi::new(
-            Arc::new(FixtureIdlSource { json: root }),
-            Some(Arc::new(MintBytes(mint))),
-            Some(Arc::new(UsdcOnly)),
-        );
-        let outcome = client.render(input.clone()).await.expect("render");
-        let RenderOutcomeFfi::Rendered { instruction } = outcome else {
-            panic!("expected rendered, got {outcome:?}");
-        };
-        assert_eq!(instruction.canonical.fields[0].value, "0.001469");
-        assert!(instruction.idl.digest_pinned);
-        assert!(instruction.diagnostics.is_empty());
-        assert!(matches!(
-            &instruction.presentation.annotations[0].kind,
-            AnnotationKindFfi::TokenAmount { symbol, applies_to_value: true, .. } if symbol == "USDC"
-        ));
-        assert!(matches!(
-            &instruction.hints.amounts[0].decimals,
-            DecimalsSourceFfi::AccountField {
-                resolved: Some(6),
-                ..
-            }
-        ));
-        assert_eq!(
-            client
-                .required_accounts(input.clone())
+    #[test]
+    fn high_level_client_renders_through_foreign_traits() {
+        pollster::block_on(async {
+            let (root, input, mint) = spl_token_transfer();
+            let client = Srf39ClientFfi::new(
+                Arc::new(FixtureIdlSource { json: root }),
+                Some(Arc::new(MintBytes(mint))),
+                Some(Arc::new(UsdcOnly)),
+            );
+            let outcome = client.render(input.clone()).await.expect("render");
+            let RenderOutcomeFfi::Rendered { instruction } = outcome else {
+                panic!("expected rendered, got {outcome:?}");
+            };
+            assert_eq!(instruction.canonical.fields[0].value, "0.001469");
+            assert!(instruction.idl.digest_pinned);
+            assert!(instruction.diagnostics.is_empty());
+            assert!(matches!(
+                &instruction.presentation.annotations[0].kind,
+                AnnotationKindFfi::TokenAmount { symbol, applies_to_value: true, .. } if symbol == "USDC"
+            ));
+            assert!(matches!(
+                &instruction.hints.amounts[0].decimals,
+                DecimalsSourceFfi::AccountField {
+                    resolved: Some(6),
+                    ..
+                }
+            ));
+            assert_eq!(
+                client
+                    .required_accounts(input.clone())
+                    .await
+                    .expect("required"),
+                Some(vec![
+                    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v".to_string()
+                ])
+            );
+            assert!(client
+                .display(input.clone(), None)
                 .await
-                .expect("required"),
-            Some(vec![
-                "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v".to_string()
-            ])
-        );
-        assert!(client
-            .display(input.clone(), None)
-            .await
-            .expect("display")
-            .is_some());
+                .expect("display")
+                .is_some());
 
-        let mut foreign = input;
-        foreign.program_id = "11111111111111111111111111111111".to_string();
-        assert!(matches!(
-            client.render(foreign).await.expect("render"),
-            RenderOutcomeFfi::Unsupported {
-                reason: UnsupportedReasonFfi::IdlNotFound { .. }
-            }
-        ));
+            let mut foreign = input;
+            foreign.program_id = "11111111111111111111111111111111".to_string();
+            assert!(matches!(
+                client.render(foreign).await.expect("render"),
+                RenderOutcomeFfi::Unsupported {
+                    reason: UnsupportedReasonFfi::IdlNotFound { .. }
+                }
+            ));
+        });
     }
 
-    #[tokio::test]
-    async fn high_level_client_surfaces_source_failures() {
-        let (_, input, _) = spl_token_transfer();
-        let client = Srf39ClientFfi::new(Arc::new(FailingIdlSource), None, None);
-        assert!(matches!(
-            client.render(input).await,
-            Err(RenderFailureFfi::IdlSourceFailed {
-                retryable: true,
-                ..
-            })
-        ));
+    #[test]
+    fn high_level_client_surfaces_source_failures() {
+        pollster::block_on(async {
+            let (_, input, _) = spl_token_transfer();
+            let client = Srf39ClientFfi::new(Arc::new(FailingIdlSource), None, None);
+            assert!(matches!(
+                client.render(input).await,
+                Err(RenderFailureFfi::IdlSourceFailed {
+                    retryable: true,
+                    ..
+                })
+            ));
+        });
     }
 }

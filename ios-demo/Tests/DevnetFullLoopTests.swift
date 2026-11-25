@@ -28,7 +28,7 @@ final class DevnetFullLoopTests: XCTestCase {
         print("✓ init: https://explorer.solana.com/tx/\(sigInit)?cluster=devnet")
 
         let auth = try SubscriptionsProgram.subscriptionAuthorityPda(user: user, mint: mint)
-        guard let authAccount = await rpc.rawAccount(auth.base58EncodedString),
+        guard let authAccount = try await rpc.rawAccount(auth.base58EncodedString),
               let initId = SubscriptionsProgram.authorityInitId(accountData: authAccount.data)
         else { return XCTFail("authority PDA unreadable after init") }
 
@@ -57,11 +57,17 @@ final class DevnetFullLoopTests: XCTestCase {
         print("✓ rendered:", rendered.canonical.fields.map { "\($0.label): \($0.value)" })
 
         // -- 3. submit the delegation, decode its on-chain state -------------
+        let delegationPda = delegationIx.keys[2].publicKey
+        let revokeIx = SubscriptionsProgram.revokeDelegation(authority: user, delegationAccount: delegationPda)
+        // A failed step must not strand the delegation's rent.
+        addTeardownBlock {
+            guard try await rpc.rawAccount(delegationPda.base58EncodedString) != nil else { return }
+            _ = try await rpc.sendAndConfirm(instructions: [revokeIx], signer: signer)
+        }
         let sigDelegate = try await rpc.sendAndConfirm(instructions: [delegationIx], signer: signer)
         print("✓ delegation: https://explorer.solana.com/tx/\(sigDelegate)?cluster=devnet")
 
-        let delegationPda = delegationIx.keys[2].publicKey
-        guard let delegationAccount = await rpc.rawAccount(delegationPda.base58EncodedString),
+        guard let delegationAccount = try await rpc.rawAccount(delegationPda.base58EncodedString),
               let state = SubscriptionsProgram.decodeRecurringDelegation(accountData: delegationAccount.data)
         else { return XCTFail("delegation PDA unreadable") }
         XCTAssertEqual(state.amountPerPeriod, 5_000_000)
@@ -71,11 +77,11 @@ final class DevnetFullLoopTests: XCTestCase {
 
         // -- 4. revoke (closes the PDA) ---------------------------------------
         let sigRevoke = try await rpc.sendAndConfirm(
-            instructions: [SubscriptionsProgram.revokeDelegation(authority: user, delegationAccount: delegationPda)],
+            instructions: [revokeIx],
             signer: signer
         )
         print("✓ revoke: https://explorer.solana.com/tx/\(sigRevoke)?cluster=devnet")
-        let closed = await rpc.rawAccount(delegationPda.base58EncodedString)
+        let closed = try await rpc.rawAccount(delegationPda.base58EncodedString)
         XCTAssertNil(closed, "delegation PDA should be closed after revoke")
     }
 }

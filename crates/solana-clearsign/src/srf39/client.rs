@@ -102,11 +102,35 @@ enum Loaded {
     NotFound,
 }
 
+impl CacheEntry {
+    fn load(&self, program_id: &str) -> Result<Loaded, RenderFailure> {
+        match self {
+            Self::Ready(loaded) => Ok(Loaded::Ready(Arc::clone(loaded))),
+            Self::NotFound => Ok(Loaded::NotFound),
+            Self::Rejected(rejection) => Err(RenderFailure::IdlRejected {
+                program_id: program_id.to_string(),
+                rejection: rejection.clone(),
+            }),
+        }
+    }
+}
+
 pub struct Srf39Client {
     source: Arc<dyn Srf39IdlSource>,
     account_provider: Option<Arc<dyn Srf39AccountProvider>>,
     presentation: Arc<dyn PresentationMetadataProvider>,
-    cache: Mutex<BTreeMap<String, CacheEntry>>,
+    /// IDLs supplied as JSON. There is no source to reload them from, so
+    /// invalidation never touches them.
+    inline: BTreeMap<String, Arc<LoadedIdl>>,
+    cache: Mutex<Cache>,
+}
+
+#[derive(Default)]
+struct Cache {
+    entries: BTreeMap<String, CacheEntry>,
+    /// Bumped by every invalidation, so an answer requested before it is
+    /// never cached after it.
+    generation: u64,
 }
 
 impl Srf39Client {
@@ -119,7 +143,8 @@ impl Srf39Client {
             source,
             account_provider,
             presentation: presentation.unwrap_or_else(|| Arc::new(EmptyPresentationProvider)),
-            cache: Mutex::new(BTreeMap::new()),
+            inline: BTreeMap::new(),
+            cache: Mutex::default(),
         }
     }
 
@@ -140,7 +165,7 @@ impl Srf39Client {
             version: None,
             reference: None,
         };
-        let mut cache = BTreeMap::new();
+        let mut inline = BTreeMap::new();
         let mut program_ids = vec![engine.program_id().to_string()];
         program_ids.extend(engine.additional_program_ids());
         for program_id in program_ids {
@@ -154,13 +179,14 @@ impl Srf39Client {
                     provenance: provenance.clone(),
                 },
             };
-            cache.insert(program_id, CacheEntry::Ready(Arc::new(loaded)));
+            inline.insert(program_id, Arc::new(loaded));
         }
         Ok(Self {
             source: Arc::new(StaticIdlSource::empty()),
             account_provider,
             presentation: presentation.unwrap_or_else(|| Arc::new(EmptyPresentationProvider)),
-            cache: Mutex::new(cache),
+            inline,
+            cache: Mutex::default(),
         })
     }
 
@@ -254,20 +280,34 @@ impl Srf39Client {
         Ok(loaded.engine.required_accounts_for_display(instruction))
     }
 
-    /// Drops the cached entry for one program so the source is consulted again.
+    /// Drops the cached entry for one program so the source is consulted
+    /// again. An IDL supplied inline has no source and is kept. A call already
+    /// waiting for the source still uses the answer it gets.
     pub fn invalidate(&self, program_id: &str) {
-        self.lock_cache().remove(program_id);
+        let mut cache = self.lock_cache();
+        cache.generation += 1;
+        cache.entries.remove(program_id);
     }
 
+    /// [`Self::invalidate`] for every program.
     pub fn invalidate_all(&self) {
-        self.lock_cache().clear();
+        let mut cache = self.lock_cache();
+        cache.generation += 1;
+        cache.entries.clear();
     }
 
     async fn load(&self, program_id: &str) -> Result<Loaded, RenderFailure> {
         validate_program_id(program_id)?;
-        if let Some(entry) = self.lookup(program_id)? {
-            return Ok(entry);
+        if let Some(loaded) = self.inline.get(program_id) {
+            return Ok(Loaded::Ready(Arc::clone(loaded)));
         }
+        let generation = {
+            let cache = self.lock_cache();
+            if let Some(entry) = cache.entries.get(program_id) {
+                return entry.load(program_id);
+            }
+            cache.generation
+        };
         let resolved = self
             .source
             .idl_for_program(program_id)
@@ -287,41 +327,31 @@ impl Srf39Client {
             },
         };
         let mut cache = self.lock_cache();
-        if !cache.contains_key(program_id) {
-            if matches!(entry, CacheEntry::NotFound) {
-                let not_found = cache
-                    .values()
-                    .filter(|entry| matches!(entry, CacheEntry::NotFound))
-                    .count();
-                if not_found >= NOT_FOUND_CAP {
-                    cache.retain(|_, entry| !matches!(entry, CacheEntry::NotFound));
-                }
-            }
-            cache.insert(program_id.to_string(), entry);
+        if cache.generation != generation {
+            return entry.load(program_id);
         }
-        drop(cache);
-        self.lookup(program_id)?
-            .ok_or_else(|| RenderFailure::Internal {
-                detail: "cache entry vanished after insertion".to_string(),
-            })
-    }
-
-    fn lookup(&self, program_id: &str) -> Result<Option<Loaded>, RenderFailure> {
-        let cache = self.lock_cache();
-        Ok(match cache.get(program_id) {
-            Some(CacheEntry::Ready(loaded)) => Some(Loaded::Ready(Arc::clone(loaded))),
-            Some(CacheEntry::NotFound) => Some(Loaded::NotFound),
-            Some(CacheEntry::Rejected(rejection)) => {
-                return Err(RenderFailure::IdlRejected {
-                    program_id: program_id.to_string(),
-                    rejection: rejection.clone(),
-                })
+        // A concurrent call may have cached the program first; share its engine.
+        if let Some(entry) = cache.entries.get(program_id) {
+            return entry.load(program_id);
+        }
+        if matches!(entry, CacheEntry::NotFound) {
+            let not_found = cache
+                .entries
+                .values()
+                .filter(|entry| matches!(entry, CacheEntry::NotFound))
+                .count();
+            if not_found >= NOT_FOUND_CAP {
+                cache
+                    .entries
+                    .retain(|_, entry| !matches!(entry, CacheEntry::NotFound));
             }
-            None => None,
-        })
+        }
+        let loaded = entry.load(program_id);
+        cache.entries.insert(program_id.to_string(), entry);
+        loaded
     }
 
-    fn lock_cache(&self) -> std::sync::MutexGuard<'_, BTreeMap<String, CacheEntry>> {
+    fn lock_cache(&self) -> std::sync::MutexGuard<'_, Cache> {
         self.cache
             .lock()
             .unwrap_or_else(|poisoned| poisoned.into_inner())

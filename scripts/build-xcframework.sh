@@ -50,9 +50,12 @@ cargo run --release --features bindgen --bin uniffi-bindgen -- \
 
 echo "▸ headers + modulemap"
 HDR=target/ios-headers
-rm -rf "$HDR" && mkdir -p "$HDR"
-cp "$GEN"/*.h "$HDR"/
-cat "$GEN"/*.modulemap > "$HDR/module.modulemap"   # xcframework expects module.modulemap
+# One directory named after the module: Xcode copies the headers of every static
+# XCFramework into one include directory, where root-level module maps collide.
+MODULE=solana_clearsignFFI
+rm -rf "$HDR" && mkdir -p "$HDR/$MODULE"
+cp "$GEN/$MODULE.h" "$HDR/$MODULE/"
+cp "$GEN/$MODULE.modulemap" "$HDR/$MODULE/module.modulemap"
 
 echo "▸ universal simulator lib"
 mkdir -p target/universal-sim

@@ -1,0 +1,3043 @@
+{
+ "comment": "Expected values come from the pinned @codama/dynamic-instructions used by conformance/oracle.",
+ "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+ "mintDecimals": 6,
+ "dataHex": "60e3160000000000",
+ "cases": [
+  {
+   "name": "fallback only",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d",
+            "fallback": {
+             "kind": "numberValueNode",
+             "number": 3
+            }
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1500"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 1500"
+   }
+  },
+  {
+   "name": "provider beats fallback",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d",
+            "fallback": {
+             "kind": "numberValueNode",
+             "number": 0
+            }
+           }
+          }
+         }
+        }
+       ],
+       "provides": [
+        {
+         "kind": "providedNode",
+         "name": "d",
+         "node": {
+          "kind": "accountFieldValueNode",
+          "account": "mint",
+          "path": "decimals"
+         }
+        }
+       ],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 1.5"
+   }
+  },
+  {
+   "name": "chain",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d"
+           }
+          }
+         }
+        }
+       ],
+       "provides": [
+        {
+         "kind": "providedNode",
+         "name": "d",
+         "node": {
+          "kind": "injectedValueNode",
+          "key": "e"
+         }
+        },
+        {
+         "kind": "providedNode",
+         "name": "e",
+         "node": {
+          "kind": "accountFieldValueNode",
+          "account": "mint",
+          "path": "decimals"
+         }
+        }
+       ],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 1.5"
+   }
+  },
+  {
+   "name": "cycle",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d",
+            "fallback": {
+             "kind": "numberValueNode",
+             "number": 2
+            }
+           }
+          }
+         }
+        }
+       ],
+       "provides": [
+        {
+         "kind": "providedNode",
+         "name": "d",
+         "node": {
+          "kind": "injectedValueNode",
+          "key": "e"
+         }
+        },
+        {
+         "kind": "providedNode",
+         "name": "e",
+         "node": {
+          "kind": "injectedValueNode",
+          "key": "d"
+         }
+        }
+       ],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1500000 (raw)"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "duplicate provides",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d"
+           }
+          }
+         }
+        }
+       ],
+       "provides": [
+        {
+         "kind": "providedNode",
+         "name": "d",
+         "node": {
+          "kind": "numberValueNode",
+          "number": 1
+         }
+        },
+        {
+         "kind": "providedNode",
+         "name": "d",
+         "node": {
+          "kind": "numberValueNode",
+          "number": 4
+         }
+        }
+       ],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "150"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 150"
+   }
+  },
+  {
+   "name": "fallback chain",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d",
+            "fallback": {
+             "kind": "injectedValueNode",
+             "key": "e",
+             "fallback": {
+              "kind": "numberValueNode",
+              "number": 5
+             }
+            }
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "15"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 15"
+   }
+  },
+  {
+   "name": "unsatisfied",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "d"
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1500000 (raw)"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "template: stray before account",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Send ${data.amount to ${accounts.dest}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Send ${data.amount to 3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+   }
+  },
+  {
+   "name": "template: stray before raw amount",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "injectedValueNode",
+            "key": "x"
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Up to ${max ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1500000 (raw)"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "template: stray before missing account",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Fee ${note then ${accounts.absent} end"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "template: nested",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "${${data.amount}}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "${1.5}"
+   }
+  },
+  {
+   "name": "template: inner whitespace",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${ \t\n data.amount  }"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 1.5"
+   }
+  },
+  {
+   "name": "template: bom whitespace",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${﻿data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay 1.5"
+   }
+  },
+  {
+   "name": "template: nel is not whitespace",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay ${data.amount}"
+   }
+  },
+  {
+   "name": "template: unterminated",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.amount"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay ${data.amount"
+   }
+  },
+  {
+   "name": "template: unknown root",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${foo.amount} ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay ${foo.amount} 1.5"
+   }
+  },
+  {
+   "name": "template: empty or invalid name",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.} ${data.a-b} ${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay ${data.} ${data.a-b} 1.5"
+   }
+  },
+  {
+   "name": "template: unknown argument",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data.nope}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "template: space before dot",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [
+        {
+         "kind": "instructionAccountNode",
+         "name": "mint",
+         "isWritable": false,
+         "isSigner": false,
+         "accountLink": {
+          "kind": "accountLinkNode",
+          "name": "mint"
+         }
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "dest",
+         "isWritable": false,
+         "isSigner": false
+        },
+        {
+         "kind": "instructionAccountNode",
+         "name": "absent",
+         "isWritable": false,
+         "isSigner": false
+        }
+       ],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay",
+        "interpolatedIntent": "Pay ${data .amount} $${data.amount}"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+     false
+    ],
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Mint",
+      "value": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+     },
+     {
+      "label": "Dest",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": "Pay ${data .amount} $1.5"
+   }
+  },
+  {
+   "name": "remaining: signer then rest",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "signers"
+         },
+         "isSigner": true
+        },
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "rest"
+         }
+        }
+       ],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     true
+    ],
+    [
+     "SysvarRent111111111111111111111111111111111",
+     false
+    ],
+    [
+     "Vote111111111111111111111111111111111111111",
+     true
+    ],
+    [
+     "Stake11111111111111111111111111111111111111",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Signers",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     },
+     {
+      "label": "Rest #1",
+      "value": "SysvarRent111111111111111111111111111111111"
+     },
+     {
+      "label": "Rest #2",
+      "value": "Vote111111111111111111111111111111111111111"
+     },
+     {
+      "label": "Rest #3",
+      "value": "Stake11111111111111111111111111111111111111"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "remaining: default then signers",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "plain"
+         }
+        },
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "signers"
+         },
+         "isSigner": true
+        }
+       ],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     false
+    ],
+    [
+     "SysvarRent111111111111111111111111111111111",
+     false
+    ],
+    [
+     "Vote111111111111111111111111111111111111111",
+     true
+    ],
+    [
+     "Stake11111111111111111111111111111111111111",
+     true
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Plain #1",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     },
+     {
+      "label": "Plain #2",
+      "value": "SysvarRent111111111111111111111111111111111"
+     },
+     {
+      "label": "Signers #1",
+      "value": "Vote111111111111111111111111111111111111111"
+     },
+     {
+      "label": "Signers #2",
+      "value": "Stake11111111111111111111111111111111111111"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "remaining: either then rest",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "any"
+         },
+         "isSigner": "either"
+        },
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "rest"
+         }
+        }
+       ],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     true
+    ],
+    [
+     "SysvarRent111111111111111111111111111111111",
+     false
+    ],
+    [
+     "Vote111111111111111111111111111111111111111",
+     true
+    ],
+    [
+     "Stake11111111111111111111111111111111111111",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Any #1",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     },
+     {
+      "label": "Any #2",
+      "value": "SysvarRent111111111111111111111111111111111"
+     },
+     {
+      "label": "Any #3",
+      "value": "Vote111111111111111111111111111111111111111"
+     },
+     {
+      "label": "Any #4",
+      "value": "Stake11111111111111111111111111111111111111"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "remaining: three groups",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "signers"
+         },
+         "isSigner": true
+        },
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "plain"
+         },
+         "isSigner": false
+        },
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "last"
+         },
+         "isSigner": "either"
+        }
+       ],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     true
+    ],
+    [
+     "SysvarRent111111111111111111111111111111111",
+     false
+    ],
+    [
+     "Vote111111111111111111111111111111111111111",
+     true
+    ],
+    [
+     "Stake11111111111111111111111111111111111111",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Signers",
+      "value": "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX"
+     },
+     {
+      "label": "Plain",
+      "value": "SysvarRent111111111111111111111111111111111"
+     },
+     {
+      "label": "Last #1",
+      "value": "Vote111111111111111111111111111111111111111"
+     },
+     {
+      "label": "Last #2",
+      "value": "Stake11111111111111111111111111111111111111"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  },
+  {
+   "name": "remaining: skipped first",
+   "root": {
+    "kind": "rootNode",
+    "standard": "codama",
+    "version": "1.0.0",
+    "additionalPrograms": [],
+    "program": {
+     "kind": "programNode",
+     "name": "test",
+     "publicKey": "11111111111111111111111111111111",
+     "version": "0.0.0",
+     "accounts": [
+      {
+       "kind": "accountNode",
+       "name": "mint",
+       "data": {
+        "kind": "structTypeNode",
+        "fields": [
+         {
+          "kind": "structFieldTypeNode",
+          "name": "decimals",
+          "type": {
+           "kind": "numberTypeNode",
+           "format": "u8",
+           "endian": "le"
+          }
+         }
+        ]
+       }
+      }
+     ],
+     "instructions": [
+      {
+       "kind": "instructionNode",
+       "name": "pay",
+       "accounts": [],
+       "arguments": [
+        {
+         "kind": "instructionArgumentNode",
+         "name": "amount",
+         "type": {
+          "kind": "numberTypeNode",
+          "format": "u64",
+          "endian": "le",
+          "display": {
+           "kind": "amountNumberDisplayNode",
+           "decimals": {
+            "kind": "numberValueNode",
+            "number": 6
+           }
+          }
+         }
+        }
+       ],
+       "provides": [],
+       "remainingAccounts": [
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "signers"
+         },
+         "isSigner": true,
+         "display": {
+          "kind": "instructionAccountDisplayNode",
+          "skip": "always"
+         }
+        },
+        {
+         "kind": "instructionRemainingAccountsNode",
+         "value": {
+          "kind": "argumentValueNode",
+          "name": "rest"
+         }
+        }
+       ],
+       "display": {
+        "kind": "instructionDisplayNode",
+        "intent": "Pay"
+       }
+      }
+     ],
+     "definedTypes": [],
+     "pdas": [],
+     "errors": []
+    }
+   },
+   "accounts": [
+    [
+     "3Wnd5Df69KitZfUoPYZU438eFRNwGHkhLnSAWL65PxJX",
+     true
+    ],
+    [
+     "SysvarRent111111111111111111111111111111111",
+     false
+    ],
+    [
+     "Vote111111111111111111111111111111111111111",
+     true
+    ],
+    [
+     "Stake11111111111111111111111111111111111111",
+     false
+    ]
+   ],
+   "expected": {
+    "fields": [
+     {
+      "label": "Amount",
+      "value": "1.5"
+     },
+     {
+      "label": "Rest #1",
+      "value": "SysvarRent111111111111111111111111111111111"
+     },
+     {
+      "label": "Rest #2",
+      "value": "Vote111111111111111111111111111111111111111"
+     },
+     {
+      "label": "Rest #3",
+      "value": "Stake11111111111111111111111111111111111111"
+     }
+    ],
+    "intent": "Pay",
+    "interpolatedIntent": null
+   }
+  }
+ ]
+}

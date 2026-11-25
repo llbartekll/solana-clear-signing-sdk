@@ -1,6 +1,8 @@
 //! Diagnostics emitted by the high-level client. Codes are the stable
 //! contract; messages are free text.
 
+use super::text::escape_unsafe;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
 pub enum DiagnosticSeverity {
     Info,
@@ -22,12 +24,18 @@ pub(crate) enum Srf39DiagnosticKind {
     IdlDigestUnpinned,
     /// A linked account the display needed was not available.
     LinkedAccountUnavailable { address: String },
+    /// A linked account's length contradicts the layout's size discriminator.
+    LinkedAccountLayoutMismatch { address: String },
     /// An amount rendered raw because its scale could not be resolved.
     AmountScaleUnresolved { argument: String },
     /// The presentation provider supplied no token metadata for the address.
     TokenMetadataNotFound { address: String },
     /// The provider's symbol failed the character policy.
     TokenSymbolRejected { address: String },
+    /// The provider's token name failed the text policy.
+    TokenNameRejected { address: String },
+    /// The provider's label or label source failed the text policy.
+    AddressLabelRejected { address: String },
     /// The provider's decimals disagree with the on-chain scale.
     TokenRegistryDecimalsMismatch {
         address: String,
@@ -54,6 +62,10 @@ pub(crate) enum Srf39DiagnosticKind {
     },
     /// The IDL has an interpolated sentence but it could not be rendered.
     InterpolatedIntentUnavailable,
+    /// The sentence rendered, but an amount in the preview is presented at another scale.
+    InterpolatedIntentScaleConflict,
+    /// A field value contains control, bidi or invisible characters.
+    UnsafeDisplayText { label: String },
 }
 
 impl Srf39DiagnosticKind {
@@ -61,6 +73,11 @@ impl Srf39DiagnosticKind {
         match self {
             Self::IdlDigestUnpinned => "idl_digest_unpinned",
             Self::LinkedAccountUnavailable { .. } => "linked_account_unavailable",
+            Self::LinkedAccountLayoutMismatch { .. } => "linked_account_layout_mismatch",
+            Self::TokenNameRejected { .. } => "token_name_rejected",
+            Self::AddressLabelRejected { .. } => "address_label_rejected",
+            Self::InterpolatedIntentScaleConflict => "interpolated_intent_scale_conflict",
+            Self::UnsafeDisplayText { .. } => "unsafe_display_text",
             Self::AmountScaleUnresolved { .. } => "amount_scale_unresolved",
             Self::TokenMetadataNotFound { .. } => "token_metadata_not_found",
             Self::TokenSymbolRejected { .. } => "token_symbol_rejected",
@@ -86,6 +103,21 @@ impl Srf39DiagnosticKind {
             }
             Self::LinkedAccountUnavailable { address } => {
                 format!("linked account {address} was not available to the renderer")
+            }
+            Self::LinkedAccountLayoutMismatch { address } => {
+                format!("The data of linked account {address} does not have the size its layout declares.")
+            }
+            Self::TokenNameRejected { address } => {
+                format!("The token name for {address} failed the text policy and was ignored.")
+            }
+            Self::AddressLabelRejected { address } => {
+                format!("The label for {address} failed the text policy and was ignored.")
+            }
+            Self::InterpolatedIntentScaleConflict => {
+                "The IDL summary may show an amount whose scale is contradicted or unconfirmed. Review the individual fields.".to_string()
+            }
+            Self::UnsafeDisplayText { label } => {
+                format!("Field '{label}' contains control or invisible characters.")
             }
             Self::AmountScaleUnresolved { argument } => {
                 format!("Amount '{argument}' has no usable scale. Its value is shown in base units (raw).")
@@ -118,7 +150,7 @@ impl Srf39DiagnosticKind {
                 unit,
                 symbol,
             } => format!(
-                "the IDL renders unit '{unit}' for {address} but token metadata says '{symbol}'"
+                "the IDL declares unit '{unit}' for {address} but token metadata says '{symbol}'"
             ),
             Self::InterpolatedIntentUnavailable => {
                 "The IDL summary could not be rendered. Review the individual fields.".to_string()
@@ -130,7 +162,7 @@ impl Srf39DiagnosticKind {
         FormatDiagnostic {
             code: self.code().to_string(),
             severity: self.severity(),
-            message: self.message(),
+            message: escape_unsafe(&self.message()),
         }
     }
 }
@@ -176,6 +208,17 @@ mod tests {
                 symbol: "USDC".into(),
             },
             Srf39DiagnosticKind::InterpolatedIntentUnavailable,
+            Srf39DiagnosticKind::LinkedAccountLayoutMismatch {
+                address: address.clone(),
+            },
+            Srf39DiagnosticKind::TokenNameRejected {
+                address: address.clone(),
+            },
+            Srf39DiagnosticKind::AddressLabelRejected { address },
+            Srf39DiagnosticKind::InterpolatedIntentScaleConflict,
+            Srf39DiagnosticKind::UnsafeDisplayText {
+                label: "Memo".into(),
+            },
         ]
     }
 
@@ -195,6 +238,11 @@ mod tests {
                 "token_registry_owner_mismatch",
                 "unit_literal_conflicts_with_metadata",
                 "interpolated_intent_unavailable",
+                "linked_account_layout_mismatch",
+                "token_name_rejected",
+                "address_label_rejected",
+                "interpolated_intent_scale_conflict",
+                "unsafe_display_text",
             ]
         );
         for kind in all_kinds() {

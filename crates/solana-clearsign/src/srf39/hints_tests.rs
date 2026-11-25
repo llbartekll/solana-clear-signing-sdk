@@ -14,28 +14,11 @@ use crate::provider::AccountData;
 use crate::provider::Srf39AccountProvider;
 use crate::InstructionContext;
 
-use super::conformance_tests::{fixture_provider, load_fixture, FixtureProvider, OwnedInstruction};
+use super::conformance_tests::{
+    fixture_names, fixture_provider, load_fixture, FixtureProvider, OwnedInstruction,
+};
 use super::hints::{DecimalsSource, LinkedAccountStatus, TimeDisplay, UnitSource};
 use super::{DisplayMiss, DisplayResult, Srf39DisplayError, Srf39Engine};
-
-const FIXTURES: &[&str] = &[
-    "default-display",
-    "transfer-checked",
-    "spl-token-transfer-checked",
-    "spl-token-instructions",
-    "struct-argument",
-    "inert-nodes",
-    "defined-types",
-    "signed-numbers",
-    "date-time-display",
-    "duration-display",
-    "enum-display",
-    "fixed-string",
-    "fixed-array",
-    "cross-program-link",
-    "flatten-struct",
-    "subscriptions",
-];
 
 /// Records every address requested from the wrapped fixture provider.
 struct CountingProvider {
@@ -59,7 +42,7 @@ impl Srf39AccountProvider for CountingProvider {
 #[test]
 fn hints_match_goldens_for_every_fixture() {
     let update = std::env::var("UPDATE_HINTS").is_ok_and(|value| value == "1");
-    for fixture_name in FIXTURES {
+    for fixture_name in &fixture_names() {
         let (root_json, fixture, _) = load_fixture(fixture_name);
         let engine = Srf39Engine::from_json(&root_json).expect("load fixture engine");
         let mut actual = serde_json::Map::new();

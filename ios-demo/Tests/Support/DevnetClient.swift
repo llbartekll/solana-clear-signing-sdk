@@ -1,5 +1,5 @@
 // Thin devnet RPC wrapper over SolanaSwift's JSONRPCAPIClient.
-// All host I/O lives here (and in DemoProvider) — never in the Rust core.
+// Used only by the opt-in live tests; the demo app itself is read-only.
 
 import Foundation
 import SolanaSwift
@@ -11,21 +11,17 @@ actor DevnetClient {
         api = JSONRPCAPIClient(endpoint: .init(address: url, network: .devnet))
     }
 
-    /// Raw account bytes + owner — the exact shape `resolve_account` needs.
+    /// Raw account bytes + owner, or nil when the account does not exist. RPC
+    /// failures throw, so they cannot pass for a missing account. The request
+    /// carries no commitment, so the node answers at `finalized`, which is what
+    /// `confirm` waits for.
     /// NOTE: `BufferInfo<Data>` does NOT work here — Foundation's own
     /// `Data: Decodable` wins over the BufferLayout protocol-extension
     /// decoder and can't parse the ["<b64>","base64"] tuple. A dedicated
     /// BufferLayout wrapper gets the protocol decoder as intended.
-    func rawAccount(_ address: String) async -> (owner: String, data: Data)? {
-        do {
-            let info: BufferInfo<RawAccountData>? = try await api.getAccountInfo(account: address)
-            return info.map { ($0.owner, $0.data.bytes) }
-        } catch {
-            // Missing account or transient error → a provider miss (the SDK
-            // degrades honestly). Logged because silent misses hide RPC bugs.
-            print("rawAccount(\(address)) miss:", error)
-            return nil
-        }
+    func rawAccount(_ address: String) async throws -> (owner: String, data: Data)? {
+        let info: BufferInfo<RawAccountData>? = try await api.getAccountInfo(account: address)
+        return info.map { ($0.owner, $0.data.bytes) }
     }
 
     func solBalance(_ address: String) async -> UInt64 {
@@ -36,7 +32,7 @@ actor DevnetClient {
         try await api.requestAirdrop(account: address, lamports: lamports)
     }
 
-    /// Build → sign locally → submit → poll to confirmation.
+    /// Build → sign locally → submit → poll until finalized.
     func sendAndConfirm(instructions: [TransactionInstruction], signer: KeyPair) async throws -> String {
         // "finalized" so the default preflight commitment always knows the hash
         let blockhash = try await api.getLatestBlockhash(commitment: "finalized")
@@ -48,13 +44,15 @@ actor DevnetClient {
         return signature
     }
 
-    func confirm(signature: String, attempts: Int = 30) async throws {
+    /// Waits for `finalized`: account reads and the preflight of the next
+    /// transaction both run at that commitment, roughly 13 s after `confirmed`.
+    func confirm(signature: String, attempts: Int = 60) async throws {
         for _ in 0 ..< attempts {
             if let status = try? await api.getSignatureStatuses(signatures: [signature]).first ?? nil {
                 if status.err != nil {
                     throw DevnetError.transactionFailed(String(describing: status.err))
                 }
-                if status.confirmationStatus == "confirmed" || status.confirmationStatus == "finalized" {
+                if status.confirmationStatus == "finalized" {
                     return
                 }
             }

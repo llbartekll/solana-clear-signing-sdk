@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     # Branches only: the release workflow pushes a tag whose Package.swift
-    # points at a release asset that does not exist yet at tag-push time.
+    # points at a release asset that is not public yet at tag-push time.
     branches: ['**']
   pull_request:
 
@@ -38,9 +38,9 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
       - name: Lint
-        run: cargo clippy --all-features --all-targets -- -D warnings
+        run: cargo clippy --locked --all-features --all-targets -- -D warnings
       - name: Test
-        run: cargo test --all-features
+        run: cargo test --locked --all-features
 
   apple:
     runs-on: macos-15
@@ -70,9 +70,21 @@ jobs:
         working-directory: ios-demo
         run: |
           set -euo pipefail
+          # Newest available iOS runtime the selected Xcode supports; runtimes
+          # without devices stay in the listing and must be skipped.
+          sdk_version="$(xcrun --sdk iphonesimulator --show-sdk-version)"
           simulator_id="$(
             xcrun simctl list devices available --json |
-              ruby -rjson -e 'devices = JSON.parse(STDIN.read).fetch("devices"); puts devices.find { |runtime, _| runtime.include?(".iOS-") }.last.first.fetch("udid")'
+              SDK_MAJOR="${sdk_version%%.*}" ruby -rjson -e '
+                sdk_major = Integer(ENV.fetch("SDK_MAJOR"))
+                candidates = JSON.parse(STDIN.read).fetch("devices").filter_map do |runtime, devices|
+                  version = runtime[/\.iOS-([0-9-]+)\z/, 1]&.split("-")&.map(&:to_i)
+                  phone = devices.find { |device| device["name"].start_with?("iPhone") }
+                  [version, phone] if version && phone && version.first <= sdk_major
+                end
+                _, phone = candidates.max_by(&:first) || abort("no available iPhone simulator for iOS #{sdk_major} or older")
+                puts phone.fetch("udid")
+              '
           )"
           xcodebuild -quiet \
             -project ClearsignDemo.xcodeproj \

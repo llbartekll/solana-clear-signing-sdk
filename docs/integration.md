@@ -32,7 +32,13 @@ let outcome = try await client.render(instruction: instruction)
 A rendered result contains `canonical`, `idl`, `hints`, `presentation` and
 `diagnostics`. Keep the original instruction available and handle errors per
 instruction. `invalidate(programId:)` / `invalidateAll()` let the host discard
-cached engines and rejected IDLs when its source changes.
+cached engines, rejected IDLs and "not found" answers when its source changes;
+a source that returned `nil` is not asked again about that program until then.
+IDLs passed to `init(idlJSON:)` are kept.
+
+Cancelling the calling task ends `render`, `display` and `requiredAccounts` with
+`CancellationError`. Provider callbacks that are already running continue, so
+providers should bound their own latency.
 
 For strict canonical output without the overlay:
 
@@ -50,7 +56,8 @@ separation between canonical output, hints and presentation.
 
 ## IDL manifest
 
-`BundledSrf39IdlSource` reads a manifest whose `file` entries live alongside it.
+`BundledSrf39IdlSource` reads a manifest whose `file` entries are plain names of
+files alongside it; any other path is rejected with `invalidFileName`.
 This is the Subscriptions entry from the demo, with the digest of its current
 bundled IDL:
 
@@ -108,6 +115,12 @@ A custom presentation provider can use a cache or RPC-backed lookup instead.
 Return `SolanaTokenMetadata(symbol:name:decimals:tokenProgram:)` for known
 mints, `SolanaAddressLabel(label:source:)` for local names, or `nil` when unknown.
 Metadata and aliases do not attest to a token issuer or address ownership.
+A `tokenMint` annotation only says that the provider knows the address as a mint;
+`tokenAmount` alone ties a token to an amount.
+
+Names, labels and label sources must be non-empty, at most 128 characters and
+free of control, bidi and invisible characters, and a label must not read as an
+address. The SDK drops text that fails and reports it.
 
 Symbols must match `[A-Za-z0-9][A-Za-z0-9$._-]{0,15}`. Registry loading rejects
 invalid symbols and duplicate entries. Annotations remain keyed by canonical
@@ -117,7 +130,9 @@ amount must not acquire a ticker that makes its base units look denominated.
 ## Token amount bindings
 
 An instruction's display may bind a top-level `u64`/`i64` amount to a public-key
-argument or named account. The amount must have an `amountNumberDisplayNode`.
+argument or named account. The amount must have an `amountNumberDisplayNode`
+whose `decimals` is unresolvable or agrees with the token: an absent `decimals`
+means zero, so a binding to a token with other decimals is presented raw.
 The following is an instruction display fragment:
 
 ```json
@@ -146,7 +161,9 @@ IDL account-link path, returning bytes rather than pre-decoded decimals.
 
 ```swift
 let amount = rendered.presentation.tokenAmount(for: fieldIndex)
-let value = amount?.value ?? rendered.canonical.fields[fieldIndex].value
+let value = amount?.value
+    ?? rendered.presentation.escapedText(for: fieldIndex)?.value
+    ?? rendered.canonical.fields[fieldIndex].value
 // amount.decimals == nil means raw; annotations provide the separate symbol.
 ```
 
@@ -156,6 +173,12 @@ explicit IDL literal or resolved account scale. Existing token-program owner,
 symbol and unit checks still apply. Missing metadata/decimals, rejected symbols
 or conflicts keep the presented amount raw. Malformed linked account bytes
 still fail the render.
+
+An amount scaled through an account link gets an entry too, with the raw value,
+when host metadata contradicts its decimals or owner, or when the account has an
+unexpected size and the metadata does not confirm the scale. The
+canonical text still shows the contradicted scale; if a sentence was rendered,
+`interpolated_intent_scale_conflict` tells the host not to rely on it.
 
 Canonical fields, sentences and the required-account planner retain strict
 reference behavior. The SDK never guesses amount/mint relationships from names
@@ -174,14 +197,19 @@ while `interpolated_intent_unavailable` still describes the canonical sentence.
 | Missing linked account or unsatisfied injected scale | Rendered with the applicable raw fallback; dependent sentences may be suppressed. |
 | Malformed linked account | Throws `accountDecode`. |
 | Unknown token, rejected symbol or metadata conflict | Token annotation omitted; explicitly bound amount falls back to raw. |
+| Link-scaled amount with a decimals/owner conflict or an unconfirmed account size | Canonical value kept; `tokenAmounts` carries the raw value. |
+| Decoded text with control, bidi or invisible characters | Canonical value kept; `escapedTexts` carries the visible form; dependent sentences are suppressed. |
 | Out-of-range date or negative duration | Bare integer; `hints.times[i].formatted == false`. |
 
 Use `SolanaDiagnostic.code`, not its free-text message, for application logic:
 
 - `linked_account_unavailable`, `amount_scale_unresolved`;
-- `interpolated_intent_unavailable`;
-- `token_metadata_not_found`, `token_symbol_rejected`;
+- `linked_account_layout_mismatch`, `unsafe_display_text`;
+- `interpolated_intent_unavailable`, `interpolated_intent_scale_conflict`;
+- `token_metadata_not_found`, `token_symbol_rejected`, `token_name_rejected`;
+- `address_label_rejected`;
 - `token_registry_decimals_mismatch`, `token_registry_owner_mismatch`;
+- `token_amount_scale_conflict`;
 - `unit_literal_conflicts_with_metadata`, `idl_digest_unpinned`.
 
 `interpolated_intent_unavailable` is informational; the other codes above are

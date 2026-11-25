@@ -45,18 +45,11 @@ targets:
         CODE_SIGN_STYLE: Automatic
         TARGETED_DEVICE_FAMILY: "1,2"
         PRODUCT_BUNDLE_IDENTIFIER: dev.clearsign.demo
-        INFOPLIST_KEY_AlchemyAPIKey: $(ALCHEMY_API_KEY)
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
         CODE_SIGNING_ALLOWED[sdk=iphonesimulator*]: NO
       configs:
         Release:
           DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
-          ALCHEMY_API_KEY: ""
-    info:
-      path: Info.plist
-      properties:
-        CFBundleShortVersionString: $(MARKETING_VERSION)
-        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
-        ITSAppUsesNonExemptEncryption: false
     configFiles:
       Debug: Config.xcconfig
       Release: Config.xcconfig
@@ -82,5 +75,11 @@ schemes:
       config: Debug
       targets:
         - ClearsignDemoTests
+      environmentVariables:
+        # Opt-in for the live Devnet tests; enable it in Xcode's scheme editor,
+        # or pass TEST_RUNNER_RUN_DEVNET_TESTS=1 to xcodebuild.
+        - variable: RUN_DEVNET_TESTS
+          value: "1"
+          isEnabled: false
     archive:
       config: Release

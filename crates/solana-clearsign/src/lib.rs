@@ -21,12 +21,13 @@ pub use provider::Srf39AccountProvider;
 pub use srf39::{
     symbol_is_acceptable, AccountHint, AddressLabel, AmountHint, AnnotationKind, DecimalsSource,
     DiagnosticSeverity, DisplayField, DisplayMiss, DisplayResult, EmptyPresentationProvider,
-    FieldAnnotation, FormatDiagnostic, IdlBinding, IdlOrigin, IdlProvenance, IdlRejection,
-    IdlResolution, IdlSourceError, InstructionDisplay, InstructionDisplayHints, LinkedAccountRead,
-    LinkedAccountStatus, PresentationMetadataProvider, PresentationOverlay, PresentedTokenAmount,
-    PublicKeyArgumentHint, RenderFailure, RenderOutcome, RenderedInstruction, ResolvedSrf39Idl,
-    Srf39Client, Srf39DisplayError, Srf39Engine, Srf39IdlError, Srf39IdlSource, StaticIdlSource,
-    TimeDisplay, TimeHint, TokenHint, TokenMetadata, UnitSource, UnsupportedReason,
+    EscapedText, FieldAnnotation, FormatDiagnostic, IdlBinding, IdlOrigin, IdlProvenance,
+    IdlRejection, IdlResolution, IdlSourceError, InstructionDisplay, InstructionDisplayHints,
+    LinkedAccountRead, LinkedAccountStatus, PresentationMetadataProvider, PresentationOverlay,
+    PresentedTokenAmount, PublicKeyArgumentHint, RenderFailure, RenderOutcome, RenderedInstruction,
+    ResolvedSrf39Idl, Srf39Client, Srf39DisplayError, Srf39Engine, Srf39IdlError, Srf39IdlSource,
+    StaticIdlSource, TimeDisplay, TimeHint, TokenHint, TokenMetadata, UnitSource,
+    UnsupportedReason,
 };
 
 /// One compiled instruction, as the host sees it. Account order is
